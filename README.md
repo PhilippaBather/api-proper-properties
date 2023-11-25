@@ -4,7 +4,7 @@
 
 ## Actividad de Aprendizaje para la asignatura Acesso a Datos para el FP Grado superior en Desarrollo de Aplicaciones Multiplataforma (DAM)
 
-### ------------------------------------------------------------------------------------------------------------------------------------------
+### ------------------------------------------------------------------------------------------------------
 
 ## An API for a fictitious estage agents
 
