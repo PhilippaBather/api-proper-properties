@@ -17,5 +17,5 @@ public interface ClientService {
 
     Set<ClientDTOOut> findAll();
     Client save(ClientDTOInIn clientDTOIn);
-    Client findById(long clientId) throws ClientNotFoundException;
+    ClientDTOOut findById(long clientId) throws ClientNotFoundException;
 }

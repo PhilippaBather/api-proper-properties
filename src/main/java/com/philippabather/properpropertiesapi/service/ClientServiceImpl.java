@@ -56,7 +56,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client findById(long clientId) throws ClientNotFoundException {
-        return clientRepo.findById(clientId).orElseThrow(() -> new ClientNotFoundException(clientId));
+    public ClientDTOOut findById(long clientId) throws ClientNotFoundException {
+        Client client = clientRepo.findById(clientId).orElseThrow(() -> new ClientNotFoundException(clientId));
+        ClientDTOOut clientDTOOut = new ClientDTOOut();
+        modelMapper.map(client, clientDTOOut);
+        return clientDTOOut;
     }
 }
