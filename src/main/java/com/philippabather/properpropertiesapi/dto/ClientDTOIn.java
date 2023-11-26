@@ -22,7 +22,7 @@ import static com.philippabather.properpropertiesapi.constants.ValidationMessage
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ClientDTOInIn extends UserDTOIn {
+public class ClientDTOIn extends UserDTOIn {
 
     @NotNull(message = VALIDATION_DOB_NOT_NULL)
     @DateTimeFormat
