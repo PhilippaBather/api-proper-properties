@@ -34,8 +34,6 @@ public abstract class User {
     private String username;
 
     // contraseña debe incluir 1 número y un carácter especial con tamaño mínimo de 8 carácteres y máximo de 25
-//    @Pattern(regexp = "^(?=.*[\\d])(?=.*[!@#$%^&*_])[\\w!@#$%^&*]{8,25}$",
-//            message = VALIDATION_PASSWORD)
     @Pattern(regexp = VALIDATION_PASSWORD_REGEX,
             message = VALIDATION_PASSWORD)
     @Column
