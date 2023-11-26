@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ClientDTOOut extends UserDTOOut{
 
+    private long id;
     private LocalDateTime dob; // fecha de nacimiento (date of birth)
     private boolean isStudent;
 }

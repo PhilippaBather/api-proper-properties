@@ -1,5 +1,6 @@
 package com.philippabather.properpropertiesapi.dto;
 
+import com.philippabather.properpropertiesapi.constants.ValidationMessages;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +10,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
+import static com.philippabather.properpropertiesapi.constants.ValidationMessages.VALIDATION_DOB_NOT_NULL;
+
 /**
  * ClientDTO - Data Transfer Object (DTO) para la clase 'Client' que extiende la clase abstracta de User.
+ *
+ * @author Philippa Bather
  */
 
 @Data
@@ -19,10 +24,10 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class ClientDTOInIn extends UserDTOIn {
 
-    @NotNull(message = "Date of birth is required")
+    @NotNull(message = VALIDATION_DOB_NOT_NULL)
     @DateTimeFormat
     private LocalDateTime dob; // fecha de nacimiento (date of birth)
 
-    // TODO - validation for boolean
-    private boolean isStudent;
+    @NotNull(message= ValidationMessages.VALIDATION_BOOLEAN_REQUIRED)
+    private Boolean isStudent;
 }
