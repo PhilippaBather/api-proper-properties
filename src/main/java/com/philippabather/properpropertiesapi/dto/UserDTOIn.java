@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 
 import static com.philippabather.properpropertiesapi.constants.ValidationMessages.*;
+import static com.philippabather.properpropertiesapi.constants.ValidationRegex.VALIDATION_PASSWORD_REGEX;
 
 /**
  * UserDTO - El objeto de la transferencia de datos (DTO) de la clase User desde cliente/consumo de API.
@@ -26,7 +27,7 @@ public abstract class UserDTOIn {
     private String username;
 
     // contraseña debe incluir 1 número y un carácter especial con tamaño mínimo de 8 carácteres y máximo de 25
-    @Pattern(regexp = "^(?=.*[\\d])(?=.*[!@#$%^&*])[\\w!@#$%^&*]{8,25}$",
+    @Pattern(regexp = VALIDATION_PASSWORD_REGEX,
             message = VALIDATION_PASSWORD)
     private String password;
 
