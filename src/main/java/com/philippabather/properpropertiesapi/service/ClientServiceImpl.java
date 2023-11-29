@@ -1,6 +1,6 @@
 package com.philippabather.properpropertiesapi.service;
 
-import com.philippabather.properpropertiesapi.dto.ClientDTOInIn;
+import com.philippabather.properpropertiesapi.dto.ClientDTOIn;
 import com.philippabather.properpropertiesapi.dto.ClientDTOOut;
 import com.philippabather.properpropertiesapi.exception.ClientNotFoundException;
 import com.philippabather.properpropertiesapi.model.Client;
@@ -49,14 +49,17 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client save(ClientDTOInIn clientDTOIn) {
+    public Client save(ClientDTOIn clientDTOIn) {
         Client client = new Client();
         modelMapper.map(clientDTOIn, client);
         return clientRepo.save(client);
     }
 
     @Override
-    public Client findById(long clientId) throws ClientNotFoundException {
-        return clientRepo.findById(clientId).orElseThrow(() -> new ClientNotFoundException(clientId));
+    public ClientDTOOut findById(long clientId) throws ClientNotFoundException {
+        Client client = clientRepo.findById(clientId).orElseThrow(() -> new ClientNotFoundException(clientId));
+        ClientDTOOut clientDTOOut = new ClientDTOOut();
+        modelMapper.map(client, clientDTOOut);
+        return clientDTOOut;
     }
 }

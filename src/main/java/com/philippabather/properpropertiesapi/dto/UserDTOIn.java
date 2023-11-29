@@ -8,6 +8,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
+import static com.philippabather.properpropertiesapi.constants.ValidationMessages.*;
+import static com.philippabather.properpropertiesapi.constants.ValidationRegex.VALIDATION_PASSWORD_REGEX;
+
 /**
  * UserDTO - El objeto de la transferencia de datos (DTO) de la clase User desde cliente/consumo de API.
  *
@@ -19,25 +22,25 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public abstract class UserDTOIn {
 
-    @NotBlank(message = "Username must not be blank")
-    @Max(value = 55, message = "Username must be no longer than 55 characters")
+    @NotBlank(message = VALIDATION_USERNAME_NOT_BLANK)
+    @Size(min = 5, max = 55, message = "Username must be longer than 5 characters and no longer than 55 characters")
     private String username;
 
     // contraseña debe incluir 1 número y un carácter especial con tamaño mínimo de 8 carácteres y máximo de 25
-    @Pattern(regexp = "^(?=.*[\\d])(?=.*[!@#$%^&*])[\\w!@#$%^&*]{8,25}$",
-            message = "Password must contain minimum 8 characters, including at least 1 digit and 1 special character; the maximum length is of 25 characters")
+    @Pattern(regexp = VALIDATION_PASSWORD_REGEX,
+            message = VALIDATION_PASSWORD)
     private String password;
 
-    @NotBlank(message = "A name is required.")
+    @NotBlank(message = VALIDATION_NAME_NOT_BLANK)
     private String name;
 
-    @NotBlank(message = "Surname is required.")
+    @NotBlank(message = VALIDATION_SURNAME_NOT_BLANK)
     private String surname;
 
-    @Email(message = "A valid email is required.")
+    @Email(message = VALIDATION_EMAIL)
     private String email;
 
-    @NotNull(message = "Date of account creation is required.")
+    @NotNull(message = VALIDATION_ACCOUNT_CREATION_NOT_NULL)
     @DateTimeFormat()
     private LocalDateTime accountCreated; // fecha de la creacíón de la cuenta
 }

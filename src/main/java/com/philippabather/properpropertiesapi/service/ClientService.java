@@ -1,6 +1,6 @@
 package com.philippabather.properpropertiesapi.service;
 
-import com.philippabather.properpropertiesapi.dto.ClientDTOInIn;
+import com.philippabather.properpropertiesapi.dto.ClientDTOIn;
 import com.philippabather.properpropertiesapi.dto.ClientDTOOut;
 import com.philippabather.properpropertiesapi.exception.ClientNotFoundException;
 import com.philippabather.properpropertiesapi.model.Client;
@@ -16,6 +16,6 @@ import java.util.Set;
 public interface ClientService {
 
     Set<ClientDTOOut> findAll();
-    Client save(ClientDTOInIn clientDTOIn);
-    Client findById(long clientId) throws ClientNotFoundException;
+    Client save(ClientDTOIn clientDTOIn);
+    ClientDTOOut findById(long clientId) throws ClientNotFoundException;
 }
