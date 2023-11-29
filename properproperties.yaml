@@ -13,8 +13,28 @@ paths:
     get:
       tags:
         - clients
-      summary: Devuelve una lista de todos los clientes
-      description: Devuelve una lista de todos los clientes y sus detalles
+      operationId: getAllClients
+      summary: Devuelve una lista de todos los clientes o todos los clientes según un parámetro especificado
+      description: Devuelve una lista de todos los clientes y sus detalles según un parámetro especificado
+      parameters:
+        - name: surname
+          in: query
+          description: El/Los apellidos de cliente
+          required: false
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: El nombre de cliente
+          required: false
+          schema:
+            type: string
+        - name: dob
+          in: query
+          description: La fecha de nacimiento de cliente
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -33,9 +53,16 @@ paths:
     post:
       tags:
         - clients
+      operationId: saveClient
       summary: Guarda un nuevo cliente
-      description:
-        Valida un objeto cliente y crea un nuevo cliente para guardar en el base de datos.
+      description: Valida un objeto cliente y crea un nuevo cliente para guardar en el base de datos.
+      requestBody:
+        description: Un nuevo cliente
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientDTOIn"
       responses:
         '201':
           description: Created
@@ -43,8 +70,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ClientDTOOut"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
         '406':
-          description: Bad Request
+          description: Not Acceptable
           content:
             application/json:
               schema:
@@ -65,8 +98,17 @@ paths:
     get:
       tags:
         - clients
+      operationId: getUserById
       summary: Devuelve un cliente por client ID
       description: Devuelve un objeto de un cliente por client ID
+      parameters:
+        - name: clientId
+          in: path variable
+          description: La ID de cliente
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
           description: OK
@@ -86,17 +128,99 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+    put:
+      tags:
+       - clients
+      operationId: updateClientById
+      summary: Actualiza un cliente por client ID
+      description: Actuliza un cliente por client ID y devuelve el resultado como un objeto ClientDTOOut
+      parameters:
+        - name: clientId
+          in: path variable
+          description: La ID de cliente
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: El objeto de cliente con detalles actualizadas
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientDTOIn"
+      responses:
+         '200':
+           description: OK
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/ClientDTOOut"
+         '404':
+           description: Client Not Found
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/ErrorResponse"
+         '500':
+           description: Internal Server Error
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - clients
+      summary: Elimina un cliente por el client ID
+      description: Elimina un cliente por el client ID y devuelve un respuesta de No Content (void)
+      parameters:
+        - name: clientId
+          in: path variable
+          description: La ID de cliente
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+         '204':
+           description: La entidad fue eliminada con éxito
+         '404':
+           description: Client Not Found
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/ErrorResponse"
+         '500':
+           description: Internal Server Error
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/ErrorResponse"
 
 components:
   schemas:
+    ClientDTOIn:
+      type: object
+      properties:
+        password:
+          type: string
+          example: "secret"
+          description: La constraseña de cliente
+      allOf:
+        - $ref: "#/components/schemas/Client"
     ClientDTOOut:
       type: object
       properties:
         id:
-            type: integer
-            format: int64
-            example: 1
-            description: La ID de cliente
+          type: integer
+          format: int64
+          example: 1
+          description: La ID de cliente
+      allOf:
+        - $ref: "#/components/schemas/Client"
+    Client:
+      type: object
+      properties:
         name:
             type: string
             example: "Joe"
