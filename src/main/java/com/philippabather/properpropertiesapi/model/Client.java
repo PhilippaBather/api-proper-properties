@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import static com.philippabather.properpropertiesapi.constants.ValidationMessages.VALIDATION_DOB_NOT_NULL;
 
@@ -35,7 +35,7 @@ public class Client extends User {
     @NotNull(message = VALIDATION_DOB_NOT_NULL)
     @DateTimeFormat
     @Column
-    private LocalDateTime dob; // fecha de nacimiento (date of birth)
+    private LocalDate dob; // fecha de nacimiento (date of birth)
 
     @NotNull(message= ValidationMessages.VALIDATION_BOOLEAN_REQUIRED)
     @Column(name = "is_student")
