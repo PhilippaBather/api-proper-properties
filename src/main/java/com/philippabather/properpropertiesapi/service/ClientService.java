@@ -3,8 +3,9 @@ package com.philippabather.properpropertiesapi.service;
 import com.philippabather.properpropertiesapi.dto.ClientDTOIn;
 import com.philippabather.properpropertiesapi.dto.ClientDTOOut;
 import com.philippabather.properpropertiesapi.exception.ClientNotFoundException;
-import com.philippabather.properpropertiesapi.model.Client;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -16,6 +17,11 @@ import java.util.Set;
 public interface ClientService {
 
     Set<ClientDTOOut> findAll();
-    Client save(ClientDTOIn clientDTOIn);
+    Set<ClientDTOOut> findAllBySurname(String surname);
+    Set<ClientDTOOut> findAllByName(String name);
+    Set<ClientDTOOut> findAllByDOB(LocalDate dob);
+    ClientDTOOut save(ClientDTOIn clientDTOIn);
     ClientDTOOut findById(long clientId) throws ClientNotFoundException;
+    ClientDTOOut updateClientById(long clientId, ClientDTOIn clientDTOIn) throws ClientNotFoundException;
+    void deleteById(long clientId) throws ClientNotFoundException;
 }
