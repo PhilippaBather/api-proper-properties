@@ -1,6 +1,6 @@
 package com.philippabather.properpropertiesapi.controller;
 
-import com.philippabather.properpropertiesapi.dto.ClientDTOInIn;
+import com.philippabather.properpropertiesapi.dto.ClientDTOIn;
 import com.philippabather.properpropertiesapi.dto.ClientDTOOut;
 import com.philippabather.properpropertiesapi.exception.ClientNotFoundException;
 import com.philippabather.properpropertiesapi.model.Client;
@@ -36,7 +36,7 @@ public class ClientController {
     }
 
     @PostMapping("/users/clients")
-    public ResponseEntity<Client> createClient(@Valid @RequestBody ClientDTOInIn clientDTOIn) {
+    public ResponseEntity<Client> createClient(@Valid @RequestBody ClientDTOIn clientDTOIn) {
         // TODO - must return a ClientDTOOut
         Client client = clientService.save(clientDTOIn);
         return new ResponseEntity<>(client, HttpStatus.CREATED);
