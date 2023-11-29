@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -19,6 +20,6 @@ import java.time.LocalDateTime;
 public class ClientDTOOut extends UserDTOOut{
 
     private long id;
-    private LocalDateTime dob; // fecha de nacimiento (date of birth)
+    private LocalDate dob; // fecha de nacimiento (date of birth)
     private boolean isStudent;
 }
