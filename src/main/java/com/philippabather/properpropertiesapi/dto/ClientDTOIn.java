@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import static com.philippabather.properpropertiesapi.constants.ValidationMessages.VALIDATION_DOB_NOT_NULL;
 
