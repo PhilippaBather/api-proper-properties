@@ -1,0 +1,158 @@
+openapi: 3.0.1
+info:
+  title: Proper Properties API
+  description: API para un inmobiliaria
+  version: 1.0.0
+servers:
+  - url: 'https://api.example.com'
+tags:
+  - name: clients
+    description: Operaciones para fetch, add, update, y delete clientes
+paths:
+  /users/clients:
+    get:
+      tags:
+        - clients
+      summary: Devuelve una lista de todos los clientes
+      description: Devuelve una lista de todos los clientes y sus detalles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClientDTOOut"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - clients
+      summary: Guarda un nuevo cliente
+      description:
+        Valida un objeto cliente y crea un nuevo cliente para guardar en el base de datos.
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientDTOOut"
+        '406':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /users/clients/{clientId}:
+    get:
+      tags:
+        - clients
+      summary: Devuelve un cliente por client ID
+      description: Devuelve un objeto de un cliente por client ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientDTOOut"
+        '404':
+          description: Client Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    ClientDTOOut:
+      type: object
+      properties:
+        id:
+            type: integer
+            format: int64
+            example: 1
+            description: La ID de cliente
+        name:
+            type: string
+            example: "Joe"
+            description: El nombre de cliente
+        surname:
+            type: string
+            example: "Bloggs"
+            description: El/Los apellido(s) de cliente
+        username:
+            type: string
+            example: "joe_bloggs"
+            description: El nombre de usuario de cliente
+        email:
+            type: string?
+            example: "joebloggs666@test.es"
+            description: El email de cliente
+        accountCreated:
+            type: string
+            example: "2023-07-21T14:12:09"
+            description: La fecha cuando la cuenta de usuario fue creada
+        dob:
+            type: string
+            example: "2023-07-21T14:12:09"
+            description: La fecha de nacimiento de cliente
+        isStudent:
+            type: boolean
+            example: false
+            description: Indica si el ciente es estudiante o no
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 404
+          description: El código de estado de HTTP
+        errorType:
+          type: string
+          example: Client Not Found Error
+          description: Identifica el tipo de error
+        message:
+          type: string
+          example: "Client not found with id: 55"
+          description: Una descripción del error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
