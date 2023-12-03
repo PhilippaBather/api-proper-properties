@@ -52,7 +52,6 @@ public class ClientController {
 
     @PostMapping("/users/clients")
     public ResponseEntity<ClientDTOOut> createClient(@Valid @RequestBody ClientDTOIn clientDTOIn) {
-        // TODO - must return a ClientDTOOut
         ClientDTOOut clientDTOOut = clientService.save(clientDTOIn);
         return new ResponseEntity<>(clientDTOOut, HttpStatus.CREATED);
     }
@@ -66,7 +65,7 @@ public class ClientController {
     @PutMapping("/users/clients/{clientId}")
     public ResponseEntity<ClientDTOOut> updateClientById(@PathVariable long clientId, @Valid @RequestBody ClientDTOIn clientDTOIn)
             throws ClientNotFoundException {
-        ClientDTOOut clientDTOOut = clientService.updateClientById(clientId, clientDTOIn);
+        ClientDTOOut clientDTOOut = clientService.updateById(clientId, clientDTOIn);
         return new ResponseEntity<>(clientDTOOut, HttpStatus.OK);
     }
 

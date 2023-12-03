@@ -5,11 +5,10 @@ import com.philippabather.properpropertiesapi.dto.ClientDTOOut;
 import com.philippabather.properpropertiesapi.exception.ClientNotFoundException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
- * ClientService - la interfaz para manejar la entidad de un cliente ('client').
+ * ClientService - la interfaz para manejar la entidad Client ('cliente').
  *
  * @author Philippa Bather
  */
@@ -22,6 +21,6 @@ public interface ClientService {
     Set<ClientDTOOut> findAllByDOB(LocalDate dob);
     ClientDTOOut save(ClientDTOIn clientDTOIn);
     ClientDTOOut findById(long clientId) throws ClientNotFoundException;
-    ClientDTOOut updateClientById(long clientId, ClientDTOIn clientDTOIn) throws ClientNotFoundException;
+    ClientDTOOut updateById(long clientId, ClientDTOIn clientDTOIn) throws ClientNotFoundException;
     void deleteById(long clientId) throws ClientNotFoundException;
 }

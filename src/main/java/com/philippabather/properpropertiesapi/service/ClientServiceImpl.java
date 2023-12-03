@@ -79,7 +79,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientDTOOut updateClientById(long clientId, ClientDTOIn clientDTOIn) throws ClientNotFoundException {
+    public ClientDTOOut updateById(long clientId, ClientDTOIn clientDTOIn) throws ClientNotFoundException {
         // comprueba si el cliente existe
         Client client = clientRepo.findById(clientId).orElseThrow(() -> new ClientNotFoundException(clientId));
 
