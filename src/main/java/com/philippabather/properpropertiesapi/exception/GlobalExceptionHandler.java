@@ -62,6 +62,14 @@ public class GlobalExceptionHandler {
         return new Response(ErrorType.CLIENT_NOT_FOUND.getCode(), ErrorType.CLIENT_NOT_FOUND.getHttpStatus(), cnfe.getMessage());
     }
 
+    @ExceptionHandler(value = ProprietorNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND) // 404
+    public Response handleException(ProprietorNotFoundException pnfe){
+        return new Response(ErrorType.PROPRIETOR_NOT_FOUND.getCode(), ErrorType.PROPRIETOR_NOT_FOUND.getHttpStatus(), pnfe.getMessage());
+    }
+
+
     @ExceptionHandler(value = PropertyNotFoundException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
