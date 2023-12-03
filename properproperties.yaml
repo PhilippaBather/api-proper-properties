@@ -7,7 +7,9 @@ servers:
   - url: 'https://api.example.com'
 tags:
   - name: clients
-    description: Operaciones para fetch, add, update, y delete clientes
+    description: Operaciones para fetch, add, update, y delete clientes ('Clients')
+  - name: proprietors
+    description: Operaciones para fetch, add, update, y delete propietarios ('Proprietor')
 paths:
   /users/clients:
     get:
@@ -55,7 +57,7 @@ paths:
         - clients
       operationId: saveClient
       summary: Guarda un nuevo cliente
-      description: Valida un objeto cliente y crea un nuevo cliente para guardar en el base de datos.
+      description: Valida un objeto Client ('cliente') y crea un nuevo Client para guardar en el base de datos.
       requestBody:
         description: Un nuevo cliente
         required: true
@@ -196,6 +198,195 @@ paths:
              application/json:
                schema:
                  $ref: "#/components/schemas/ErrorResponse"
+  /users/proprietors:
+    get:
+      tags:
+        - proprietors
+      operationId: getAllProprietors
+      summary: Devuelve una lista de todos los propietarios o todos los propietarios según un parámetro especificado
+      description: Devuelve una lista de todos los propietarios o todos los propietarios según un parámetro especificado
+      parameters:
+        - name: surname
+          in: query
+          description: El/Los apellidos de cliente
+          required: false
+          schema:
+            type: string
+        - name: isAgency
+          in: query
+          description: Indica si el propietario es un inmobilario (true) o no (false)
+          required: false
+          schema:
+            type: boolean
+        - name: numProperties
+          in: query
+          description: El número de inmuebles
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProprietorDTOOut"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - proprietors
+      operationId: savePropietor
+      summary: Guarda un nuevo propietario
+      description: Valida un objeto Proprietor ('propietario') y cra un nuevo Proprietor para guardar en el base de datos.
+      requestBody:
+        description: Un nuevo propietario
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProprietorDTOIn'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProprietorDTOOut"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /users/proprietors/{proprietorId}:
+    get:
+      tags:
+        - proprietors
+      operationId: getPropietorById
+      summary: Devuelve un propietario por propietario ID
+      description: Devuelve un objeto de un propietario por propietario ID
+      parameters:
+        - name: proprietorId
+          in: path variable
+          description: La ID de propietario
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProprietorDTOOut"
+        '404':
+          description: Proprietor Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      tags:
+        - proprietors
+      operationId: getPropietorById
+      summary: Devuelve un propietario por propietario ID
+      description: Devuelve un objeto de un propietario por propietario ID
+      parameters:
+        - name: proprietorId
+          in: path variable
+          description: La ID de propietario
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: El objeto de propietario con detalles actualizadas
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProprietorDTOIn"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProprietorDTOOut"
+        '404':
+          description: Proprietor Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - proprietors
+      operationId: getPropietorById
+      summary: Devuelve un propietario por propietario ID
+      description: Devuelve un objeto de un propietario por propietario ID
+      parameters:
+        - name: proprietorId
+          in: path variable
+          description: La ID de propietario
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: La entidad fue eliminada con éxito
+        '404':
+          description: Proprietor Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
 components:
   schemas:
@@ -206,8 +397,16 @@ components:
           type: string
           example: "secret"
           description: La constraseña de cliente
+        dob:
+          type: string
+          example: "2023-07-21T14:12:09"
+          description: La fecha de nacimiento de cliente
+        isStudent:
+          type: boolean
+          example: false
+          description: Indica si el ciente es estudiante o no
       allOf:
-        - $ref: "#/components/schemas/Client"
+        - $ref: "#/components/schemas/User"
     ClientDTOOut:
       type: object
       properties:
@@ -217,8 +416,40 @@ components:
           example: 1
           description: La ID de cliente
       allOf:
-        - $ref: "#/components/schemas/Client"
-    Client:
+        - $ref: "#/components/schemas/User"
+    ProprietorDTOIn:
+      type: object
+      properties:
+        password:
+          type: string
+          example: "secret"
+          description: La constraseña de cliente
+        isAgency:
+          type: boolean
+          example: true
+          description: Indica si el propietario es un inmobiliario o no
+        numProperties:
+          type: integer
+          format: int32
+          example: 3
+          description: El número de inmuebles que pertenece a un propietario
+      allOf:
+        - $ref: "#/components/schemas/User"
+    ProprietorDTOOut:
+      type: object
+      properties:
+        isAgency:
+          type: boolean
+          example: true
+          description: Indica si el propietario es un inmobiliario o no
+        numProperties:
+          type: integer
+          format: int32
+          example: 3
+          description: El número de inmuebles que pertenece a un propietario
+      allOf:
+        - $ref: "#/components/schemas/User"
+    User:
       type: object
       properties:
         name:
@@ -234,21 +465,13 @@ components:
             example: "joe_bloggs"
             description: El nombre de usuario de cliente
         email:
-            type: string?
+            type: string
             example: "joebloggs666@test.es"
             description: El email de cliente
         accountCreated:
             type: string
             example: "2023-07-21T14:12:09"
             description: La fecha cuando la cuenta de usuario fue creada
-        dob:
-            type: string
-            example: "2023-07-21T14:12:09"
-            description: La fecha de nacimiento de cliente
-        isStudent:
-            type: boolean
-            example: false
-            description: Indica si el ciente es estudiante o no
     ErrorResponse:
       type: object
       properties:
