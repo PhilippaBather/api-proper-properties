@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * ClientServiceImpl - implementa la interfaz ClientService; maneja información sobre la entidad Client ('cliente').
+ * ClientServiceImpl - implementa la interfaz de servicio ClientService; maneja información sobre la entidad Client ('cliente').
  *
  * @author Philippa Bather
  */
@@ -86,11 +86,11 @@ public class ClientServiceImpl implements ClientService {
         // mapea los cambios en el objeto de cliente pre-existente y lo guarda
         modelMapper.map(clientDTOIn, client);
         client.setId(clientId);
-        Client clientUpdated = clientRepo.save(client);
+        Client updatedClient = clientRepo.save(client);
 
         // mapea el objeto cliente a el ClientDTOOut
         ClientDTOOut clientDTOOut = new ClientDTOOut();
-        modelMapper.map(clientUpdated, clientDTOOut);
+        modelMapper.map(updatedClient, clientDTOOut);
 
         return clientDTOOut;
     }

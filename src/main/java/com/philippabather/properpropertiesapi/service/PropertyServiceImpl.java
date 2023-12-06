@@ -20,7 +20,7 @@ import java.util.Set;
 
 
 /**
- * PropertyServiceImpl - implementa la interfaz PropertyService; maneja información sobre la entidad Property ('inmueble').
+ * PropertyServiceImpl - implementa la interfaz de servicio PropertyService; maneja información sobre la entidad Property ('inmueble').
  *
  * @author Philippa Bather
  */
@@ -47,17 +47,17 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public Set<PropertyDTOOut> findAllByPropertyStatus(String propertyStatus) throws PropertyStatusNotFoundException {
-        PropertyStatus propertyStatusEnum = switch(propertyStatus.toUpperCase()) {
+        PropertyStatus propertyStatusEnum = switch (propertyStatus.toUpperCase()) {
             case "RENTAL" -> PropertyStatus.RENTAL;
             case "SALE" -> PropertyStatus.SALE;
-            default ->  throw new PropertyStatusNotFoundException(propertyStatus.toUpperCase());
+            default -> throw new PropertyStatusNotFoundException(propertyStatus.toUpperCase());
         };
         Set<Property> properties = propertyRepo.findAllByPropertyStatus(propertyStatusEnum);
         return convertToPropertyDTOOutSet(properties);
     }
 
     @Override
-    public Set<PropertyDTOOut> findAllByPropertyType(String propertyType) throws PropertyTypeNotFoundException{
+    public Set<PropertyDTOOut> findAllByPropertyType(String propertyType) throws PropertyTypeNotFoundException {
         PropertyType propertyTypeEnum = switch (propertyType.toUpperCase()) {
             case "COMMERCIAL" -> PropertyType.COMMERCIAL;
             case "FLAT" -> PropertyType.FLAT;
@@ -105,10 +105,10 @@ public class PropertyServiceImpl implements PropertyService {
 
         modelMapper.map(propertyDTOIn, property);
         property.setId(propertyId);
-        propertyRepo.save(property);
+        Property updatedProperty = propertyRepo.save(property);
 
         PropertyDTOOut propertyDTOOut = new PropertyDTOOut();
-        modelMapper.map(property, propertyDTOOut);
+        modelMapper.map(updatedProperty, propertyDTOOut);
 
         return propertyDTOOut;
     }
@@ -128,8 +128,8 @@ public class PropertyServiceImpl implements PropertyService {
     private Set<PropertyDTOOut> convertToPropertyDTOOutSet(Set<Property> properties) {
         Set<PropertyDTOOut> propertiesDTOOut = new HashSet<>();
 
-        for (Property property:
-             properties) {
+        for (Property property :
+                properties) {
             PropertyDTOOut propertyDTOOut = new PropertyDTOOut();
             modelMapper.map(property, propertyDTOOut);
             propertiesDTOOut.add(propertyDTOOut);

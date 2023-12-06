@@ -8,7 +8,7 @@ import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundExcept
 import java.util.Set;
 
 /**
- * PropertyService - la interfaz para manejar la entidad Property ('inmueble').
+ * PropertyService - la interfaz de servicio para manejar la entidad Property ('inmueble').
  *
  * @author Philippa Bather
  */

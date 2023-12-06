@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 /**
- * ClientService - la interfaz para manejar la entidad Client ('cliente').
+ * ClientService - la interfaz de servicio para manejar la entidad Client ('cliente').
  *
  * @author Philippa Bather
  */
