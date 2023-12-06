@@ -1,10 +1,10 @@
 package com.philippabather.properpropertiesapi.service;
 
+import com.philippabather.properpropertiesapi.dto.PropertyDTOIn;
+import com.philippabather.properpropertiesapi.dto.PropertyDTOOut;
 import com.philippabather.properpropertiesapi.exception.PropertyNotFoundException;
-import com.philippabather.properpropertiesapi.model.Property;
+import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
 
-import java.util.List;
-import java.util.PropertyPermission;
 import java.util.Set;
 
 /**
@@ -15,9 +15,12 @@ import java.util.Set;
 public interface PropertyService {
 
     // TODO - change list to SET
-    List<Property> getAll();
-    Property save (Property property);
-
-    Property getById(long propertyId) throws PropertyNotFoundException;
+    Set<PropertyDTOOut> findAll();
+    Set<PropertyDTOOut> findAllByPropertyStatus(String propertyStatus);
+    Set<PropertyDTOOut> findAllByPropertyType(String propertyType);
+    Set<PropertyDTOOut> findAllByNumBedrooms(int numBedrooms);
+    PropertyDTOOut save (long proprietorId, PropertyDTOIn property) throws ProprietorNotFoundException;
+    PropertyDTOOut getById(long propertyId) throws PropertyNotFoundException;
+    PropertyDTOOut updateById(long propertyId, PropertyDTOIn propertyDTOIn) throws PropertyNotFoundException;
     void deleteById(long propertyId) throws PropertyNotFoundException;
 }
