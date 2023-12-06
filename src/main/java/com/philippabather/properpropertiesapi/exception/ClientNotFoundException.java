@@ -3,7 +3,8 @@ package com.philippabather.properpropertiesapi.exception;
 import static com.philippabather.properpropertiesapi.constants.ErrorMessages.CLIENT_NOT_FOUND_EXCEPTION_MSG;
 
 /**
- * ClientNotFoundException - maneja el error lanzado cuando una entidad del tipo Client no está encontrado por su ID.
+ * ClientNotFoundException - maneja el error lanzado cuando una entidad del tipo Client ('cliente') no está encontrado
+ * por su ID.
  *
  * @author Philippa Bather
  */

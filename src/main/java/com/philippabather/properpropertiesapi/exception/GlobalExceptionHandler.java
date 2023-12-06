@@ -77,6 +77,21 @@ public class GlobalExceptionHandler {
         return new Response(ErrorType.PROPERTY_NOT_FOUND.getCode(), ErrorType.PROPERTY_NOT_FOUND.getHttpStatus(), pnfe.getMessage());
     }
 
+    @ExceptionHandler(value = PropertyStatusNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response handleException(PropertyStatusNotFoundException psnfe) {
+        return new Response(ErrorType.PROPERTY_STATUS_NOT_FOUND.getCode(), ErrorType.PROPERTY_STATUS_NOT_FOUND.getHttpStatus(), psnfe.getMessage());
+    }
+
+    @ExceptionHandler(value = PropertyTypeNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response handleException(PropertyTypeNotFoundException ptnfe) {
+        return new Response(ErrorType.PROPERTY_TYPE_NOT_FOUND.getCode(), ErrorType.PROPERTY_TYPE_NOT_FOUND.getHttpStatus(), ptnfe.getMessage());
+    }
+
+
     // helper methods
     private List<ValidationErrorModel> processValidationErrors(MethodArgumentNotValidException manve) {
         List<ValidationErrorModel> validationErrors = new ArrayList<>();

@@ -30,7 +30,7 @@ public class ClientController {
     }
 
     @GetMapping("/users/clients")
-    public ResponseEntity<Set<ClientDTOOut>> findAllClients(@RequestParam(value = "surname", defaultValue = "")
+    public ResponseEntity<Set<ClientDTOOut>> getAllClients(@RequestParam(value = "surname", defaultValue = "")
                                                             String surname,
                                                             @RequestParam(value = "name", defaultValue = "") String name,
                                                             @RequestParam(value = "dob", defaultValue = "") String dob) {

@@ -55,12 +55,12 @@ public class ProprietorServiceImpl implements ProprietorService {
     public ProprietorDTOOut save(ProprietorDTOIn proprietorDTOIn) {
         Proprietor proprietor = new Proprietor();
         modelMapper.map(proprietorDTOIn, proprietor);
+        proprietor.setNumProperties(0);
         Proprietor savedProprietor = proprietorRepo.save(proprietor);
         ProprietorDTOOut proprietorDTOOut = new ProprietorDTOOut();
         modelMapper.map(savedProprietor, proprietorDTOOut);
         return proprietorDTOOut;
     }
-
     @Override
     public ProprietorDTOOut findById(long proprietorId) throws ProprietorNotFoundException {
         Proprietor proprietor = proprietorRepo.findById(proprietorId).orElseThrow(() -> new ProprietorNotFoundException(proprietorId));
@@ -77,6 +77,11 @@ public class ProprietorServiceImpl implements ProprietorService {
         ProprietorDTOOut proprietorDTOOut = new ProprietorDTOOut();
         modelMapper.map(updatedProprietor, proprietorDTOOut);
         return proprietorDTOOut;
+    }
+
+    @Override
+    public void update(Proprietor proprietor) {
+        proprietorRepo.save(proprietor);
     }
 
     @Override

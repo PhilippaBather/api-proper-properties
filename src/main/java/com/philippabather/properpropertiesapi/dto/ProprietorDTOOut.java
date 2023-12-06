@@ -19,5 +19,6 @@ public class ProprietorDTOOut extends UserDTOOut {
     private long id;
     private int numProperties;
     private boolean isAgency;
+//    private List<Property> propertyList;  // TODO
 
 }

@@ -20,9 +20,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public class ProprietorDTOIn extends UserDTOIn {
 
-    @Min(1)
-    private int numProperties;
-
     @NotNull(message= ValidationMessages.VALIDATION_BOOLEAN_REQUIRED)
     private boolean isAgency;
 

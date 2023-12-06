@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * ClientDTOOut - El objeto de la transferencia de datos (DTO) de la clase Client al cliente/consumo de API; extiende UserDTOOut.
