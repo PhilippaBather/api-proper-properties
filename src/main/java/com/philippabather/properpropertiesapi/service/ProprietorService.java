@@ -3,6 +3,7 @@ package com.philippabather.properpropertiesapi.service;
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOIn;
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOOut;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
+import com.philippabather.properpropertiesapi.model.Proprietor;
 
 import java.util.Set;
 
@@ -19,8 +20,8 @@ public interface ProprietorService {
     Set<ProprietorDTOOut> findAllByIsAgency(boolean isAgency);
     Set<ProprietorDTOOut> findAllByNumProperties(int numProperties);
     ProprietorDTOOut save(ProprietorDTOIn proprietorDTOIn);
-
     ProprietorDTOOut findById(long proprietorId) throws ProprietorNotFoundException;
     ProprietorDTOOut updateById(long proprietorId, ProprietorDTOIn proprietorDTOIn) throws ProprietorNotFoundException;
+    void update(Proprietor proprietor);
     void deleteById(long proprietorId) throws ProprietorNotFoundException;
 }
