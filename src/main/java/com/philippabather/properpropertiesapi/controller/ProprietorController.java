@@ -7,11 +7,19 @@ import com.philippabather.properpropertiesapi.service.ProprietorService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * ProprietorController - controller para manejar los datos sobre entidaes de un Proprietor ('Propietario').
+ *
+ * @author Philippa Bather
+ */
+
+@Validated
 @RestController
 public class ProprietorController {
 
