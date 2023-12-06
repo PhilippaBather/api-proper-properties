@@ -12,7 +12,7 @@ import static com.philippabather.properpropertiesapi.constants.ValidationMessage
 import static com.philippabather.properpropertiesapi.constants.ValidationRegex.VALIDATION_PASSWORD_REGEX;
 
 /**
- * UserDTO - El objeto de la transferencia de datos (DTO) de la clase User desde cliente/consumo de API.
+ * UserDTO - El objeto de la transferencia de datos (DTO) de la clase User ('usuario') desde cliente/consumo de API.
  *
  * @author Philippa Bather
  */

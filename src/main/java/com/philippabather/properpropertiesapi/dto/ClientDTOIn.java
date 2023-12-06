@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import static com.philippabather.properpropertiesapi.constants.ValidationMessages.VALIDATION_DOB_NOT_NULL;
 
 /**
- * ClientDTO - Data Transfer Object (DTO) para la clase 'Client' que extiende la clase abstracta de User.
+ * ClientDTO - Data Transfer Object (DTO) para la clase Client ('cliente') que extiende la clase abstracta de User.
  *
  * @author Philippa Bather
  */

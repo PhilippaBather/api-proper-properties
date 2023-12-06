@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 /**
- * PropertyDTOOut - El objeto de la transferencia de datos (DTO) de la clase Property al cliente/consumo de API.
+ * PropertyDTOOut - El objeto de la transferencia de datos (DTO) de la clase Property ('inmueble') al cliente/consumo de API.
  *
  * @author Philippa Bather
  */
@@ -22,8 +22,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class PropertyDTOOut {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private PropertyStatus propertyStatus;
