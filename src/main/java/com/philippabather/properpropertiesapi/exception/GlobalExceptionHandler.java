@@ -55,6 +55,14 @@ public class GlobalExceptionHandler {
     }
 
     // custom exceptions
+
+    @ExceptionHandler(value = AddressNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND) // 404
+    public Response handleException(AddressNotFoundException anfe) {
+        return new Response(ErrorType.ADDRESS_NOT_FOUND.getCode(), ErrorType.ADDRESS_NOT_FOUND.getHttpStatus(), anfe.getMessage());
+    }
+
     @ExceptionHandler(value = ClientNotFoundException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND) // 404
