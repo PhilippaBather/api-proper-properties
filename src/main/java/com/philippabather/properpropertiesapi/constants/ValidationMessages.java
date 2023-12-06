@@ -11,6 +11,7 @@ public class ValidationMessages {
     public static final String VALIDATION_DOB_NOT_NULL = "Date of birth is required";
     public static final String VALIDATION_DATE = "A valid date is required.";
     public static final String VALIDATION_EMAIL = "A valid email is required.";
+    public static final String VALIDATION_ID = "A valid ID greater than or equal to 1 is required.";
     public static final String VALIDATION_LATITUDE_REQUIRED = "A valid latitude is required.";
     public static final String VALIDATION_LONGITUDE_REQUIRED = "A valid longitude is required.";
     public static final String VALIDATION_NAME_NOT_BLANK = "A name is required.";
