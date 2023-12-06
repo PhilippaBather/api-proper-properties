@@ -1,5 +1,6 @@
 package com.philippabather.properpropertiesapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.philippabather.properpropertiesapi.constants.ValidationMessages;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -19,9 +20,9 @@ import static com.philippabather.properpropertiesapi.constants.ValidationMessage
  * @author Philippa Bather
  */
 @Data
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity(name = "properties")
 public class Property {
 
     @Id
@@ -55,11 +56,11 @@ public class Property {
     @Column
     private LocalDate availableFrom; // disponibleDesde
 
-//    @Size(min = 0, message = VALIDATION_NUM_BEDROOMS)
+    @Min(value = 0, message = VALIDATION_NUM_BEDROOMS)
     @Column
     private int numBedrooms;
 
-//    @Size(min = 0, message = VALIDATION_NUM_BATHROOMS)
+    @Min(value = 0, message = VALIDATION_NUM_BATHROOMS)
     @Column
     private int numBathrooms;
 
@@ -67,11 +68,17 @@ public class Property {
     @Column(name = "is_parking")
     private boolean isParking;
 
-    // TODO
-//    private List<File> photos;
+    @NotNull(message= ValidationMessages.VALIDATION_BOOLEAN_REQUIRED)
+    @Column(name = "is_lift")
+    private boolean isLift;
+
+    @ManyToOne
+    @JsonBackReference("property_proprietor")
+    @JoinColumn(name = "proprietor_id")
+    private Proprietor proprietor;
 
     // TODO:
-//    private Proprietor proprietor;
+//    private List<File> photos;
 //    private Address address;
 //    private List<Viewing> viewings;
 
