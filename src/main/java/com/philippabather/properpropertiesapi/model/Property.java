@@ -1,9 +1,11 @@
 package com.philippabather.properpropertiesapi.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.philippabather.properpropertiesapi.constants.ValidationMessages;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,12 +24,8 @@ import static com.philippabather.properpropertiesapi.constants.ValidationMessage
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "properties")
-public class Property {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+@MappedSuperclass
+public abstract class Property {
 
     @Column
     private PropertyStatus propertyStatus;
@@ -45,6 +43,7 @@ public class Property {
     @Column
     private double longitude;
 
+    @Min(10)
     @Column
     private int metresSqr;
 
@@ -71,15 +70,5 @@ public class Property {
     @NotNull(message= ValidationMessages.VALIDATION_BOOLEAN_REQUIRED)
     @Column(name = "is_lift")
     private boolean isLift;
-
-    @ManyToOne
-    @JsonBackReference("property_proprietor")
-    @JoinColumn(name = "proprietor_id")
-    private Proprietor proprietor;
-
-    // TODO:
-//    private List<File> photos;
-//    private Address address;
-//    private List<Viewing> viewings;
 
 }
