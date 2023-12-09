@@ -19,8 +19,6 @@ import static com.philippabather.properpropertiesapi.constants.ValidationMessage
 @AllArgsConstructor
 public class AddressDTOIn {
 
-    // TODO - relationship between Address and Property
-
     @NotBlank(message = VALIDATION_ADDRESS_NAME_OR_NUMBER)
     private String nameOrNum;
 
@@ -30,7 +28,7 @@ public class AddressDTOIn {
     private String street;
 
     @NotBlank(message = VALIDATION_ADDRESS_CITY)
-    private String city; // pueblo o ciudad
+    private String town; // pueblo o ciudad
 
     private Region region;
 

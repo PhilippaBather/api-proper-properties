@@ -16,13 +16,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AddressDTOOut {
 
-    // TODO - relationship between Address and Property
-
     private long id;
     private String nameOrNum;
     private String flatNumber;
     private String street;
-    private String city; // pueblo o ciudad
+    private String town; // pueblo o ciudad
     private Region region;
     private String postCode;
     private Country country;
