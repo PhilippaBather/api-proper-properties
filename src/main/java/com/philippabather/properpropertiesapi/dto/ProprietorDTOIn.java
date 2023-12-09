@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 
 /**
- * ClientDTO - Data Transfer Object (DTO) para la clase 'Client' que extiende la clase abstracta de User.
+ * ClientDTO - Data Transfer Object (DTO) para la clase Proprietor ('propietario') que extiende la clase abstracta de User.
  *
  * @author Philippa Bather
  */

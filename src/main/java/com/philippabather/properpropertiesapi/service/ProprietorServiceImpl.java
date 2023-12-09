@@ -12,7 +12,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * ProprietorServiceImpl - implementa la interfaz ProprietorService; maneja información sobre la entidad Proprietor ('propietario').
+ * ProprietorServiceImpl - implementa la interfaz de servicio ProprietorService; maneja información sobre la entidad
+ * Proprietor ('propietario').
  *
  * @author Philippa Bather
  */

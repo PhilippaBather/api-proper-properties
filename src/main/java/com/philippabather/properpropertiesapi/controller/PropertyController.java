@@ -2,6 +2,8 @@ package com.philippabather.properpropertiesapi.controller;
 
 import com.philippabather.properpropertiesapi.dto.PropertyDTOIn;
 import com.philippabather.properpropertiesapi.dto.PropertyDTOOut;
+import com.philippabather.properpropertiesapi.exception.PropertyStatusNotFoundException;
+import com.philippabather.properpropertiesapi.exception.PropertyTypeNotFoundException;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
 import com.philippabather.properpropertiesapi.service.PropertyService;
 import jakarta.el.PropertyNotFoundException;
@@ -31,8 +33,8 @@ public class PropertyController {
     @GetMapping("/properties")
     public ResponseEntity<Set<PropertyDTOOut>> getAllProperties(@RequestParam(value = "propertyType", defaultValue = "") String propertyType,
                                                                 @RequestParam(value = "propertyStatus", defaultValue = "") String propertyStatus,
-                                                                @RequestParam(value = "numBedrooms", defaultValue = "0") int numBedrooms) {
-
+                                                                @RequestParam(value = "numBedrooms", defaultValue = "0") int numBedrooms)
+            throws PropertyStatusNotFoundException, PropertyTypeNotFoundException {
         Set<PropertyDTOOut> properties = new HashSet<>();
         if (propertyType.trim().equals("") && propertyStatus.trim().equals("") && numBedrooms == 0) {
             properties = propertyService.findAll();

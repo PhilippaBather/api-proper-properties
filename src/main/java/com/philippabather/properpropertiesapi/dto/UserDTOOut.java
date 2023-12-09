@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * UserDTOOut - El objeto de la transferencia de datos (DTO) de la clase User al cliente/consumo de API.
+ * UserDTOOut - El objeto de la transferencia de datos (DTO) de la clase User ('usario') al cliente/consumo de API.
  *
  * @author Philippa Bather
  */

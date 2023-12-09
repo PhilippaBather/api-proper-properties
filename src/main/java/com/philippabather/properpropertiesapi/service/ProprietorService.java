@@ -8,7 +8,7 @@ import com.philippabather.properpropertiesapi.model.Proprietor;
 import java.util.Set;
 
 /**
- * ProprietorService - la interfaz para manejar la entidad Proprietor ('propietario').
+ * ProprietorService - la interfaz de servicio para manejar la entidad Proprietor ('propietario').
  *
  * @author Philippa Bather
  */

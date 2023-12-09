@@ -17,7 +17,7 @@ import static com.philippabather.properpropertiesapi.constants.Constants.*;
 import static com.philippabather.properpropertiesapi.constants.ValidationMessages.*;
 
 /**
- * PropertyDTOIn - Data Transfer Object (DTO) para la clase 'Property' (inmueble).
+ * PropertyDTOIn - Data Transfer Object (DTO) para la clase Property ('inmueble').
  *
  * @author Philippa Bather
  */

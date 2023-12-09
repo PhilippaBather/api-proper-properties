@@ -3,7 +3,9 @@ package com.philippabather.properpropertiesapi.exception;
 import static com.philippabather.properpropertiesapi.constants.ErrorMessages.PROPERTY_STATUS_NOT_FOUND_EXCEPTION_MSG;
 
 /**
- * PropertyStatusNotFoundException - maneja el error lanzado cuando un PropertyStatus (estado de mueblo) no está encontrado.
+ * PropertyStatusNotFoundException - maneja el error lanzado cuando un String de un PropertyStatus ('estado de inmueble)
+ * no corresponde con ningún enum del tipo PropertyStatus.
+ *
  * PropertyStatus refiere a si un inmueble es para alquiler o vender.
  *
  * @author Philippa Bather

@@ -3,7 +3,9 @@ package com.philippabather.properpropertiesapi.exception;
 import static com.philippabather.properpropertiesapi.constants.ErrorMessages.PROPERTY_TYPE_NOT_FOUND_EXCEPTION_MSG;
 
 /**
- * PropertyNotFoundException - maneja el error lanzado cuando un PropertyType (tipo de propiedad) no está encontrado.
+ * PropertyNotFoundException - maneja el error lanzado cuando un String de un PropertyType ('tipo de inmueblen) no
+ * corresponde con ningún enum del tipo PropertyType ('tipo de inmueble).
+ *
  * PropertyType refiere al tipo de inmueblo: comercial, piso, o casa.
  *
  * @author Philippa Bather

@@ -6,7 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * ProprietorDTOOut - El objeto de la transferencia de datos (DTO) de la clase Proprietor al cliente/consumo de API; extiende UserDTOOut.
+ * ProprietorDTOOut - El objeto de la transferencia de datos (DTO) de la clase Proprietor ('propietario') al cliente/consumo
+ * de API; extiende UserDTOOut.
  *
  * @author Philippa Bather
  */
