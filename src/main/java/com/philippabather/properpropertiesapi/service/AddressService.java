@@ -3,6 +3,7 @@ package com.philippabather.properpropertiesapi.service;
 import com.philippabather.properpropertiesapi.dto.AddressDTOIn;
 import com.philippabather.properpropertiesapi.dto.AddressDTOOut;
 import com.philippabather.properpropertiesapi.exception.AddressNotFoundException;
+import com.philippabather.properpropertiesapi.exception.PropertyNotFoundException;
 import com.philippabather.properpropertiesapi.exception.RegionNotFoundException;
 
 import java.util.Set;
@@ -12,16 +13,15 @@ import java.util.Set;
  *
  * @author Philippa Bather
  */
-
 public interface AddressService {
 
-    Set<AddressDTOOut> getAll();
-    Set<AddressDTOOut> getAllByPostcode(String postcode);
-    Set<AddressDTOOut> getAllByRegion(String region) throws RegionNotFoundException;
-    Set<AddressDTOOut> getAllByTown(String town);
-    AddressDTOOut save(AddressDTOIn addressDTOIn);
+    Set<AddressDTOOut> findAll();
+    Set<AddressDTOOut> findAllByPostcode(String postcode);
+    Set<AddressDTOOut> findAllByRegion(String region) throws RegionNotFoundException;
+    Set<AddressDTOOut> findAllByTown(String town);
+    AddressDTOOut saveRentalAddress(long propertyId, AddressDTOIn addressDTOIn) throws PropertyNotFoundException;
     AddressDTOOut getById(long addressId) throws AddressNotFoundException;
-    AddressDTOOut updateById(long addressId, AddressDTOIn addressDTOIn) throws AddressNotFoundException;
-    void deleteById(long addressId) throws AddressNotFoundException;
+    AddressDTOOut updateByPropertyId(long addressId, AddressDTOIn addressDTOIn) throws AddressNotFoundException, PropertyNotFoundException;
+    void deleteById(long addressId) throws AddressNotFoundException, PropertyNotFoundException;
 
 }
