@@ -3,8 +3,10 @@ package com.philippabather.properpropertiesapi.controller;
 import com.philippabather.properpropertiesapi.dto.AddressDTOIn;
 import com.philippabather.properpropertiesapi.dto.AddressDTOOut;
 import com.philippabather.properpropertiesapi.exception.AddressNotFoundException;
+import com.philippabather.properpropertiesapi.exception.PropertyNotFoundException;
 import com.philippabather.properpropertiesapi.exception.RegionNotFoundException;
 import com.philippabather.properpropertiesapi.service.AddressService;
+import com.philippabather.properpropertiesapi.service.RentalPropertyService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +26,15 @@ import java.util.Set;
 @RestController
 public class AddressController {
 
-    // TODO - DTOs
     // TODO - relationship with Property
-    // TODO - Open Api schema
 
     private final AddressService addressService;
 
-    public AddressController(AddressService addressService) {
+    private final RentalPropertyService rentalService;
+
+    public AddressController(AddressService addressService, RentalPropertyService rentalService) {
         this.addressService = addressService;
+        this.rentalService = rentalService;
     }
 
     @GetMapping("/addresses")
@@ -42,21 +45,15 @@ public class AddressController {
         Set<AddressDTOOut> addresses = new HashSet<>();
 
         if (postCode.trim().equals("") && region.trim().equals("") && town.trim().equals("")) {
-            addresses = addressService.getAll();
+            addresses = addressService.findAll();
         } else if (postCode.trim().length() == 5) {
-            addresses = addressService.getAllByPostcode(postCode);
+            addresses = addressService.findAllByPostcode(postCode);
         } else if (region.trim().length() > 1) {
-            addresses = addressService.getAllByRegion(region);
+            addresses = addressService.findAllByRegion(region);
         } else if (town.trim().length() > 1) {
-            addresses = addressService.getAllByTown(town);
+            addresses = addressService.findAllByTown(town);
         }
         return new ResponseEntity<>(addresses, HttpStatus.OK);
-    }
-
-    @PostMapping("/addresses")
-    public ResponseEntity<AddressDTOOut> createAddress(@Valid @RequestBody AddressDTOIn address) {
-        AddressDTOOut addressDTOOut = addressService.save(address);
-        return new ResponseEntity<>(addressDTOOut, HttpStatus.CREATED);
     }
 
     @GetMapping("/addresses/{addressId}")
@@ -65,17 +62,24 @@ public class AddressController {
         return new ResponseEntity<>(addressDTOOut, HttpStatus.OK);
     }
 
-    @PutMapping("/addresses/{addressId}")
-    public ResponseEntity<AddressDTOOut> updateAddressById(@PathVariable long addressId,
+    @PostMapping("/properties/rental/addresses/{propertyId}")
+    public ResponseEntity<AddressDTOOut> createAddress(@PathVariable long propertyId, @Valid @RequestBody AddressDTOIn address) {
+        AddressDTOOut addressDTOOut = addressService.saveRentalAddress(propertyId, address);
+        return new ResponseEntity<>(addressDTOOut, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/properties/rental/addresses/{propertyId}")
+    public ResponseEntity<AddressDTOOut> updateAddressById(@PathVariable long propertyId,
                                                            @Valid @RequestBody AddressDTOIn addressDTOIn)
             throws AddressNotFoundException {
-        AddressDTOOut addressDTOOut = addressService.updateById(addressId, addressDTOIn);
+        AddressDTOOut addressDTOOut = addressService.updateByPropertyId(propertyId, addressDTOIn);
         return new ResponseEntity<>(addressDTOOut, HttpStatus.OK);
     }
 
-    @DeleteMapping("/addresses/{addressId}")
-    public ResponseEntity<Void> deleteAddressById(@PathVariable long addressId) throws AddressNotFoundException {
-        addressService.deleteById(addressId);
+    // NOTE: Delete: también dirigido por la relación el @OneToOne(cascade = CascadeType.ALL)
+    @DeleteMapping("/properties/rental/addresses/{propertyId}")
+    public ResponseEntity<Void> deleteAddressById(@PathVariable long propertyId) throws PropertyNotFoundException {
+        addressService.deleteById(propertyId);
         return ResponseEntity.noContent().build();
     }
 
