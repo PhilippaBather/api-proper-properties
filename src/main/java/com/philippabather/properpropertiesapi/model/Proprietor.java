@@ -41,14 +41,18 @@ public class Proprietor extends User {
 
     @OneToMany(mappedBy = "proprietor")
     @JsonBackReference(value = "proprietor_properties")
-    private List<Property> propertyList = new ArrayList<>();
+    private List<RentalProperty> propertyList = new ArrayList<>();
 
-    public void addProperty(Property property) {
+    // TODO List<SalesProperty>
+
+    // TODO private String telephone
+
+    public void addRentalProperty(RentalProperty property) {
         propertyList.add(property);
         incrementNumProperties();
     }
 
-    public void removeProperty(Property property) {
+    public void removeRentalProperty(RentalProperty property) {
         propertyList.remove(property);
         decrementNumProperties();
     }
