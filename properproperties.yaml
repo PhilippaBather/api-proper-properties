@@ -11,7 +11,9 @@ tags:
   - name: proprietors
     description: Operaciones para fetch, add, update, y delete propietarios ('Proprietor')
   - name: properties
-    description: Operaciones para fetch, add, update, y delete properties ('Property')
+    description: Operaciones para fetch, add, update, y delete inmuebles ('Property')
+  - name: addresses
+    description: Operaciones para fetch, add, update, y delete direcciones ('Address')
 paths:
   /users/clients:
     get:
@@ -102,7 +104,7 @@ paths:
     get:
       tags:
         - clients
-      operationId: getUserById
+      operationId: getClientById
       summary: Devuelve un cliente por client ID
       description: Devuelve un objeto de un cliente por client ID
       parameters:
@@ -193,6 +195,7 @@ paths:
     delete:
       tags:
         - clients
+      operationId: deleteClientById
       summary: Elimina un cliente por el client ID
       description: Elimina un cliente por el client ID y devuelve un respuesta de No Content (void)
       parameters:
@@ -228,7 +231,7 @@ paths:
       parameters:
         - name: surname
           in: query
-          description: El/Los apellidos de cliente
+          description: El/Los apellidos de propietario
           required: false
           schema:
             type: string
@@ -263,7 +266,7 @@ paths:
     post:
       tags:
         - proprietors
-      operationId: savePropietor
+      operationId: saveProprietor
       summary: Guarda un nuevo propietario
       description: Valida un objeto Proprietor ('propietario') y cra un nuevo Proprietor para guardar en el base de datos.
       requestBody:
@@ -308,7 +311,7 @@ paths:
     get:
       tags:
         - proprietors
-      operationId: getPropietorById
+      operationId: getProprietorById
       summary: Devuelve un propietario por propietario ID
       description: Devuelve un objeto de un propietario por propietario ID
       parameters:
@@ -341,9 +344,9 @@ paths:
     put:
       tags:
         - proprietors
-      operationId: getPropietorById
-      summary: Devuelve un propietario por propietario ID
-      description: Devuelve un objeto de un propietario por propietario ID
+      operationId: updatePropietorById
+      summary: Actualiza un propietario por propietario ID
+      description: Actualiza un propietario por propietario ID
       parameters:
         - name: proprietorId
           in: path variable
@@ -399,9 +402,9 @@ paths:
     delete:
       tags:
         - proprietors
-      operationId: getPropietorById
-      summary: Devuelve un propietario por propietario ID
-      description: Devuelve un objeto de un propietario por propietario ID
+      operationId: deletePropietorById
+      summary: Elimina un propietario por propietario ID
+      description: Elimina un objeto de un propietario por propietario ID
       parameters:
         - name: proprietorId
           in: path variable
@@ -460,7 +463,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/PropertyDTOOut"
         '404':
-          description: Property Not Found | Property Status Not Found | Property Type Not Found
+          description: Property Status Not Found | Property Type Not Found
           content:
             application/json:
               schema:
@@ -478,7 +481,7 @@ paths:
       summary: Guarda un nuevo inmueble
       description: Valida un objeto Property ('inmueble') y crea un nuevo Property para guardar en el base de datos.
       requestBody:
-        description: Un nuevo cliente
+        description: Un nuevo inmueblo
         required: true
         content:
           application/json:
@@ -538,7 +541,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/PropertyDTOOut"
         '404':
-          description: Client Not Found
+          description: Property Not Found
           content:
             application/json:
               schema:
@@ -576,7 +579,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ClientDTOOut"
+                $ref: "#/components/schemas/PropertyDTOOut"
         '400':
           description: Parse Error
           content:
@@ -610,6 +613,7 @@ paths:
     delete:
       tags:
         - properties
+      operationId: deletePropertyById
       summary: Elimina un inmueble ('property') por el property ID
       description: Elimina una entidad Property ('inmueble') por el property ID y devuelve un respuesta de No Content (void)
       parameters:
@@ -625,6 +629,217 @@ paths:
           description: La entidad fue eliminada con éxito
         '404':
           description: Property Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /addresses:
+    get:
+      tags:
+        - addresses
+      operationId: getAllAddresses
+      summary: Devuelve una lista de todos los direcciones o todos las direcciones según un parámetro especificado
+      description: Devuelve una lista de todos los direcciones y sus detalles según un parámetro especificado
+      parameters:
+        - name: postCode
+          in: query
+          description: El código postal de una dirección
+          required: false
+          schema:
+            type: string
+        - name: region
+          in: query
+          description: La región de una dirección
+          required: false
+          schema:
+            type: string
+        - name: town
+          in: query
+          description: La ciudad o el pueblo de una dirección
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AddressDTOOut"
+        '404':
+          description: Region Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - addresses
+      operationId: saveAddress
+      summary: Guarda una nueva dirección
+      description: Valida un objeto Address ('dirección') y crea una nueva Address para guardar en el base de datos.
+      requestBody:
+        description: Una nueva dirección
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddressDTOIn"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressDTOOut"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /addresses/{addressId}:
+    get:
+      tags:
+        - addresses
+      operationId: getAddressyById
+      summary: Devuelve una dirección ('address') por address ID
+      description: Devuelve un objeto de una dirección ('address') por address ID
+      parameters:
+        - name: addressId
+          in: path variable
+          description: La ID de una dirección
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressDTOOut"
+        '404':
+          description: Address Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      tags:
+        - addresses
+      operationId: updateAddressById
+      summary: Actualiza una dirección ('address') por address ID
+      description: Actuliza una dirección ('address') por address ID y devuelve el resultado como un objeto AddressDTOOut
+      parameters:
+        - name: proeprtyId
+          in: path variable
+          description: La ID de una dirección
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: El objeto de address ('dirección') con detalles actualizadas
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddressDTOIn"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressDTOOut"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '404':
+          description: Address Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - addresses
+      summary: Elimina una dirección ('address') por el address ID
+      description: Elimina una entidad Address ('dirección') por el property ID y devuelve un respuesta de No Content (void)
+      parameters:
+        - name: addressId
+          in: path variable
+          description: La ID de una dirección
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: La entidad fue eliminada con éxito
+        '404':
+          description: Address Not Found
           content:
             application/json:
               schema:
@@ -788,6 +1003,72 @@ components:
           type: boolean
           example: true
           description: Indica si hay acensor o no
+    AddressDTOIn:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Address"
+    AddressDTOOut:
+      type: object
+      properties:
+        id:
+          type: number
+          format: int64
+          example: 1
+          description: La ID de una dirección
+      allOf:
+        - $ref: "#/components/schemas/Address"
+    Address:
+      type: object
+      properties:
+        nameOrNum:
+          type: string
+          example: Brookside
+          description: El nombre o número de la dirección
+        flatNumber:
+          type: string
+          example: 2A
+          description: El número de un piso (opcional)
+        street:
+          type: string
+          example: Oak Drive
+          description: La calle de la dirección
+        city:
+          type: string
+          example: Madrid
+          description: La ciudad o el pueblo de la dirección
+        region:
+          type: string
+          enum:
+            - ANDALUSIA,
+            - ARAGON,
+            - ASTURIAS,
+            - BALEARIC_ISLANDS,
+            - BASQUE_COUNTRY,
+            - CANARY_ISLANDS,
+            - CANTABRIA,
+            - CASTILE_AND_LEON,
+            - CASTILE_LA_MANCHA,
+            - CATALONIA,
+            - CEUTA,
+            - EXTREMADURA,
+            - GALICIA,
+            - LA_RIOJA,
+            - MADRID,
+            - MURCIA,
+            - MELILLA,
+            - NAVARRA,
+            - VALENCIA
+          example: MADRID
+          description: La comunidad de la dirección
+        postCode:
+          type: string
+          example: 28223
+          description: El código postal de la dirección
+        country:
+          type: string
+          enum: [Spain]
+          example: Spain
+          description: El país de la dirección
     ErrorResponse:
       type: object
       properties:
