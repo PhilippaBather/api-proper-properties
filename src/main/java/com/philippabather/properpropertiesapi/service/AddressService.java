@@ -20,8 +20,10 @@ public interface AddressService {
     Set<AddressDTOOut> findAllByRegion(String region) throws RegionNotFoundException;
     Set<AddressDTOOut> findAllByTown(String town);
     AddressDTOOut saveRentalAddress(long propertyId, AddressDTOIn addressDTOIn) throws PropertyNotFoundException;
+    AddressDTOOut saveSaleAddress(long propertyId, AddressDTOIn addressDTOIn) throws PropertyNotFoundException;
     AddressDTOOut getById(long addressId) throws AddressNotFoundException;
-    AddressDTOOut updateByPropertyId(long addressId, AddressDTOIn addressDTOIn) throws AddressNotFoundException, PropertyNotFoundException;
-    void deleteById(long addressId) throws AddressNotFoundException, PropertyNotFoundException;
-
+    AddressDTOOut updateByRentalPropertyId(long propertyId, AddressDTOIn addressDTOIn) throws AddressNotFoundException, PropertyNotFoundException;
+    AddressDTOOut updateBySalePropertyId(long propertyId, AddressDTOIn addressDTOIn) throws AddressNotFoundException, PropertyNotFoundException;
+    void deleteAddressByRentalPropertyId(long propertyId) throws AddressNotFoundException, PropertyNotFoundException;
+    void deleteAddressBySalePropertyId(long propertyId) throws AddressNotFoundException, PropertyNotFoundException;
 }
