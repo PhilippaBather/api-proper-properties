@@ -1,7 +1,6 @@
 package com.philippabather.properpropertiesapi.dto;
 
 import com.philippabather.properpropertiesapi.constants.ValidationMessages;
-import com.philippabather.properpropertiesapi.model.PropertyStatus;
 import com.philippabather.properpropertiesapi.model.PropertyType;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -26,8 +25,6 @@ import static com.philippabather.properpropertiesapi.constants.ValidationMessage
 @NoArgsConstructor
 @AllArgsConstructor
 public class PropertyDTOIn {
-
-    private PropertyStatus propertyStatus;
 
     private PropertyType propertyType;
 
