@@ -33,13 +33,13 @@ public abstract class Property {
     @Column
     private PropertyType propertyType;
 
-    @Min(value = LATITUDE_MIN, message = ValidationMessages.VALIDATION_LATITUDE_REQUIRED)
-    @Max(value = LATITUDE_MAX, message = ValidationMessages.VALIDATION_LATITUDE_REQUIRED)
+    @Min(value = LATITUDE_MIN, message = VALIDATION_LATITUDE_REQUIRED)
+    @Max(value = LATITUDE_MAX, message = VALIDATION_LATITUDE_REQUIRED)
     @Column
     private double latitude;
 
-    @Min(value = LONGITUDE_MIN, message = ValidationMessages.VALIDATION_LONGITUDE_REQUIRED)
-    @Max(value = LONGITUDE_MAX, message = ValidationMessages.VALIDATION_LONGITUDE_REQUIRED)
+    @Min(value = LONGITUDE_MIN, message = VALIDATION_LONGITUDE_REQUIRED)
+    @Max(value = LONGITUDE_MAX, message = VALIDATION_LONGITUDE_REQUIRED)
     @Column
     private double longitude;
 
@@ -69,6 +69,6 @@ public abstract class Property {
 
     @NotNull(message= ValidationMessages.VALIDATION_BOOLEAN_REQUIRED)
     @Column(name = "is_lift")
-    private boolean isLift;
+    private boolean isLift; // ¿hay acensor?
 
 }

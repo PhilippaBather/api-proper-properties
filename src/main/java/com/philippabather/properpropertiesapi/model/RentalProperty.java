@@ -1,6 +1,5 @@
 package com.philippabather.properpropertiesapi.model;
 
-import com.philippabather.properpropertiesapi.constants.ValidationMessages;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+
+import static com.philippabather.properpropertiesapi.constants.ValidationMessages.*;
 
 /**
  * RentalProperty - un alquiler
@@ -30,11 +31,11 @@ public class RentalProperty extends Property {
     @Column(name = "id")
     private long id;
 
-    @NotNull(message = "A figure for monthly rent is required.")
+    @NotNull(message = VALIDATION_MONTHLY_REQUIRED)
     @Column(name ="monthly_rent")
     private BigDecimal rentPerMonth;
 
-    @NotNull(message = "A figure for the deposit is required.")
+    @NotNull(message = VALIDATION_DEPOSIT_REQUIRED)
     @Column
     private BigDecimal deposit;
 
@@ -42,11 +43,11 @@ public class RentalProperty extends Property {
     @Column(name = "min_tenancy")
     private int minTenancy;
 
-    @NotNull(message = ValidationMessages.VALIDATION_BOOLEAN_REQUIRED)
+    @NotNull(message = VALIDATION_BOOLEAN_REQUIRED)
     @Column(name = "is_furnished")
     private boolean isFurnished;
 
-    @NotNull(message = ValidationMessages.VALIDATION_BOOLEAN_REQUIRED)
+    @NotNull(message = VALIDATION_BOOLEAN_REQUIRED)
     @Column(name = "is_pet_friendly")
     private boolean isPetFriendly;
 
