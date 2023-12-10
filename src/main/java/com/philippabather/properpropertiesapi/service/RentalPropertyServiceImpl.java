@@ -2,6 +2,7 @@ package com.philippabather.properpropertiesapi.service;
 
 import com.philippabather.properpropertiesapi.exception.PropertyNotFoundException;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
+import com.philippabather.properpropertiesapi.model.PropertyStatus;
 import com.philippabather.properpropertiesapi.model.Proprietor;
 import com.philippabather.properpropertiesapi.model.RentalProperty;
 import com.philippabather.properpropertiesapi.repository.ProprietorRepository;
@@ -55,16 +56,22 @@ public class RentalPropertyServiceImpl implements RentalPropertyService {
     }
 
     @Override
-    public RentalProperty save(long proprietorId, RentalProperty rentalProperty) throws PropertyNotFoundException {
+    public RentalProperty save(long proprietorId, RentalProperty rentalProperty) throws ProprietorNotFoundException {
+        // coge el objeto de Proprietor o lanza una excepción
         Proprietor proprietor = proprietorRepo.findById(proprietorId).orElseThrow(() -> new ProprietorNotFoundException(proprietorId));
-        rentalProperty.setProprietor(proprietor);
 
-        RentalProperty property = rentalRepo.save(rentalProperty);
+        // establece los campos de Proprietor y PropertyStatus
+        rentalProperty.setProprietorRental(proprietor);
+        rentalProperty.setPropertyStatus(PropertyStatus.RENTAL);  // establece por defecto
 
-        proprietor.addRentalProperty(property);
+        // guarda el inmueble
+        RentalProperty savedProperty = rentalRepo.save(rentalProperty);
+
+        // actualiza las detalles del inmueble en el objeto de Proprietor y guarda dicho objeto
+        proprietor.addRentalProperty(savedProperty);
         proprietorService.updatePropertyDetails(proprietor);
 
-        return rentalRepo.save(rentalProperty);
+        return savedProperty;
     }
 
     @Override
@@ -75,36 +82,43 @@ public class RentalPropertyServiceImpl implements RentalPropertyService {
     @Override
     public RentalProperty updateById(long propertyId, RentalProperty rentalPropertyDTOIn) throws PropertyNotFoundException {
         RentalProperty property = rentalRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
-        Proprietor proprietor = property.getProprietor();
 
+        // coge el objeto Proprietor
+        Proprietor proprietor = property.getProprietorRental();
+
+        // mapea el objeto actualizado en el original
         modelMapper.map(rentalPropertyDTOIn, property);
+        // establace campos
         property.setId(propertyId);
-        property.setProprietor(proprietor);
+        property.setProprietorRental(proprietor);
+        property.setPropertyStatus(PropertyStatus.RENTAL);  // establece por defecto
+        // guardalo
+        RentalProperty updatedProperty = rentalRepo.save(property);
 
+        // actualiza el objeto Proprietor
         proprietor.removeRentalProperty(property);
         proprietor.addRentalProperty(property);
-
-        RentalProperty savedProperty = rentalRepo.save(property);
         proprietorService.updatePropertyDetails(proprietor);
 
-        return savedProperty;
+        return updatedProperty;
     }
 
     @Override
     public void deleteById(long propertyId) throws PropertyNotFoundException {
         RentalProperty property = rentalRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
-        Proprietor proprietor = property.getProprietor();
+
+        // actualiza el objeto Proprietor
+        Proprietor proprietor = property.getProprietorRental();
         proprietor.removeRentalProperty(property);
-        rentalRepo.delete(property);
         proprietorService.updatePropertyDetails(proprietor);
+
+        rentalRepo.delete(property);
     }
 
     @Override
     public void deleteAddressById(long propertyId) throws PropertyNotFoundException {
         RentalProperty property = rentalRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
-
         property.setAddress(null);
-
         rentalRepo.save(property);
     }
 }
