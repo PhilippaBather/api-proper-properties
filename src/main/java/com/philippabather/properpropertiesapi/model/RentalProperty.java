@@ -1,6 +1,5 @@
 package com.philippabather.properpropertiesapi.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.philippabather.properpropertiesapi.constants.ValidationMessages;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -15,7 +14,7 @@ import java.math.BigDecimal;
 /**
  * RentalProperty - un alquiler
  *
- * La clase extiende la clase Property.
+ * La clase extiende la clase Property ('inmueble').
  *
  * @author Philippa Bather
  */
@@ -52,9 +51,8 @@ public class RentalProperty extends Property {
     private boolean isPetFriendly;
 
     @ManyToOne
-    @JsonBackReference("rental_property_proprietor")
-    @JoinColumn(name = "proprietor_id")
-    private Proprietor proprietor;
+    @JoinColumn(name = "proprietor_id_rental")
+    private Proprietor proprietorRental;
 
     @OneToOne(cascade = CascadeType.ALL) // elimina la dirección si el inmueble está eliminado
     @JoinColumn(name = "address_id", referencedColumnName = "id")
