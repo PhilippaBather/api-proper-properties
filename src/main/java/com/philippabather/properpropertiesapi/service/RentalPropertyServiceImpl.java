@@ -86,7 +86,7 @@ public class RentalPropertyServiceImpl implements RentalPropertyService {
         // coge el objeto Proprietor
         Proprietor proprietor = property.getProprietorRental();
 
-        // mapea el objeto actualizado en el original
+        // mapea el objeto actualizado al original
         modelMapper.map(rentalPropertyDTOIn, property);
         // establace campos
         property.setId(propertyId);
