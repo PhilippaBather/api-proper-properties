@@ -26,10 +26,8 @@ import java.util.Set;
 @RestController
 public class AddressController {
 
-    // TODO - relationship with Property
-
+    // TODO - mappings for sale address
     private final AddressService addressService;
-
     private final RentalPropertyService rentalService;
 
     public AddressController(AddressService addressService, RentalPropertyService rentalService) {
@@ -63,23 +61,43 @@ public class AddressController {
     }
 
     @PostMapping("/properties/rental/addresses/{propertyId}")
-    public ResponseEntity<AddressDTOOut> createAddress(@PathVariable long propertyId, @Valid @RequestBody AddressDTOIn address) {
+    public ResponseEntity<AddressDTOOut> createRentalAddress(@PathVariable long propertyId, @Valid @RequestBody AddressDTOIn address) {
         AddressDTOOut addressDTOOut = addressService.saveRentalAddress(propertyId, address);
         return new ResponseEntity<>(addressDTOOut, HttpStatus.CREATED);
     }
 
+    @PostMapping("/properties/sale/addresses/{propertyId}")
+    public ResponseEntity<AddressDTOOut> createSaleAddress(@PathVariable long propertyId, @Valid @RequestBody AddressDTOIn address) {
+        AddressDTOOut addressDTOOut = addressService.saveSaleAddress(propertyId, address);
+        return new ResponseEntity<>(addressDTOOut, HttpStatus.CREATED);
+    }
+
     @PutMapping("/properties/rental/addresses/{propertyId}")
-    public ResponseEntity<AddressDTOOut> updateAddressById(@PathVariable long propertyId,
+    public ResponseEntity<AddressDTOOut> updateAddressByRentalPropertyId(@PathVariable long propertyId,
                                                            @Valid @RequestBody AddressDTOIn addressDTOIn)
             throws AddressNotFoundException {
-        AddressDTOOut addressDTOOut = addressService.updateByPropertyId(propertyId, addressDTOIn);
+        AddressDTOOut addressDTOOut = addressService.updateByRentalPropertyId(propertyId, addressDTOIn);
+        return new ResponseEntity<>(addressDTOOut, HttpStatus.OK);
+    }
+
+    @PutMapping("/properties/sale/addresses/{propertyId}")
+    public ResponseEntity<AddressDTOOut> updateAddressBySalePropertyId(@PathVariable long propertyId,
+                                                           @Valid @RequestBody AddressDTOIn addressDTOIn)
+            throws AddressNotFoundException {
+        AddressDTOOut addressDTOOut = addressService.updateBySalePropertyId(propertyId, addressDTOIn);
         return new ResponseEntity<>(addressDTOOut, HttpStatus.OK);
     }
 
     // NOTE: Delete: también dirigido por la relación el @OneToOne(cascade = CascadeType.ALL)
     @DeleteMapping("/properties/rental/addresses/{propertyId}")
     public ResponseEntity<Void> deleteAddressById(@PathVariable long propertyId) throws PropertyNotFoundException {
-        addressService.deleteById(propertyId);
+        addressService.deleteAddressByRentalPropertyId(propertyId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/properties/sale/addresses/{propertyId}")
+    public ResponseEntity<Void> deleteAddressBySalePropertyId(@PathVariable long propertyId) throws PropertyNotFoundException {
+        addressService.deleteAddressBySalePropertyId(propertyId);
         return ResponseEntity.noContent().build();
     }
 
