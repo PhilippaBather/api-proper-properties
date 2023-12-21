@@ -1,6 +1,5 @@
 package com.philippabather.properpropertiesapi.dto;
 
-import com.philippabather.properpropertiesapi.model.Country;
 import com.philippabather.properpropertiesapi.model.Region;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,5 +22,5 @@ public class AddressDTOOut {
     private String town; // pueblo o ciudad
     private Region region;
     private String postCode;
-    private Country country;
+
 }

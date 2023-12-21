@@ -1,6 +1,5 @@
 package com.philippabather.properpropertiesapi.dto;
 
-import com.philippabather.properpropertiesapi.model.Country;
 import com.philippabather.properpropertiesapi.model.Region;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -34,7 +33,5 @@ public class AddressDTOIn {
 
     @NotBlank(message = VALIDATION_ADDRESS_POSTCODE)
     private String postCode;
-
-    private Country country;
 
 }

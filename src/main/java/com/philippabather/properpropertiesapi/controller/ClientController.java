@@ -43,7 +43,7 @@ public class ClientController {
             clients = clientService.findAllBySurname(surname);
         } else if (name.trim().length() >= 1) {
             clients = clientService.findAllByName(name);
-        } else if (dob.trim().length() >= 1) {
+        } else if (dob.trim().length() >= 10) {  // 10 porque Local date min 10 chars, por ej. 1999-10-10
             clients = clientService.findAllByDOB(LocalDate.parse(dob));
         }
 

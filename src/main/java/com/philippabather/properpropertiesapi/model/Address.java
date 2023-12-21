@@ -19,8 +19,6 @@ import static com.philippabather.properpropertiesapi.constants.ValidationMessage
 @Entity(name = "Addresses")
 public class Address {
 
-    // TODO - relationship between Address and Property
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -47,6 +45,4 @@ public class Address {
     @Column
     private String postCode;
 
-    @Column
-    private Country country;
 }

@@ -1,19 +1,20 @@
 package com.philippabather.properpropertiesapi.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import static com.philippabather.properpropertiesapi.constants.ValidationMessages.*;
 
 /**
- * RentalProperty - un alquiler
+ * SaleProperty - un inmueble para vender
  *
  * La clase extiende la clase Property ('inmueble').
  *
@@ -23,37 +24,30 @@ import static com.philippabather.properpropertiesapi.constants.ValidationMessage
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "rental_properties")
-public class RentalProperty extends Property {
+@Entity(name = "sale_properties")
+public class SaleProperty extends Property {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name = "id")
     private long id;
 
-    @NotNull(message = VALIDATION_MONTHLY_REQUIRED)
-    @Column(name ="monthly_rent")
-    private BigDecimal rentPerMonth;
-
-    @NotNull(message = VALIDATION_DEPOSIT_REQUIRED)
+    @NotNull(message = VALIDATION_SALE_PRICE)
     @Column
-    private BigDecimal deposit;
-
-    @Min(3)
-    @Column(name = "min_tenancy")
-    private int minTenancy;
+    private BigDecimal price;
 
     @NotNull(message = VALIDATION_BOOLEAN_REQUIRED)
-    @Column(name = "is_furnished")
-    private boolean isFurnished;
+    @Column(name = "is_leasehold")
+    private boolean isLeasehold;
 
-    @NotNull(message = VALIDATION_BOOLEAN_REQUIRED)
-    @Column(name = "is_pet_friendly")
-    private boolean isPetFriendly;
+    @NotNull(message = VALIDATION_SALE_CONSTRUCTION_DATE)
+    @DateTimeFormat
+    @Column(name = "construction_date")
+    private LocalDate constructionDate;
 
     @ManyToOne
-    @JoinColumn(name = "proprietor_id_rental")
-    private Proprietor proprietorRental;
+    @JoinColumn(name = "proprietor_id_sale")
+    private Proprietor proprietorSale;
 
     @OneToOne(cascade = CascadeType.ALL) // elimina la dirección si el inmueble está eliminado
     @JoinColumn(name = "address_id", referencedColumnName = "id")

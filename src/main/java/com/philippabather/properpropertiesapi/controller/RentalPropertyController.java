@@ -23,9 +23,6 @@ import java.util.Set;
 @RestController
 public class RentalPropertyController {
 
-    // TODO DTOs
-    // TODO validation
-
     private final RentalPropertyService rentalService;
 
     public RentalPropertyController(RentalPropertyService rentalService) {
@@ -48,7 +45,7 @@ public class RentalPropertyController {
             rentalProperties = rentalService.findByNumBedrooms(numBedrooms);
         } else if (minTenancy > 0) {
             rentalProperties = rentalService.findAllByMinTenancy(minTenancy);
-        } else if (!monthlyRent.equals("0.00")) {
+        } else if (!monthlyRent.toString().equals("0.00")) {
             rentalProperties = rentalService.findAllByMonthlyRent(monthlyRent);
         }
 
@@ -57,7 +54,7 @@ public class RentalPropertyController {
 
 
     @PostMapping("/properties/rental/{proprietorId}")
-    public ResponseEntity<RentalProperty> createProperty(@PathVariable long proprietorId, @Valid @RequestBody RentalProperty rentalProperty)
+    public ResponseEntity<RentalProperty> createRentalProperty(@PathVariable long proprietorId, @Valid @RequestBody RentalProperty rentalProperty)
             throws ProprietorNotFoundException {
         RentalProperty property = rentalService.save(proprietorId, rentalProperty);
         return new ResponseEntity<>(property, HttpStatus.CREATED);
