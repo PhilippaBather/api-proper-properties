@@ -13,13 +13,12 @@ import java.util.Set;
  *
  * @author Philippa Bather
  */
-
 @Repository
 public interface AddressRepository extends CrudRepository<Address, Long> {
 
-    Set<Address> getAll();
-    Set<Address> getAllByPostCode(String postcode);
-    Set<Address> getAllByRegion(Region region);
-    Set<Address> getAllByTown(String town);
+    Set<Address> findAll();
+    Set<Address> findAllByPostCode(String postcode);
+    Set<Address> findAllByRegion(Region region);
+    Set<Address> findAllByTown(String town);
     Optional<Address> findById(long addressId);
 }

@@ -2,13 +2,14 @@ package com.philippabather.properpropertiesapi.service;
 
 import com.philippabather.properpropertiesapi.dto.AddressDTOIn;
 import com.philippabather.properpropertiesapi.dto.AddressDTOOut;
-import com.philippabather.properpropertiesapi.dto.PropertyDTOOut;
 import com.philippabather.properpropertiesapi.exception.AddressNotFoundException;
+import com.philippabather.properpropertiesapi.exception.PropertyNotFoundException;
 import com.philippabather.properpropertiesapi.exception.RegionNotFoundException;
 import com.philippabather.properpropertiesapi.model.Address;
-import com.philippabather.properpropertiesapi.model.Property;
 import com.philippabather.properpropertiesapi.model.Region;
+import com.philippabather.properpropertiesapi.model.RentalProperty;
 import com.philippabather.properpropertiesapi.repository.AddressRepository;
+import com.philippabather.properpropertiesapi.repository.RentalPropertyRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * AddressServiceImpl - implementa la interfaz de servicio AddressServoce; maneja información sobre la entidad Address ('dirección').
+ * AddressServiceImpl - implementa la interfaz de servicio AddressService; maneja información sobre la entidad Address ('dirección').
  *
  * @author Philippa Bather
  */
@@ -24,45 +25,52 @@ import java.util.Set;
 public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepo;
-
+    private final RentalPropertyRepository rentalRepo;
+    private final RentalPropertyService rentalService;
     private final ModelMapper modelMapper;
 
-    public AddressServiceImpl(AddressRepository addressRepo, ModelMapper modelMapper) {
+    public AddressServiceImpl(AddressRepository addressRepo, RentalPropertyRepository rentalRepo, RentalPropertyService rentalService, ModelMapper modelMapper) {
         this.addressRepo = addressRepo;
+        this.rentalRepo = rentalRepo;
+        this.rentalService = rentalService;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public Set<AddressDTOOut> getAll() {
-        Set<Address> addresses = addressRepo.getAll();
+    public Set<AddressDTOOut> findAll() {
+        Set<Address> addresses = addressRepo.findAll();
         return convertToAddressDTOOutSet(addresses);
     }
 
     @Override
-    public Set<AddressDTOOut> getAllByPostcode(String postcode) {
-        Set<Address> addresses = addressRepo.getAllByPostCode(postcode);
+    public Set<AddressDTOOut> findAllByPostcode(String postcode) {
+        Set<Address> addresses = addressRepo.findAllByPostCode(postcode);
         return convertToAddressDTOOutSet(addresses);
     }
 
     @Override
-    public Set<AddressDTOOut> getAllByRegion(String region) throws RegionNotFoundException {
+    public Set<AddressDTOOut> findAllByRegion(String region) throws RegionNotFoundException {
         Region regionEnum = getRegionEnum(region);
-        Set<Address> addresses = addressRepo.getAllByRegion(regionEnum);
+        Set<Address> addresses = addressRepo.findAllByRegion(regionEnum);
         return convertToAddressDTOOutSet(addresses);
     }
 
     @Override
-    public Set<AddressDTOOut> getAllByTown(String town) {
-        Set<Address> addresses = addressRepo.getAllByTown(town);
+    public Set<AddressDTOOut> findAllByTown(String town) {
+        Set<Address> addresses = addressRepo.findAllByTown(town);
         return convertToAddressDTOOutSet(addresses);
     }
 
     @Override
-    public AddressDTOOut save(AddressDTOIn addressDTOIn) {
+    public AddressDTOOut saveRentalAddress(long propertyId, AddressDTOIn addressDTOIn) {
+        RentalProperty rentalProperty = rentalRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
+
         Address address = new Address();
         modelMapper.map(addressDTOIn, address);
 
         Address savedAddress = addressRepo.save(address);
+        rentalProperty.setAddress(savedAddress);
+        rentalRepo.save(rentalProperty);
 
         AddressDTOOut addressDTOOut = new AddressDTOOut();
         modelMapper.map(savedAddress, addressDTOOut);
@@ -79,12 +87,17 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressDTOOut updateById(long addressId, AddressDTOIn addressDTOIn) throws AddressNotFoundException {
-        Address address = addressRepo.findById(addressId).orElseThrow(() -> new AddressNotFoundException(addressId));
+    public AddressDTOOut updateByPropertyId(long propertyId, AddressDTOIn addressDTOIn) throws AddressNotFoundException {
+        RentalProperty property = rentalRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
+        long addressId = property.getAddress().getId();
+
+        Address address = new Address();
         modelMapper.map(addressDTOIn, address);
         address.setId(addressId);
 
         Address updatedAddress = addressRepo.save(address);
+        property.setAddress(updatedAddress);
+        rentalRepo.save(property);
 
         AddressDTOOut addressDTOOut = new AddressDTOOut();
         modelMapper.map(updatedAddress, addressDTOOut);
@@ -92,7 +105,10 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void deleteById(long addressId) throws AddressNotFoundException {
+    public void deleteById(long propertyId) throws AddressNotFoundException, PropertyNotFoundException {
+        RentalProperty property = rentalRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
+        long addressId = property.getAddress().getId();
+        rentalService.deleteAddressById(propertyId);
         Address address = addressRepo.findById(addressId).orElseThrow(() -> new AddressNotFoundException(addressId));
         addressRepo.delete(address);
     }

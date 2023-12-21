@@ -81,7 +81,7 @@ public class ProprietorServiceImpl implements ProprietorService {
     }
 
     @Override
-    public void update(Proprietor proprietor) {
+    public void updatePropertyDetails(Proprietor proprietor) {
         proprietorRepo.save(proprietor);
     }
 

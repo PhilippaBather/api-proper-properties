@@ -12,7 +12,6 @@ import java.util.Set;
  *
  * @author Philippa Bather
  */
-
 public interface ProprietorService {
 
     Set<ProprietorDTOOut> findAll();
@@ -22,6 +21,6 @@ public interface ProprietorService {
     ProprietorDTOOut save(ProprietorDTOIn proprietorDTOIn);
     ProprietorDTOOut findById(long proprietorId) throws ProprietorNotFoundException;
     ProprietorDTOOut updateById(long proprietorId, ProprietorDTOIn proprietorDTOIn) throws ProprietorNotFoundException;
-    void update(Proprietor proprietor);
+    void updatePropertyDetails(Proprietor proprietor);
     void deleteById(long proprietorId) throws ProprietorNotFoundException;
 }

@@ -13,7 +13,6 @@ import java.util.Set;
  *
  * @author Philippa Bather
  */
-
 @Repository
 public interface ClientRepository extends CrudRepository<Client, Long> {
 
@@ -21,8 +20,6 @@ public interface ClientRepository extends CrudRepository<Client, Long> {
     Set<Client> findAllBySurname(String surname);
     Set<Client> findAllByName(String name);
     Set<Client> findAllByDob(LocalDate dob);
-    Client save(Client client);
-
     Optional<Client> findById(long clientId);
 
 }

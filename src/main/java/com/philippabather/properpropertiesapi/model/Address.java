@@ -38,7 +38,7 @@ public class Address {
 
     @NotBlank(message = VALIDATION_ADDRESS_CITY)
     @Column
-    private String city; // pueblo o ciudad
+    private String town; // pueblo o ciudad
 
     @Column
     private Region region;
