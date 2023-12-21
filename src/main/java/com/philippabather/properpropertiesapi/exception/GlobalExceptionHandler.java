@@ -27,6 +27,15 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(value = HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE) // 406 || 400 (Parse Error)
+    public Response handleException(HttpMessageNotReadableException hmnre) {
+        if(checkForParseError(hmnre)) {
+            return new Response(ErrorType.JSON_PARSE_ERROR.getCode(), ErrorType.JSON_PARSE_ERROR.getHttpStatus(), ErrorMessages.JSON_PARSE_ERROR);
+        }
+        return new Response(ErrorType.NOT_ACCEPTABLE.getCode(), ErrorType.NOT_ACCEPTABLE.getHttpStatus(), hmnre.getMessage());
+    }
+
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY) // 422
     public ValidationErrorResponseModel handleException(MethodArgumentNotValidException manve) {
@@ -39,20 +48,12 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
-    @ExceptionHandler(value = HttpMessageNotReadableException.class)
-    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE) // 406 || 400 (Parse Error)
-    public Response handleException(HttpMessageNotReadableException hmnre) {
-        if(checkForParseError(hmnre)) {
-            return new Response(ErrorType.JSON_PARSE_ERROR.getCode(), ErrorType.JSON_PARSE_ERROR.getHttpStatus(), ErrorMessages.JSON_PARSE_ERROR);
-        }
-        return new Response(ErrorType.NOT_ACCEPTABLE.getCode(), ErrorType.NOT_ACCEPTABLE.getHttpStatus(), hmnre.getMessage());
-    }
-
     @ExceptionHandler(value = HttpServerErrorException.InternalServerError.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // 500
     public Response handleException(HttpServerErrorException.InternalServerError ise) {
         return new Response(ErrorType.INTERNAL_SERVER_ERROR.getCode(), ErrorType.INTERNAL_SERVER_ERROR.getHttpStatus(), ise.getMessage());
     }
+
 
     // custom exceptions
 
