@@ -73,18 +73,12 @@ public class AddressServiceImpl implements AddressService {
     public AddressDTOOut saveRentalAddress(long propertyId, AddressDTOIn addressDTOIn) {
         RentalProperty rentalProperty = rentalRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
 
-//        Address address = new Address();
-//        modelMapper.map(addressDTOIn, address);
         Address address = addressInMapping(addressDTOIn);
         Address savedAddress = addressRepo.save(address);
 
         rentalProperty.setAddress(savedAddress);
         rentalRepo.save(rentalProperty);
 
-//        AddressDTOOut addressDTOOut = new AddressDTOOut();
-//        modelMapper.map(savedAddress, addressDTOOut);
-
-//        return addressDTOOut;
         return addressOutMapping(savedAddress);
     }
 
@@ -104,8 +98,6 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressDTOOut getById(long addressId) throws AddressNotFoundException {
         Address address = addressRepo.findById(addressId).orElseThrow(() -> new AddressNotFoundException(addressId));
-//        AddressDTOOut addressDTOOut = new AddressDTOOut();
-//        modelMapper.map(address, addressDTOOut);
         return addressOutMapping(address);
     }
 
@@ -114,8 +106,6 @@ public class AddressServiceImpl implements AddressService {
         RentalProperty property = rentalRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
         long addressId = property.getAddress().getId();
 
-//        Address address = new Address();
-//        modelMapper.map(addressDTOIn, address);
         Address address = addressInMapping(addressDTOIn);
         address.setId(addressId);
 
@@ -123,9 +113,6 @@ public class AddressServiceImpl implements AddressService {
         property.setAddress(updatedAddress);
         rentalRepo.save(property);
 
-//        AddressDTOOut addressDTOOut = new AddressDTOOut();
-//        modelMapper.map(updatedAddress, addressDTOOut);
-//        return addressDTOOut;
         return addressOutMapping(updatedAddress);
     }
 
