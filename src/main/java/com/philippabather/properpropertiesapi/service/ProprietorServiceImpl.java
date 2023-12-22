@@ -2,13 +2,19 @@ package com.philippabather.properpropertiesapi.service;
 
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOIn;
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOOut;
+import com.philippabather.properpropertiesapi.dto.RentalDTOOut;
+import com.philippabather.properpropertiesapi.dto.SaleDTOOut;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
 import com.philippabather.properpropertiesapi.model.Proprietor;
+import com.philippabather.properpropertiesapi.model.RentalProperty;
+import com.philippabather.properpropertiesapi.model.SaleProperty;
 import com.philippabather.properpropertiesapi.repository.ProprietorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,25 +37,25 @@ public class ProprietorServiceImpl implements ProprietorService {
     @Override
     public Set<ProprietorDTOOut> findAll() {
         Set<Proprietor> proprietors = proprietorRepo.findAll();
-        return convertToClientDTOOutSet(proprietors);
+        return convertToProprietorDTOOutSet(proprietors);
     }
 
     @Override
     public Set<ProprietorDTOOut> findAllBySurname(String surname) {
         Set<Proprietor> proprietors = proprietorRepo.findAllBySurname(surname);
-        return convertToClientDTOOutSet(proprietors);
+        return convertToProprietorDTOOutSet(proprietors);
     }
 
     @Override
     public Set<ProprietorDTOOut> findAllByIsAgency(boolean isAgency) {
         Set<Proprietor> proprietors = proprietorRepo.findAllByIsAgency(isAgency);
-        return convertToClientDTOOutSet(proprietors);
+        return convertToProprietorDTOOutSet(proprietors);
     }
 
     @Override
     public Set<ProprietorDTOOut> findAllByNumProperties(int numProperties) {
         Set<Proprietor> proprietors = proprietorRepo.findAllByNumProperties(numProperties);
-        return convertToClientDTOOutSet(proprietors);
+        return convertToProprietorDTOOutSet(proprietors);
     }
 
     @Override
@@ -65,8 +71,19 @@ public class ProprietorServiceImpl implements ProprietorService {
     @Override
     public ProprietorDTOOut findById(long proprietorId) throws ProprietorNotFoundException {
         Proprietor proprietor = proprietorRepo.findById(proprietorId).orElseThrow(() -> new ProprietorNotFoundException(proprietorId));
+
+        List<RentalProperty> rentals = proprietor.getRentalPropertyList();
+        List<SaleProperty> sales = proprietor.getSalePropertyList();
+
         ProprietorDTOOut proprietorDTOOut = new ProprietorDTOOut();
         modelMapper.map(proprietor, proprietorDTOOut);
+
+        // convert list of sale and rental properties to their DTOs
+        List<RentalDTOOut> rentalsDTO = convertToRentalDTOOutList(rentals);
+        List<SaleDTOOut> salesDTO = convertToSaleDTOOutList(sales);
+        proprietorDTOOut.setRentalPropertyList(rentalsDTO);
+        proprietorDTOOut.setSalePropertyList(salesDTO);
+
         return proprietorDTOOut;
     }
 
@@ -91,7 +108,7 @@ public class ProprietorServiceImpl implements ProprietorService {
         proprietorRepo.delete(proprietor);
     }
 
-    private Set<ProprietorDTOOut> convertToClientDTOOutSet(Set<Proprietor> proprietors) {
+    private Set<ProprietorDTOOut> convertToProprietorDTOOutSet(Set<Proprietor> proprietors) {
         Set<ProprietorDTOOut> proprietorsDTOOut = new HashSet<>();
 
         for (Proprietor proprietor :
@@ -102,5 +119,31 @@ public class ProprietorServiceImpl implements ProprietorService {
         }
 
         return proprietorsDTOOut;
+    }
+
+    private List<RentalDTOOut> convertToRentalDTOOutList(List<RentalProperty> rentalProperties) {
+        List<RentalDTOOut> rentalsDTOOut = new ArrayList<>();
+
+        for (RentalProperty rental :
+                rentalProperties) {
+            RentalDTOOut rentalDTOOut = new RentalDTOOut();
+            modelMapper.map(rental, rentalDTOOut);
+            rentalsDTOOut.add(rentalDTOOut);
+        }
+
+        return rentalsDTOOut;
+    }
+
+    private List<SaleDTOOut> convertToSaleDTOOutList(List<SaleProperty> saleProperties) {
+        List<SaleDTOOut> salesDTOOut = new ArrayList<>();
+
+        for (SaleProperty sale :
+                saleProperties) {
+            SaleDTOOut saleDTOOut = new SaleDTOOut();
+            modelMapper.map(sale, saleDTOOut);
+            salesDTOOut.add(saleDTOOut);
+        }
+
+        return salesDTOOut;
     }
 }
