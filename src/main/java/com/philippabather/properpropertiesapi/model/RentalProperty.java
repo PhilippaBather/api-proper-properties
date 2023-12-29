@@ -1,5 +1,6 @@
 package com.philippabather.properpropertiesapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -13,9 +14,7 @@ import java.math.BigDecimal;
 import static com.philippabather.properpropertiesapi.constants.ValidationMessages.*;
 
 /**
- * RentalProperty - un alquiler
- *
- * La clase extiende la clase Property ('inmueble').
+ * RentalProperty - un alquiler.  La clase extiende la clase Property ('inmueble').
  *
  * @author Philippa Bather
  */
@@ -43,10 +42,12 @@ public class RentalProperty extends Property {
     @Column(name = "min_tenancy")
     private int minTenancy;
 
+    @JsonProperty
     @NotNull(message = VALIDATION_BOOLEAN_REQUIRED)
     @Column(name = "is_furnished")
     private boolean isFurnished;
 
+    @JsonProperty
     @NotNull(message = VALIDATION_BOOLEAN_REQUIRED)
     @Column(name = "is_pet_friendly")
     private boolean isPetFriendly;

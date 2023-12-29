@@ -1,5 +1,6 @@
 package com.philippabather.properpropertiesapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.philippabather.properpropertiesapi.constants.ValidationMessages;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class ClientDTOIn extends UserDTOIn {
     @DateTimeFormat
     private LocalDate dob; // fecha de nacimiento (date of birth)
 
+    @JsonProperty
     @NotNull(message= ValidationMessages.VALIDATION_BOOLEAN_REQUIRED)
     private Boolean isStudent;
 }

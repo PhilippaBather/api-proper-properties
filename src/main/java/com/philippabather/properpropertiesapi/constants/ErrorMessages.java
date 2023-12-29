@@ -8,6 +8,7 @@ package com.philippabather.properpropertiesapi.constants;
 public class ErrorMessages {
     public static final String ADDRESS_NOT_FOUND_EXCEPTION_MSG = "Address not found with ID: ";
     public static final String CLIENT_NOT_FOUND_EXCEPTION_MSG = "Client not found with ID: ";
+    public static final String LOGIN_INVALID = "Invalid login for username: ";
     public static final String PROPRIETOR_NOT_FOUND_EXCEPTION_MSG = "Proprietor not found with ID: ";
     public static final String PROPERTY_NOT_FOUND_EXCEPTION_MSG = "Property not found with ID: ";
     public static final String PROPERTY_STATUS_NOT_FOUND_EXCEPTION_MSG = ": property status not found; valid statuses are RENTAL or SALE";

@@ -71,6 +71,13 @@ public class GlobalExceptionHandler {
         return new Response(ErrorType.CLIENT_NOT_FOUND.getCode(), ErrorType.CLIENT_NOT_FOUND.getHttpStatus(), cnfe.getMessage());
     }
 
+    @ExceptionHandler(value = InvalidLoginException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response handleException(InvalidLoginException ile) {
+        return new Response(ErrorType.INVALID_LOGIN.getCode(), ErrorType.INVALID_LOGIN.getHttpStatus(), ile.getMessage());
+    }
+
     @ExceptionHandler(value = ProprietorNotFoundException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND) // 404

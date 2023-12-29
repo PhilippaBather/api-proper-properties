@@ -2,6 +2,7 @@ package com.philippabather.properpropertiesapi.controller;
 
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOIn;
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOOut;
+import com.philippabather.properpropertiesapi.exception.InvalidLoginException;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
 import com.philippabather.properpropertiesapi.service.ProprietorService;
 import jakarta.validation.Valid;
@@ -32,18 +33,18 @@ public class ProprietorController {
     @GetMapping("/users/proprietors")
     public ResponseEntity<Set<ProprietorDTOOut>> getAllProprietors(@RequestParam(value = "surname", defaultValue = "")
                                                                    String surname,
-                                                                   @RequestParam(value = "isAgency", defaultValue = "false")
-                                                                   boolean isAgency,
+                                                                   @RequestParam(value = "telephone", defaultValue = "")
+                                                                   String telephone,
                                                                    @RequestParam(value = "numProperties", defaultValue = "0")
                                                                    int numProperties) {
         Set<ProprietorDTOOut> proprietors = new HashSet<>();
 
-        if (surname.trim().equals("") && !isAgency && numProperties == 0) {
+        if (surname.trim().equals("") && telephone.trim().equals("") && numProperties == 0) {
             proprietors = proprietorService.findAll();
         } else if (surname.trim().length() >= 1) {
             proprietors = proprietorService.findAllBySurname(surname);
-        } else if (isAgency) {
-            proprietors = proprietorService.findAllByIsAgency(isAgency);
+        } else if (telephone.trim().length() >= 9) { // tamaño de número de teléfono
+            proprietors = proprietorService.findAllByTelephone(telephone);
         } else if (numProperties > 0) {
             proprietors = proprietorService.findAllByNumProperties(numProperties);
         }
@@ -60,6 +61,13 @@ public class ProprietorController {
     @GetMapping("/users/proprietors/{proprietorId}")
     public ResponseEntity<ProprietorDTOOut> findProprietorById(@PathVariable long proprietorId) throws ProprietorNotFoundException {
         ProprietorDTOOut proprietor = proprietorService.findById(proprietorId);
+        return new ResponseEntity<>(proprietor, HttpStatus.OK);
+    }
+
+    @GetMapping("/users/proprietors/{username}/{password}")
+    public ResponseEntity<ProprietorDTOOut> findProprietorByUsernameAndPassword(@PathVariable String username, @PathVariable String password)
+            throws InvalidLoginException {
+        ProprietorDTOOut proprietor = proprietorService.findByUsernameAndPassword(username, password);
         return new ResponseEntity<>(proprietor, HttpStatus.OK);
     }
 

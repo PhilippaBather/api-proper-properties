@@ -1,5 +1,6 @@
 package com.philippabather.properpropertiesapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.philippabather.properpropertiesapi.constants.ValidationMessages;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
@@ -50,7 +51,6 @@ public abstract class Property {
     @Column
     private String description;
 
-    @NotNull(message = VALIDATION_DATE)
     @DateTimeFormat
     @Column
     private LocalDate availableFrom; // disponibleDesde
@@ -63,10 +63,12 @@ public abstract class Property {
     @Column
     private int numBathrooms;
 
+    @JsonProperty
     @NotNull(message= ValidationMessages.VALIDATION_BOOLEAN_REQUIRED)
     @Column(name = "is_parking")
     private boolean isParking;
 
+    @JsonProperty
     @NotNull(message= ValidationMessages.VALIDATION_BOOLEAN_REQUIRED)
     @Column(name = "is_lift")
     private boolean isLift; // ¿hay acensor?

@@ -40,7 +40,6 @@ public class PropertyDTOIn {
 
     private String description;
 
-    @NotNull(message = VALIDATION_DATE)
     @DateTimeFormat
     private LocalDate availableFrom; // disponibleDesde
 

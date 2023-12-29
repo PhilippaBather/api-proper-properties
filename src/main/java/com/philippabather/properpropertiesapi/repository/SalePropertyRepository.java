@@ -15,6 +15,6 @@ public interface SalePropertyRepository extends CrudRepository<SaleProperty, Lon
     Set<SaleProperty> findAll();
     Set<SaleProperty> findAllByPrice(BigDecimal price);
     Set<SaleProperty> findAllByConstructionDate(LocalDate constructionDate);
-    Set<SaleProperty> findAllByIsLeasehold(boolean isLeasehold);
+    Set<SaleProperty> findAllByMetresSqr(int metresSqr);
     Optional<SaleProperty> findById(long propertyId);
 }

@@ -35,18 +35,18 @@ public class SalePropertyController {
                                                                   BigDecimal price,
                                                                   @RequestParam(name = "constructionDate", defaultValue = "")
                                                                   String constructionDate,
-                                                                  @RequestParam(name = "isLeasehold", defaultValue = "false")
-                                                                  boolean isLeasehold) {
+                                                                  @RequestParam(name = "metresSqr", defaultValue = "0")
+                                                                  int metresSqr) {
         Set<SaleProperty> properties = new HashSet<>();
 
-        if (price.toString().equals("0.00") && constructionDate.equals("") && !isLeasehold) {
+        if (price.toString().equals("0.00") && constructionDate.equals("") && metresSqr == 0) {
             properties = saleService.findAll();
         } else if (!price.toString().equals("0.00")) {
             properties = saleService.findAllByPrice(price);
         } else if (constructionDate.trim().length() >= 10) {  // 10 porque Local date min 10 chars, por ej. 1999-10-10
             properties = saleService.findAllByConstructionDate(LocalDate.parse(constructionDate));
-        } else if (isLeasehold) {
-            properties = saleService.findAllByIsLeasehold(isLeasehold);
+        } else if (metresSqr > 10) {
+            properties = saleService.findAllByMetresSqr(metresSqr);
         }
 
         return new ResponseEntity<>(properties, HttpStatus.OK);

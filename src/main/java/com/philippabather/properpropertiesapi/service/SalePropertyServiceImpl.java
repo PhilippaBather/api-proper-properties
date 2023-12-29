@@ -46,8 +46,8 @@ public class SalePropertyServiceImpl implements SalePropertyService{
     }
 
     @Override
-    public Set<SaleProperty> findAllByIsLeasehold(boolean isLeasehold) {
-        return saleRepo.findAllByIsLeasehold(isLeasehold);
+    public Set<SaleProperty> findAllByMetresSqr(int metresSqr) {
+        return saleRepo.findAllByMetresSqr(metresSqr);
     }
 
     @Override

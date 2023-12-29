@@ -1,6 +1,7 @@
 package com.philippabather.properpropertiesapi.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -34,6 +35,7 @@ public class Proprietor extends User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonProperty
     @NotNull(message= VALIDATION_BOOLEAN_REQUIRED)
     @Column(name ="is_agency")
     private boolean isAgency;

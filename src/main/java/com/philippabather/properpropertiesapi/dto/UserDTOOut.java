@@ -21,5 +21,4 @@ public class UserDTOOut {
     private String name;
     private String surname;
     private String email;
-    private LocalDateTime accountCreated; // fecha de la creacíón de la cuenta
 }

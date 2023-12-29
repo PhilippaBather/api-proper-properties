@@ -13,7 +13,7 @@ public interface SalePropertyService {
     Set<SaleProperty> findAll();
     Set<SaleProperty> findAllByPrice(BigDecimal price);
     Set<SaleProperty> findAllByConstructionDate(LocalDate constructionDate);
-    Set<SaleProperty> findAllByIsLeasehold(boolean isLeasehold);
+    Set<SaleProperty> findAllByMetresSqr(int metresSqr);
     SaleProperty save(long proprietorId, SaleProperty saleProperty) throws ProprietorNotFoundException;
     SaleProperty findById(long propertyId) throws PropertyNotFoundException;
     SaleProperty updateById(long propertyId, SaleProperty saleProperty) throws PropertyNotFoundException;
