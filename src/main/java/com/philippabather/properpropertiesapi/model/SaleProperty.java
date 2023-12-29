@@ -1,5 +1,6 @@
 package com.philippabather.properpropertiesapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -36,11 +37,11 @@ public class SaleProperty extends Property {
     @Column
     private BigDecimal price;
 
+    @JsonProperty
     @NotNull(message = VALIDATION_BOOLEAN_REQUIRED)
     @Column(name = "is_leasehold")
     private boolean isLeasehold;
 
-    @NotNull(message = VALIDATION_SALE_CONSTRUCTION_DATE)
     @DateTimeFormat
     @Column(name = "construction_date")
     private LocalDate constructionDate;

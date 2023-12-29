@@ -1,5 +1,6 @@
 package com.philippabather.properpropertiesapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.philippabather.properpropertiesapi.constants.ValidationMessages;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -37,6 +38,7 @@ public class Client extends User {
     @Column
     private LocalDate dob; // fecha de nacimiento (date of birth)
 
+    @JsonProperty
     @NotNull(message= ValidationMessages.VALIDATION_BOOLEAN_REQUIRED)
     @Column(name = "is_student")
     private Boolean isStudent;
