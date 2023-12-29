@@ -10,8 +10,10 @@ tags:
     description: Operaciones para fetch, add, update, y delete clientes ('Clients')
   - name: proprietors
     description: Operaciones para fetch, add, update, y delete propietarios ('Proprietor')
-  - name: properties
-    description: Operaciones para fetch, add, update, y delete inmuebles ('Property')
+  - name: rental
+    description: Operaciones para fetch, add, update, y delete inmuebles de alquiler ('RentalProperty')
+  - name: sale
+    description: Operaciones para fetch, add, update, y delete inmuebles para vender ('SaleProperty')
   - name: addresses
     description: Operaciones para fetch, add, update, y delete direcciones ('Address')
 paths:
@@ -235,12 +237,12 @@ paths:
           required: false
           schema:
             type: string
-        - name: isAgency
+        - name: telephone
           in: query
-          description: Indica si el propietario es un inmobilario (true) o no (false)
+          description: El número de teléfono de un usuario
           required: false
           schema:
-            type: boolean
+            type: string
         - name: numProperties
           in: query
           description: El número de inmuebles
@@ -428,26 +430,53 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /properties:
+  /users/proprietors/{username}/{password}:
     get:
       tags:
-        - properties
-      operationId: getAllProperties
-      summary: Devuelve una lista de todos los inmuebles o todos los inmuebles según un parámetro especificado
-      description: Devuelve una lista de todos los inmuebles o todos los inmuebles según un parámetro especificado
+        - proprietors
+      operationId: getProperietorByUsernameAndPassword
+      summary: Devuelve un usuario por su nombre del usuario y contraseña
+      description: Devuelve un usuario por su nombre del usuario y contraseña
       parameters:
-        - name: propertyStatus
-          in: query
-          description: El estado de inmueble, para alquiler (RENTAL) o vender (SALE)
-          required: false
+        - name: username
+          in: path variable
+          description: El nombre del usuario
+          required: true
           schema:
             type: string
-        - name: propertyType
-          in: query
-          description: El tipo de inmueble, comercial (COMMERCIAL), piso (FLAT), o casa (HOUSE)
-          required: false
+        - name: password
+          in: path variable
+          description: La constraseña del usuario
+          required: true
           schema:
             type: string
+      responses:
+          '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ProprietorDTOOut"
+          '404':
+            description: Invalid Username or Password
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ErrorResponse"
+          '500':
+            description: Internal Server Error
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ErrorResponse"
+  /properties/rental:
+    get:
+      tags:
+        - rental
+      operationId: getAllRentalProperties
+      summary: Devuelve una lista de todos los inmuebles de alquiler o todos los inmuebles de alquiler según un parámetro especificado
+      description: Devuelve una lista de todos los inmuebles de alquiler o todos los inmuebles de alquiler según un parámetro especificado
+      parameters:
         - name: numBedrooms
           in: query
           description: El número de habitaciones
@@ -455,45 +484,53 @@ paths:
           schema:
             type: integer
             format: int32
+        - name: minTenancy
+          in: query
+          description: El mínimo periodio de alquiler
+          required: false
+          schema:
+            type: num
+            format: int32
+        - name: monthlyRent
+          in: query
+          description: El precio de alquiler cada mes
+          required: false
+          schema:
+            type: number
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PropertyDTOOut"
-        '404':
-          description: Property Status Not Found | Property Type Not Found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: "#/components/schemas/RentalProperty"
         '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /properties/rental/{proprietorId}:
     post:
       tags:
-        - properties
-      operationId: saveProperty
-      summary: Guarda un nuevo inmueble
-      description: Valida un objeto Property ('inmueble') y crea un nuevo Property para guardar en el base de datos.
+        - rental
+      operationId: saveRentalProperty
+      summary: Guarda un nuevo inmueble de alquiler
+      description: Valida un objeto de inmueble de alquiler y crea un nuevo entidad para guardar en el base de datos.
       requestBody:
-        description: Un nuevo inmueblo
+        description: Un nuevo inmueblo de alquiler
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PropertyDTOIn"
+              $ref: "#/components/schemas/RentalProperty"
       responses:
         '201':
           description: Created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PropertyDTOOut"
+                $ref: "#/components/schemas/RentalProperty"
         '400':
           description: Parse Error
           content:
@@ -518,13 +555,13 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /properties/{propertyId}:
+  /properties/rental/{propertyId}:
     get:
       tags:
-        - properties
-      operationId: getPropertyById
-      summary: Devuelve un inmueble ('property') por property ID
-      description: Devuelve un objeto de un inmueble ('property') por property ID
+        - rental
+      operationId: getRentalById
+      summary: Devuelve un inmueble de alquiler por la ID del inmueble
+      description: Devuelve un inmueble de alquiler por la ID del inmueble
       parameters:
         - name: propertyId
           in: path variable
@@ -539,7 +576,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PropertyDTOOut"
+                $ref: "#/components/schemas/RentalProperty"
         '404':
           description: Property Not Found
           content:
@@ -554,12 +591,12 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
     put:
       tags:
-        - properties
-      operationId: updatePropertyById
-      summary: Actualiza un inmueble ('property') por property ID
-      description: Actuliza un inmueble ('property') por property ID y devuelve el resultado como un objeto PropertyDTOOut
+        - rental
+      operationId: updateRentalById
+      summary: Actualiza un inmueble de alquiler por su ID
+      description: Actualiza un inmueble de alquiler por su ID y devuelve el resultado como un objeto RentalProperty
       parameters:
-        - name: proeprtyId
+        - name: propertyId
           in: path variable
           description: La ID de inmueble
           required: true
@@ -567,19 +604,19 @@ paths:
             type: integer
             format: int64
       requestBody:
-        description: El objeto de property ('inmueble') con detalles actualizadas
+        description: El objeto del inmueble de alquiler con detalles actualizadas
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PropertyDTOIn"
+              $ref: "#/components/schemas/RentalProperty"
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PropertyDTOOut"
+                $ref: "#/components/schemas/RentalProperty"
         '400':
           description: Parse Error
           content:
@@ -612,10 +649,216 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
     delete:
       tags:
-        - properties
-      operationId: deletePropertyById
-      summary: Elimina un inmueble ('property') por el property ID
-      description: Elimina una entidad Property ('inmueble') por el property ID y devuelve un respuesta de No Content (void)
+        - rental
+      operationId: deleteRentalById
+      summary: Elimina un inmueble de alquiler por su ID
+      description: Elimina un inmueble de alquiler por su ID y devuelve un respuesta de No Content (void)
+      parameters:
+        - name: propertyId
+          in: path variable
+          description: La ID de property
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: La entidad fue eliminada con éxito
+        '404':
+          description: Property Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /properties/sale:
+    get:
+      tags:
+        - sale
+      operationId: getAllSaleProperties
+      summary: Devuelve una lista de todos los inmuebles para vender o todos los inmuebles para vender según un parámetro especificado
+      description: Devuelve una lista de todos los inmuebles para vender o todos los inmuebles para vender según un parámetro especificado
+      parameters:
+        - name: price
+          in: query
+          description: El precio
+          required: false
+          schema:
+            type: number
+        - name: constructionDate
+          in: query
+          description: La fecha de construcción del inmueble
+          required: false
+          schema:
+            type: string
+        - name: metresSqr
+          in: query
+          description: El tamaño cuadrado del inmueble
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SaleProperty"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /properties/sale/{proprietorId}:
+    post:
+      tags:
+        - sale
+      operationId: saveSaleProperty
+      summary: Guarda un nuevo inmueble para vender
+      description: Valida un objeto de inmueble para alquiler y crea una nueva entidad para guardar en el base de datos.
+      requestBody:
+        description: Un nuevo inmueblo para vender
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SaleProperty"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SaleProperty"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /properties/sale/{propertyId}:
+    get:
+      tags:
+        - sale
+      operationId: getSaleById
+      summary: Devuelve un inmueble para vender por la ID del inmueble
+      description: Devuelve un inmueble para vender por la ID del inmueble
+      parameters:
+        - name: propertyId
+          in: path variable
+          description: La ID de property
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SaleProperty"
+        '404':
+          description: Property Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      tags:
+        - sale
+      operationId: updateSaleById
+      summary: Actualiza un inmueble para vender por su ID
+      description: Actualiza un inmueble para vender por su ID y devuelve el resultado como un objeto SaleProperty
+      parameters:
+        - name: propertyId
+          in: path variable
+          description: La ID de inmueble
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: El objeto del inmueble para vender con detalles actualizadas
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SaleProperty"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SaleProperty"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '404':
+          description: Property Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - sale
+      operationId: deleteSaleById
+      summary: Elimina un inmueble para vender por su ID
+      description: Elimina un inmueble para vender por su ID y devuelve un respuesta de No Content (void)
       parameters:
         - name: propertyId
           in: path variable
@@ -910,6 +1153,10 @@ components:
           format: int32
           example: 3
           description: El número de inmuebles que pertenece a un propietario
+        rentalPropertyList:
+          type: array
+          items:
+            type: "#/components/schemas/RentalDTOOut"
       allOf:
         - $ref: "#/components/schemas/User"
     User:
@@ -935,20 +1182,70 @@ components:
             type: string
             example: "2023-07-21T14:12:09"
             description: La fecha cuando la cuenta de usuario fue creada
-    PropertyDTOIn:
+    RentalProperty:
       type: object
       allOf:
-        - $ref: "#/components/schemas/Property"
-    PropertyDTOOut:
+      - $ref: "#/components/schemas/RentalDTOOut"
+      - $ref: "#/components/schemas/ProprietorDTOOut"
+    RentalDTOOut:
       type: object
       properties:
         id:
-          type: number
+          type: integer
           format: int64
           example: 1
-          description: La ID de inmueble
+          description: La ID de un inmueble de alquiler
+        rentPerMonth:
+          type: number
+          example: 1200.00
+          description: El precio de alquiler cada mes
+        deposit:
+          type: number
+          example: 1000.00
+          description: El déposito
+        minTenancy:
+          type: integer
+          format: int32
+          example: 6
+          description: El mínimo periodio de alquiler
+        isFurnished:
+          type: boolean
+          example: true
+          description: si hay muebles
+        isPetFriendly:
+          type: boolean
+          example: false
+          description: Indica si mascotas son permitidas
       allOf:
+        - $ref: "#/components/schemas/Property"
+    SaleProperty:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RentalDTOOut"
         - $ref: "#/components/schemas/ProprietorDTOOut"
+    SaleDTOOut:
+      type:
+        object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: La ID del inmueble para vender
+        price:
+          type: number
+          example: 350.000
+          description: El precio
+        isLeasehold:
+          type: boolean
+          example: false
+          description: Indica si el inmeuble es arrendado
+        constructionDate:
+          type: string
+          example: 18-09-1987
+          description: La fecha de construcción
+      allOf:
+        - $ref: "#/components/schemas/Property"
     Property:
       type: object
       properties:
