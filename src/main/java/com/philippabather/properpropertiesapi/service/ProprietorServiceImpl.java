@@ -4,6 +4,7 @@ import com.philippabather.properpropertiesapi.dto.ProprietorDTOIn;
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOOut;
 import com.philippabather.properpropertiesapi.dto.RentalDTOOut;
 import com.philippabather.properpropertiesapi.dto.SaleDTOOut;
+import com.philippabather.properpropertiesapi.exception.InvalidLoginException;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
 import com.philippabather.properpropertiesapi.model.Proprietor;
 import com.philippabather.properpropertiesapi.model.RentalProperty;
@@ -47,8 +48,8 @@ public class ProprietorServiceImpl implements ProprietorService {
     }
 
     @Override
-    public Set<ProprietorDTOOut> findAllByIsAgency(boolean isAgency) {
-        Set<Proprietor> proprietors = proprietorRepo.findAllByIsAgency(isAgency);
+    public Set<ProprietorDTOOut> findAllByTelephone(String telephone) {
+        Set<Proprietor> proprietors = proprietorRepo.findAllByTelephone(telephone);
         return convertToProprietorDTOOutSet(proprietors);
     }
 
@@ -72,6 +73,24 @@ public class ProprietorServiceImpl implements ProprietorService {
     public ProprietorDTOOut findById(long proprietorId) throws ProprietorNotFoundException {
         Proprietor proprietor = proprietorRepo.findById(proprietorId).orElseThrow(() -> new ProprietorNotFoundException(proprietorId));
 
+        List<RentalProperty> rentals = proprietor.getRentalPropertyList();
+        List<SaleProperty> sales = proprietor.getSalePropertyList();
+
+        ProprietorDTOOut proprietorDTOOut = new ProprietorDTOOut();
+        modelMapper.map(proprietor, proprietorDTOOut);
+
+        // convert list of sale and rental properties to their DTOs
+        List<RentalDTOOut> rentalsDTO = convertToRentalDTOOutList(rentals);
+        List<SaleDTOOut> salesDTO = convertToSaleDTOOutList(sales);
+        proprietorDTOOut.setRentalPropertyList(rentalsDTO);
+        proprietorDTOOut.setSalePropertyList(salesDTO);
+
+        return proprietorDTOOut;
+    }
+
+    @Override
+    public ProprietorDTOOut findByUsernameAndPassword(String username, String password) throws InvalidLoginException {
+        Proprietor proprietor = proprietorRepo.findByUsernameAndPassword(username, password).orElseThrow(() -> new InvalidLoginException(username));
         List<RentalProperty> rentals = proprietor.getRentalPropertyList();
         List<SaleProperty> sales = proprietor.getSalePropertyList();
 

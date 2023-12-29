@@ -18,9 +18,9 @@ public interface RentalPropertyService {
     Set<RentalProperty> findAllByMonthlyRent(BigDecimal rentPerMonth);
     Set<RentalProperty> findAllByMinTenancy(int minTenancy);
     Set<RentalProperty> findByNumBedrooms(int numBedrooms);
-    RentalProperty save(long proprietorId, RentalProperty rentalPropertyDTOIn) throws ProprietorNotFoundException;
+    RentalProperty save(long proprietorId, RentalProperty rentalProperty) throws ProprietorNotFoundException;
     RentalProperty findById(long propertyId) throws PropertyNotFoundException;
-    RentalProperty updateById(long propertyId, RentalProperty rentalPropertyDTOIn) throws PropertyNotFoundException;
+    RentalProperty updateById(long propertyId, RentalProperty rentalProperty) throws PropertyNotFoundException;
     void deleteById(long propertyId) throws PropertyNotFoundException;
     void deleteAddressById(long propertyId) throws PropertyNotFoundException;
 
