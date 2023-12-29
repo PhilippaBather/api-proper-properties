@@ -1,0 +1,1399 @@
+openapi: 3.0.1
+info:
+  title: Proper Properties API
+  description: API para un inmobiliaria
+  version: 1.0.0
+servers:
+  - url: 'https://api.example.com'
+tags:
+  - name: clients
+    description: Operaciones para fetch, add, update, y delete clientes ('Clients')
+  - name: proprietors
+    description: Operaciones para fetch, add, update, y delete propietarios ('Proprietor')
+  - name: rental
+    description: Operaciones para fetch, add, update, y delete inmuebles de alquiler ('RentalProperty')
+  - name: sale
+    description: Operaciones para fetch, add, update, y delete inmuebles para vender ('SaleProperty')
+  - name: addresses
+    description: Operaciones para fetch, add, update, y delete direcciones ('Address')
+paths:
+  /users/clients:
+    get:
+      tags:
+        - clients
+      operationId: getAllClients
+      summary: Devuelve una lista de todos los clientes o todos los clientes según un parámetro especificado
+      description: Devuelve una lista de todos los clientes y sus detalles según un parámetro especificado
+      parameters:
+        - name: surname
+          in: query
+          description: El/Los apellidos de cliente
+          required: false
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: El nombre de cliente
+          required: false
+          schema:
+            type: string
+        - name: dob
+          in: query
+          description: La fecha de nacimiento de cliente
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClientDTOOut"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - clients
+      operationId: saveClient
+      summary: Guarda un nuevo cliente
+      description: Valida un objeto Client ('cliente') y crea un nuevo Client para guardar en el base de datos.
+      requestBody:
+        description: Un nuevo cliente
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientDTOIn"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientDTOOut"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /users/clients/{clientId}:
+    get:
+      tags:
+        - clients
+      operationId: getClientById
+      summary: Devuelve un cliente por client ID
+      description: Devuelve un objeto de un cliente por client ID
+      parameters:
+        - name: clientId
+          in: path variable
+          description: La ID de cliente
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientDTOOut"
+        '404':
+          description: Client Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      tags:
+       - clients
+      operationId: updateClientById
+      summary: Actualiza un cliente por client ID
+      description: Actuliza un cliente por client ID y devuelve el resultado como un objeto ClientDTOOut
+      parameters:
+        - name: clientId
+          in: path variable
+          description: La ID de cliente
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: El objeto de cliente con detalles actualizadas
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientDTOIn"
+      responses:
+         '200':
+           description: OK
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/ClientDTOOut"
+         '400':
+           description: Parse Error
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/ErrorResponse"
+         '404':
+           description: Client Not Found
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/ErrorResponse"
+         '406':
+           description: Not Acceptable
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/ErrorResponse"
+         '422':
+           description: Unprocessable Entity
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/ErrorResponse"
+         '500':
+           description: Internal Server Error
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - clients
+      operationId: deleteClientById
+      summary: Elimina un cliente por el client ID
+      description: Elimina un cliente por el client ID y devuelve un respuesta de No Content (void)
+      parameters:
+        - name: clientId
+          in: path variable
+          description: La ID de cliente
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+         '204':
+           description: La entidad fue eliminada con éxito
+         '404':
+           description: Client Not Found
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/ErrorResponse"
+         '500':
+           description: Internal Server Error
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/ErrorResponse"
+  /users/proprietors:
+    get:
+      tags:
+        - proprietors
+      operationId: getAllProprietors
+      summary: Devuelve una lista de todos los propietarios o todos los propietarios según un parámetro especificado
+      description: Devuelve una lista de todos los propietarios o todos los propietarios según un parámetro especificado
+      parameters:
+        - name: surname
+          in: query
+          description: El/Los apellidos de propietario
+          required: false
+          schema:
+            type: string
+        - name: telephone
+          in: query
+          description: El número de teléfono de un usuario
+          required: false
+          schema:
+            type: string
+        - name: numProperties
+          in: query
+          description: El número de inmuebles
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProprietorDTOOut"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - proprietors
+      operationId: saveProprietor
+      summary: Guarda un nuevo propietario
+      description: Valida un objeto Proprietor ('propietario') y cra un nuevo Proprietor para guardar en el base de datos.
+      requestBody:
+        description: Un nuevo propietario
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProprietorDTOIn'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProprietorDTOOut"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /users/proprietors/{proprietorId}:
+    get:
+      tags:
+        - proprietors
+      operationId: getProprietorById
+      summary: Devuelve un propietario por propietario ID
+      description: Devuelve un objeto de un propietario por propietario ID
+      parameters:
+        - name: proprietorId
+          in: path variable
+          description: La ID de propietario
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProprietorDTOOut"
+        '404':
+          description: Proprietor Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      tags:
+        - proprietors
+      operationId: updatePropietorById
+      summary: Actualiza un propietario por propietario ID
+      description: Actualiza un propietario por propietario ID
+      parameters:
+        - name: proprietorId
+          in: path variable
+          description: La ID de propietario
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: El objeto de propietario con detalles actualizadas
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProprietorDTOIn"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProprietorDTOOut"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '404':
+          description: Proprietor Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - proprietors
+      operationId: deletePropietorById
+      summary: Elimina un propietario por propietario ID
+      description: Elimina un objeto de un propietario por propietario ID
+      parameters:
+        - name: proprietorId
+          in: path variable
+          description: La ID de propietario
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: La entidad fue eliminada con éxito
+        '404':
+          description: Proprietor Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /users/proprietors/{username}/{password}:
+    get:
+      tags:
+        - proprietors
+      operationId: getProperietorByUsernameAndPassword
+      summary: Devuelve un usuario por su nombre del usuario y contraseña
+      description: Devuelve un usuario por su nombre del usuario y contraseña
+      parameters:
+        - name: username
+          in: path variable
+          description: El nombre del usuario
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: path variable
+          description: La constraseña del usuario
+          required: true
+          schema:
+            type: string
+      responses:
+          '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ProprietorDTOOut"
+          '404':
+            description: Invalid Username or Password
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ErrorResponse"
+          '500':
+            description: Internal Server Error
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ErrorResponse"
+  /properties/rental:
+    get:
+      tags:
+        - rental
+      operationId: getAllRentalProperties
+      summary: Devuelve una lista de todos los inmuebles de alquiler o todos los inmuebles de alquiler según un parámetro especificado
+      description: Devuelve una lista de todos los inmuebles de alquiler o todos los inmuebles de alquiler según un parámetro especificado
+      parameters:
+        - name: numBedrooms
+          in: query
+          description: El número de habitaciones
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: minTenancy
+          in: query
+          description: El mínimo periodio de alquiler
+          required: false
+          schema:
+            type: num
+            format: int32
+        - name: monthlyRent
+          in: query
+          description: El precio de alquiler cada mes
+          required: false
+          schema:
+            type: number
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RentalProperty"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /properties/rental/{proprietorId}:
+    post:
+      tags:
+        - rental
+      operationId: saveRentalProperty
+      summary: Guarda un nuevo inmueble de alquiler
+      description: Valida un objeto de inmueble de alquiler y crea un nuevo entidad para guardar en el base de datos.
+      requestBody:
+        description: Un nuevo inmueblo de alquiler
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RentalProperty"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RentalProperty"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /properties/rental/{propertyId}:
+    get:
+      tags:
+        - rental
+      operationId: getRentalById
+      summary: Devuelve un inmueble de alquiler por la ID del inmueble
+      description: Devuelve un inmueble de alquiler por la ID del inmueble
+      parameters:
+        - name: propertyId
+          in: path variable
+          description: La ID de property
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RentalProperty"
+        '404':
+          description: Property Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      tags:
+        - rental
+      operationId: updateRentalById
+      summary: Actualiza un inmueble de alquiler por su ID
+      description: Actualiza un inmueble de alquiler por su ID y devuelve el resultado como un objeto RentalProperty
+      parameters:
+        - name: propertyId
+          in: path variable
+          description: La ID de inmueble
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: El objeto del inmueble de alquiler con detalles actualizadas
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RentalProperty"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RentalProperty"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '404':
+          description: Property Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - rental
+      operationId: deleteRentalById
+      summary: Elimina un inmueble de alquiler por su ID
+      description: Elimina un inmueble de alquiler por su ID y devuelve un respuesta de No Content (void)
+      parameters:
+        - name: propertyId
+          in: path variable
+          description: La ID de property
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: La entidad fue eliminada con éxito
+        '404':
+          description: Property Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /properties/sale:
+    get:
+      tags:
+        - sale
+      operationId: getAllSaleProperties
+      summary: Devuelve una lista de todos los inmuebles para vender o todos los inmuebles para vender según un parámetro especificado
+      description: Devuelve una lista de todos los inmuebles para vender o todos los inmuebles para vender según un parámetro especificado
+      parameters:
+        - name: price
+          in: query
+          description: El precio
+          required: false
+          schema:
+            type: number
+        - name: constructionDate
+          in: query
+          description: La fecha de construcción del inmueble
+          required: false
+          schema:
+            type: string
+        - name: metresSqr
+          in: query
+          description: El tamaño cuadrado del inmueble
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SaleProperty"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /properties/sale/{proprietorId}:
+    post:
+      tags:
+        - sale
+      operationId: saveSaleProperty
+      summary: Guarda un nuevo inmueble para vender
+      description: Valida un objeto de inmueble para alquiler y crea una nueva entidad para guardar en el base de datos.
+      requestBody:
+        description: Un nuevo inmueblo para vender
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SaleProperty"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SaleProperty"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /properties/sale/{propertyId}:
+    get:
+      tags:
+        - sale
+      operationId: getSaleById
+      summary: Devuelve un inmueble para vender por la ID del inmueble
+      description: Devuelve un inmueble para vender por la ID del inmueble
+      parameters:
+        - name: propertyId
+          in: path variable
+          description: La ID de property
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SaleProperty"
+        '404':
+          description: Property Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      tags:
+        - sale
+      operationId: updateSaleById
+      summary: Actualiza un inmueble para vender por su ID
+      description: Actualiza un inmueble para vender por su ID y devuelve el resultado como un objeto SaleProperty
+      parameters:
+        - name: propertyId
+          in: path variable
+          description: La ID de inmueble
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: El objeto del inmueble para vender con detalles actualizadas
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SaleProperty"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SaleProperty"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '404':
+          description: Property Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - sale
+      operationId: deleteSaleById
+      summary: Elimina un inmueble para vender por su ID
+      description: Elimina un inmueble para vender por su ID y devuelve un respuesta de No Content (void)
+      parameters:
+        - name: propertyId
+          in: path variable
+          description: La ID de property
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: La entidad fue eliminada con éxito
+        '404':
+          description: Property Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /addresses:
+    get:
+      tags:
+        - addresses
+      operationId: getAllAddresses
+      summary: Devuelve una lista de todos los direcciones o todos las direcciones según un parámetro especificado
+      description: Devuelve una lista de todos los direcciones y sus detalles según un parámetro especificado
+      parameters:
+        - name: postCode
+          in: query
+          description: El código postal de una dirección
+          required: false
+          schema:
+            type: string
+        - name: region
+          in: query
+          description: La región de una dirección
+          required: false
+          schema:
+            type: string
+        - name: town
+          in: query
+          description: La ciudad o el pueblo de una dirección
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AddressDTOOut"
+        '404':
+          description: Region Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - addresses
+      operationId: saveAddress
+      summary: Guarda una nueva dirección
+      description: Valida un objeto Address ('dirección') y crea una nueva Address para guardar en el base de datos.
+      requestBody:
+        description: Una nueva dirección
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddressDTOIn"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressDTOOut"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /addresses/{addressId}:
+    get:
+      tags:
+        - addresses
+      operationId: getAddressyById
+      summary: Devuelve una dirección ('address') por address ID
+      description: Devuelve un objeto de una dirección ('address') por address ID
+      parameters:
+        - name: addressId
+          in: path variable
+          description: La ID de una dirección
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressDTOOut"
+        '404':
+          description: Address Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      tags:
+        - addresses
+      operationId: updateAddressById
+      summary: Actualiza una dirección ('address') por address ID
+      description: Actuliza una dirección ('address') por address ID y devuelve el resultado como un objeto AddressDTOOut
+      parameters:
+        - name: proeprtyId
+          in: path variable
+          description: La ID de una dirección
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: El objeto de address ('dirección') con detalles actualizadas
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddressDTOIn"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressDTOOut"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '404':
+          description: Address Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - addresses
+      summary: Elimina una dirección ('address') por el address ID
+      description: Elimina una entidad Address ('dirección') por el property ID y devuelve un respuesta de No Content (void)
+      parameters:
+        - name: addressId
+          in: path variable
+          description: La ID de una dirección
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: La entidad fue eliminada con éxito
+        '404':
+          description: Address Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    ClientDTOIn:
+      type: object
+      properties:
+        password:
+          type: string
+          example: "secret"
+          description: La constraseña de cliente
+        dob:
+          type: string
+          example: "2023-07-21"
+          description: La fecha de nacimiento de cliente
+        isStudent:
+          type: boolean
+          example: false
+          description: Indica si el ciente es estudiante o no
+      allOf:
+        - $ref: "#/components/schemas/User"
+    ClientDTOOut:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: La ID de cliente
+      allOf:
+        - $ref: "#/components/schemas/User"
+    ProprietorDTOIn:
+      type: object
+      properties:
+        password:
+          type: string
+          example: "secret"
+          description: La constraseña de cliente
+        isAgency:
+          type: boolean
+          example: true
+          description: Indica si el propietario es un inmobiliario o no
+        numProperties:
+          type: integer
+          format: int32
+          example: 3
+          description: El número de inmuebles que pertenece a un propietario
+      allOf:
+        - $ref: "#/components/schemas/User"
+    ProprietorDTOOut:
+      type: object
+      properties:
+        isAgency:
+          type: boolean
+          example: true
+          description: Indica si el propietario es un inmobiliario o no
+        numProperties:
+          type: integer
+          format: int32
+          example: 3
+          description: El número de inmuebles que pertenece a un propietario
+        rentalPropertyList:
+          type: array
+          items:
+            type: "#/components/schemas/RentalDTOOut"
+      allOf:
+        - $ref: "#/components/schemas/User"
+    User:
+      type: object
+      properties:
+        name:
+            type: string
+            example: "Joe"
+            description: El nombre de cliente
+        surname:
+            type: string
+            example: "Bloggs"
+            description: El/Los apellido(s) de cliente
+        username:
+            type: string
+            example: "joe_bloggs"
+            description: El nombre de usuario de cliente
+        email:
+            type: string
+            example: "joebloggs666@test.es"
+            description: El email de cliente
+        accountCreated:
+            type: string
+            example: "2023-07-21T14:12:09"
+            description: La fecha cuando la cuenta de usuario fue creada
+    RentalProperty:
+      type: object
+      allOf:
+      - $ref: "#/components/schemas/RentalDTOOut"
+      - $ref: "#/components/schemas/ProprietorDTOOut"
+    RentalDTOOut:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: La ID de un inmueble de alquiler
+        rentPerMonth:
+          type: number
+          example: 1200.00
+          description: El precio de alquiler cada mes
+        deposit:
+          type: number
+          example: 1000.00
+          description: El déposito
+        minTenancy:
+          type: integer
+          format: int32
+          example: 6
+          description: El mínimo periodio de alquiler
+        isFurnished:
+          type: boolean
+          example: true
+          description: si hay muebles
+        isPetFriendly:
+          type: boolean
+          example: false
+          description: Indica si mascotas son permitidas
+      allOf:
+        - $ref: "#/components/schemas/Property"
+    SaleProperty:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RentalDTOOut"
+        - $ref: "#/components/schemas/ProprietorDTOOut"
+    SaleDTOOut:
+      type:
+        object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: La ID del inmueble para vender
+        price:
+          type: number
+          example: 350.000
+          description: El precio
+        isLeasehold:
+          type: boolean
+          example: false
+          description: Indica si el inmeuble es arrendado
+        constructionDate:
+          type: string
+          example: 18-09-1987
+          description: La fecha de construcción
+      allOf:
+        - $ref: "#/components/schemas/Property"
+    Property:
+      type: object
+      properties:
+        propertyStatus:
+          type: string
+          enum: [RENTAL, SALE]
+          example: RENTAL
+          description: El estado de inmueble
+        propertyType:
+          type: string
+          enum: [ COMMERCIAL, FLAT, HOUSE ]
+          example: FLAT
+          description: El tipo de inmueble
+        latitude:
+          type: number
+          format: double
+          example: 40.4168
+          description: La latitud de inmueble
+        longitude:
+          type: number
+          format: double
+          example: 3.7038
+          description: La longitud de inmueble
+        metresSqr:
+          type: number
+          format: int32
+          example: 88
+          description: Los metros cuadrados de inmueble
+        description:
+          type: string
+          example: Una bonita casa con 3 habitaciones y un jardín.
+          description: Una descripción de inmueble
+        availableFrom:
+          type: string
+          example: "2023-07-21"
+          description: La fecha desde cuando el inmueble está disponible.
+        numBedrooms:
+          type: number
+          format: int32
+          example: 3
+          description: El número de habitaciones
+        numBathrooms:
+          type: number
+          format: int32
+          example: 1
+          description: El número de baños
+        isParking:
+          type: boolean
+          example: false
+          description: Indica si hay parking o no
+        isLift:
+          type: boolean
+          example: true
+          description: Indica si hay acensor o no
+    AddressDTOIn:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Address"
+    AddressDTOOut:
+      type: object
+      properties:
+        id:
+          type: number
+          format: int64
+          example: 1
+          description: La ID de una dirección
+      allOf:
+        - $ref: "#/components/schemas/Address"
+    Address:
+      type: object
+      properties:
+        nameOrNum:
+          type: string
+          example: Brookside
+          description: El nombre o número de la dirección
+        flatNumber:
+          type: string
+          example: 2A
+          description: El número de un piso (opcional)
+        street:
+          type: string
+          example: Oak Drive
+          description: La calle de la dirección
+        city:
+          type: string
+          example: Madrid
+          description: La ciudad o el pueblo de la dirección
+        region:
+          type: string
+          enum:
+            - ANDALUSIA,
+            - ARAGON,
+            - ASTURIAS,
+            - BALEARIC_ISLANDS,
+            - BASQUE_COUNTRY,
+            - CANARY_ISLANDS,
+            - CANTABRIA,
+            - CASTILE_AND_LEON,
+            - CASTILE_LA_MANCHA,
+            - CATALONIA,
+            - CEUTA,
+            - EXTREMADURA,
+            - GALICIA,
+            - LA_RIOJA,
+            - MADRID,
+            - MURCIA,
+            - MELILLA,
+            - NAVARRA,
+            - VALENCIA
+          example: MADRID
+          description: La comunidad de la dirección
+        postCode:
+          type: string
+          example: 28223
+          description: El código postal de la dirección
+        country:
+          type: string
+          enum: [Spain]
+          example: Spain
+          description: El país de la dirección
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 404
+          description: El código de estado de HTTP
+        errorType:
+          type: string
+          example: Client Not Found Error
+          description: Identifica el tipo de error
+        message:
+          type: string
+          example: "Client not found with id: 55"
+          description: Una descripción del error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
