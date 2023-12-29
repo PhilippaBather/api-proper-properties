@@ -26,7 +26,6 @@ import java.util.Set;
 @RestController
 public class AddressController {
 
-    // TODO - mappings for sale address
     private final AddressService addressService;
     private final RentalPropertyService rentalService;
 
