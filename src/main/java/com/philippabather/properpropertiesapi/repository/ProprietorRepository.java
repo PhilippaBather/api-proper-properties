@@ -18,8 +18,9 @@ public interface ProprietorRepository extends CrudRepository<Proprietor, Long> {
 
     Set<Proprietor> findAll();
     Set<Proprietor> findAllBySurname(String surname);
-    Set<Proprietor> findAllByIsAgency(boolean isAgency);
+    Set<Proprietor> findAllByTelephone(String telephone);
     Set<Proprietor> findAllByNumProperties(int numProperties);
 
     Optional<Proprietor> findById(long proprietorId);
+    Optional<Proprietor> findByUsernameAndPassword(String username, String password);
 }
