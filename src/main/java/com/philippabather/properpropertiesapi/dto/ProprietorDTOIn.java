@@ -1,5 +1,6 @@
 package com.philippabather.properpropertiesapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.philippabather.properpropertiesapi.constants.ValidationMessages;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ import static com.philippabather.properpropertiesapi.constants.ValidationMessage
 @EqualsAndHashCode(callSuper = true)
 public class ProprietorDTOIn extends UserDTOIn {
 
+    @JsonProperty
     @NotNull(message= ValidationMessages.VALIDATION_BOOLEAN_REQUIRED)
     private boolean isAgency;
 
