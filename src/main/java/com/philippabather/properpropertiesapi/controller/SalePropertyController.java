@@ -1,5 +1,6 @@
 package com.philippabather.properpropertiesapi.controller;
 
+import com.philippabather.properpropertiesapi.dto.SaleDTOOut;
 import com.philippabather.properpropertiesapi.exception.PropertyNotFoundException;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
 import com.philippabather.properpropertiesapi.model.SaleProperty;
@@ -31,13 +32,13 @@ public class SalePropertyController {
     }
 
     @GetMapping("/properties/sale")
-    public ResponseEntity<Set<SaleProperty>> getAllSaleProperties(@RequestParam(name = "price", defaultValue = "0.00")
+    public ResponseEntity<Set<SaleDTOOut>> getAllSaleProperties(@RequestParam(name = "price", defaultValue = "0.00")
                                                                   BigDecimal price,
-                                                                  @RequestParam(name = "constructionDate", defaultValue = "")
+                                                                @RequestParam(name = "constructionDate", defaultValue = "")
                                                                   String constructionDate,
-                                                                  @RequestParam(name = "metresSqr", defaultValue = "0")
+                                                                @RequestParam(name = "metresSqr", defaultValue = "0")
                                                                   int metresSqr) {
-        Set<SaleProperty> properties = new HashSet<>();
+        Set<SaleDTOOut> properties = new HashSet<>();
 
         if (price.toString().equals("0.00") && constructionDate.equals("") && metresSqr == 0) {
             properties = saleService.findAll();
@@ -53,24 +54,24 @@ public class SalePropertyController {
     }
 
     @PostMapping("/properties/sale/{proprietorId}")
-    public ResponseEntity<SaleProperty> createSaleProperty(@PathVariable long proprietorId,
+    public ResponseEntity<SaleDTOOut> createSaleProperty(@PathVariable long proprietorId,
                                                            @Valid @RequestBody SaleProperty saleProperty)
             throws ProprietorNotFoundException {
-        SaleProperty property = saleService.save(proprietorId, saleProperty);
+        SaleDTOOut property = saleService.save(proprietorId, saleProperty);
         return new ResponseEntity<>(property, HttpStatus.CREATED);
     }
 
     @GetMapping("/properties/sale/{propertyId}")
-    public ResponseEntity<SaleProperty> getPropertyById(@PathVariable long propertyId) throws PropertyNotFoundException {
-        SaleProperty property = saleService.findById(propertyId);
+    public ResponseEntity<SaleDTOOut> getPropertyById(@PathVariable long propertyId) throws PropertyNotFoundException {
+        SaleDTOOut property = saleService.findById(propertyId);
         return new ResponseEntity<>(property, HttpStatus.OK);
     }
 
     @PutMapping("/properties/sale/{propertyId}")
-    public ResponseEntity<SaleProperty> updatePropertyById(@PathVariable long propertyId,
+    public ResponseEntity<SaleDTOOut> updatePropertyById(@PathVariable long propertyId,
                                                            @Valid @RequestBody SaleProperty saleProperty)
             throws PropertyNotFoundException {
-        SaleProperty property = saleService.updateById(propertyId, saleProperty);
+        SaleDTOOut property = saleService.updateById(propertyId, saleProperty);
         return new ResponseEntity<>(property, HttpStatus.OK);
     }
 

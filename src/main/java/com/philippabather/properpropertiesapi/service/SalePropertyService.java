@@ -1,5 +1,6 @@
 package com.philippabather.properpropertiesapi.service;
 
+import com.philippabather.properpropertiesapi.dto.SaleDTOOut;
 import com.philippabather.properpropertiesapi.exception.PropertyNotFoundException;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
 import com.philippabather.properpropertiesapi.model.SaleProperty;
@@ -10,13 +11,13 @@ import java.util.Set;
 
 public interface SalePropertyService {
 
-    Set<SaleProperty> findAll();
-    Set<SaleProperty> findAllByPrice(BigDecimal price);
-    Set<SaleProperty> findAllByConstructionDate(LocalDate constructionDate);
-    Set<SaleProperty> findAllByMetresSqr(int metresSqr);
-    SaleProperty save(long proprietorId, SaleProperty saleProperty) throws ProprietorNotFoundException;
-    SaleProperty findById(long propertyId) throws PropertyNotFoundException;
-    SaleProperty updateById(long propertyId, SaleProperty saleProperty) throws PropertyNotFoundException;
+    Set<SaleDTOOut> findAll();
+    Set<SaleDTOOut> findAllByPrice(BigDecimal price);
+    Set<SaleDTOOut> findAllByConstructionDate(LocalDate constructionDate);
+    Set<SaleDTOOut> findAllByMetresSqr(int metresSqr);
+    SaleDTOOut save(long proprietorId, SaleProperty saleProperty) throws ProprietorNotFoundException;
+    SaleDTOOut findById(long propertyId) throws PropertyNotFoundException;
+    SaleDTOOut updateById(long propertyId, SaleProperty saleProperty) throws PropertyNotFoundException;
     void deleteById(long propertyId) throws PropertyNotFoundException;
     void deleteAddressById(long propertyId) throws PropertyNotFoundException;
 }

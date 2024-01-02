@@ -1,5 +1,7 @@
 package com.philippabather.properpropertiesapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.philippabather.properpropertiesapi.model.Address;
 import com.philippabather.properpropertiesapi.model.PropertyStatus;
 import com.philippabather.properpropertiesapi.model.PropertyType;
 import lombok.AllArgsConstructor;
@@ -22,10 +24,14 @@ public class SaleDTOOut {
     private LocalDate availableFrom; // disponibleDesde
     private int numBedrooms;
     private int numBathrooms;
+    @JsonProperty
     private boolean isParking;
+    @JsonProperty
     private boolean isLift; // ¿hay acensor?
     private long id;
     private BigDecimal price;
+    @JsonProperty
     private boolean isLeasehold;
     private LocalDate constructionDate;
+    private Address address;
 }
