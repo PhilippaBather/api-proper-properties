@@ -1,5 +1,7 @@
 package com.philippabather.properpropertiesapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.philippabather.properpropertiesapi.model.Address;
 import com.philippabather.properpropertiesapi.model.PropertyStatus;
 import com.philippabather.properpropertiesapi.model.PropertyType;
 import lombok.AllArgsConstructor;
@@ -23,13 +25,19 @@ public class RentalDTOOut {
     private LocalDate availableFrom; // disponibleDesde
     private int numBedrooms;
     private int numBathrooms;
+    @JsonProperty
     private boolean isParking;
+    @JsonProperty
     private boolean isLift; // ¿hay acensor?
     private long id;
     private BigDecimal rentPerMonth;
     private BigDecimal deposit;
     private int minTenancy;
+    @JsonProperty
     private boolean isFurnished;
+    @JsonProperty
     private boolean isPetFriendly;
+
+    private Address address;
 
 }

@@ -1,5 +1,6 @@
 package com.philippabather.properpropertiesapi.service;
 
+import com.philippabather.properpropertiesapi.dto.SaleDTOOut;
 import com.philippabather.properpropertiesapi.exception.PropertyNotFoundException;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
 import com.philippabather.properpropertiesapi.model.PropertyStatus;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -31,27 +33,31 @@ public class SalePropertyServiceImpl implements SalePropertyService{
     }
 
     @Override
-    public Set<SaleProperty> findAll() {
-        return saleRepo.findAll();
+    public Set<SaleDTOOut> findAll() {
+        Set<SaleProperty> saleProperties = saleRepo.findAll();
+        return convertToSaleDTOOutSet(saleProperties);
     }
 
     @Override
-    public Set<SaleProperty> findAllByPrice(BigDecimal price) {
-        return saleRepo.findAllByPrice(price);
+    public Set<SaleDTOOut> findAllByPrice(BigDecimal price) {
+        Set<SaleProperty> saleProperties = saleRepo.findAllByPrice(price);
+        return convertToSaleDTOOutSet(saleProperties);
     }
 
     @Override
-    public Set<SaleProperty> findAllByConstructionDate(LocalDate constructionDate) {
-        return saleRepo.findAllByConstructionDate(constructionDate);
+    public Set<SaleDTOOut> findAllByConstructionDate(LocalDate constructionDate) {
+        Set<SaleProperty> saleProperties = saleRepo.findAllByConstructionDate(constructionDate);
+        return convertToSaleDTOOutSet(saleProperties);
     }
 
     @Override
-    public Set<SaleProperty> findAllByMetresSqr(int metresSqr) {
-        return saleRepo.findAllByMetresSqr(metresSqr);
+    public Set<SaleDTOOut> findAllByMetresSqr(int metresSqr) {
+        Set<SaleProperty> saleProperties = saleRepo.findAllByMetresSqr(metresSqr);
+        return convertToSaleDTOOutSet(saleProperties);
     }
 
     @Override
-    public SaleProperty save(long proprietorId, SaleProperty saleProperty) throws ProprietorNotFoundException {
+    public SaleDTOOut save(long proprietorId, SaleProperty saleProperty) throws ProprietorNotFoundException {
         // coge el objeto de Proprietor o lanza una excepción
         Proprietor proprietor = proprietorRepo.findById(proprietorId).orElseThrow(() -> new ProprietorNotFoundException(proprietorId));
 
@@ -66,16 +72,17 @@ public class SalePropertyServiceImpl implements SalePropertyService{
         proprietor.addSaleProperty(savedProperty);
         proprietorService.updatePropertyDetails(proprietor);
 
-        return savedProperty;
+        return mapToSaleDTOOut(savedProperty);
       }
 
     @Override
-    public SaleProperty findById(long propertyId) throws PropertyNotFoundException {
-        return saleRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
+    public SaleDTOOut findById(long propertyId) throws PropertyNotFoundException {
+        SaleProperty saleProperty = saleRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
+        return mapToSaleDTOOut(saleProperty);
     }
 
     @Override
-    public SaleProperty updateById(long propertyId, SaleProperty saleProperty) throws PropertyNotFoundException {
+    public SaleDTOOut updateById(long propertyId, SaleProperty saleProperty) throws PropertyNotFoundException {
         SaleProperty property = saleRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
 
         // coge el objeto Proprietor
@@ -95,7 +102,7 @@ public class SalePropertyServiceImpl implements SalePropertyService{
         proprietor.addSaleProperty(property);
         proprietorService.updatePropertyDetails(proprietor);
 
-        return updatedProperty;
+        return mapToSaleDTOOut(updatedProperty);
     }
 
     @Override
@@ -115,5 +122,24 @@ public class SalePropertyServiceImpl implements SalePropertyService{
         SaleProperty property = saleRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
         property.setAddress(null);
         saleRepo.save(property);
+    }
+
+    private Set<SaleDTOOut> convertToSaleDTOOutSet(Set<SaleProperty> rentalProperties) {
+        Set<SaleDTOOut> salesDTOOut = new HashSet<>();
+
+        for (SaleProperty sale :
+                rentalProperties) {
+            SaleDTOOut saleDTOOut = new SaleDTOOut();
+            modelMapper.map(sale, saleDTOOut);
+            salesDTOOut.add(saleDTOOut);
+        }
+
+        return salesDTOOut;
+    }
+
+    private SaleDTOOut mapToSaleDTOOut(SaleProperty saleProperty){
+        SaleDTOOut saleDTOOut = new SaleDTOOut();
+        modelMapper.map(saleProperty, saleDTOOut);
+        return saleDTOOut;
     }
 }
