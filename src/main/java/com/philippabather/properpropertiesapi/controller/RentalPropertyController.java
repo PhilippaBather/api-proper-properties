@@ -1,5 +1,6 @@
 package com.philippabather.properpropertiesapi.controller;
 
+import com.philippabather.properpropertiesapi.dto.RentalDTOOut;
 import com.philippabather.properpropertiesapi.exception.PropertyNotFoundException;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
 import com.philippabather.properpropertiesapi.model.RentalProperty;
@@ -30,14 +31,14 @@ public class RentalPropertyController {
     }
 
     @GetMapping("/properties/rental")
-    public ResponseEntity<Set<RentalProperty>> getAllProperties(@RequestParam(value = "numBedrooms", defaultValue = "0")
+    public ResponseEntity<Set<RentalDTOOut>> getAllProperties(@RequestParam(value = "numBedrooms", defaultValue = "0")
                                                                 int numBedrooms,
-                                                                @RequestParam(value = "minTenancy", defaultValue = "0")
+                                                              @RequestParam(value = "minTenancy", defaultValue = "0")
                                                                 int minTenancy,
-                                                                @RequestParam(value = "monthlyRent", defaultValue = "0.00")
+                                                              @RequestParam(value = "monthlyRent", defaultValue = "0.00")
                                                                 BigDecimal monthlyRent) {
 
-        Set<RentalProperty> rentalProperties = new HashSet<>();
+        Set<RentalDTOOut> rentalProperties = new HashSet<>();
 
         if (numBedrooms == 0 && minTenancy == 0 && monthlyRent.toString().equals("0.00")) {
             rentalProperties = rentalService.findAll();
@@ -54,22 +55,22 @@ public class RentalPropertyController {
 
 
     @PostMapping("/properties/rental/{proprietorId}")
-    public ResponseEntity<RentalProperty> createRentalProperty(@PathVariable long proprietorId, @Valid @RequestBody RentalProperty rentalProperty)
+    public ResponseEntity<RentalDTOOut> createRentalProperty(@PathVariable long proprietorId, @Valid @RequestBody RentalProperty rentalProperty)
             throws ProprietorNotFoundException {
-        RentalProperty property = rentalService.save(proprietorId, rentalProperty);
+        RentalDTOOut property = rentalService.save(proprietorId, rentalProperty);
         return new ResponseEntity<>(property, HttpStatus.CREATED);
     }
 
     @GetMapping("/properties/rental/{propertyId}")
-    public ResponseEntity<RentalProperty> getPropertyById(@PathVariable long propertyId) throws PropertyNotFoundException {
-        RentalProperty property = rentalService.findById(propertyId);
+    public ResponseEntity<RentalDTOOut> getPropertyById(@PathVariable long propertyId) throws PropertyNotFoundException {
+        RentalDTOOut property = rentalService.findById(propertyId);
         return new ResponseEntity<>(property, HttpStatus.OK);
     }
 
     @PutMapping("/properties/rental/{propertyId}")
-    public ResponseEntity<RentalProperty> updatePropertyById(@PathVariable long propertyId, @Valid @RequestBody RentalProperty rentalProperty)
+    public ResponseEntity<RentalDTOOut> updatePropertyById(@PathVariable long propertyId, @Valid @RequestBody RentalProperty rentalProperty)
             throws PropertyNotFoundException {
-        RentalProperty property = rentalService.updateById(propertyId, rentalProperty);
+        RentalDTOOut property = rentalService.updateById(propertyId, rentalProperty);
         return new ResponseEntity<>(property, HttpStatus.OK);
     }
 
