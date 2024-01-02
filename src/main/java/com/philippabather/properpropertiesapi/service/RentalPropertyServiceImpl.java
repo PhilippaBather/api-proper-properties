@@ -1,5 +1,6 @@
 package com.philippabather.properpropertiesapi.service;
 
+import com.philippabather.properpropertiesapi.dto.RentalDTOOut;
 import com.philippabather.properpropertiesapi.exception.PropertyNotFoundException;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
 import com.philippabather.properpropertiesapi.model.PropertyStatus;
@@ -11,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -36,27 +38,31 @@ public class RentalPropertyServiceImpl implements RentalPropertyService {
     }
 
     @Override
-    public Set<RentalProperty> findAll() {
-        return rentalRepo.findAll();
+    public Set<RentalDTOOut> findAll() {
+        Set<RentalProperty> rentals = rentalRepo.findAll();
+        return convertToRentalDTOOutSet(rentals);
     }
 
     @Override
-    public Set<RentalProperty> findAllByMonthlyRent(BigDecimal rentPerMonth) {
-        return rentalRepo.findAllByRentPerMonth(rentPerMonth);
+    public Set<RentalDTOOut> findAllByMonthlyRent(BigDecimal rentPerMonth) {
+        Set<RentalProperty> rentals = rentalRepo.findAllByRentPerMonth(rentPerMonth);
+        return convertToRentalDTOOutSet(rentals);
     }
 
     @Override
-    public Set<RentalProperty> findAllByMinTenancy(int minTenancy) {
-        return rentalRepo.findAllByMinTenancy(minTenancy);
+    public Set<RentalDTOOut> findAllByMinTenancy(int minTenancy) {
+        Set<RentalProperty> rentals = rentalRepo.findAllByMinTenancy(minTenancy);
+        return convertToRentalDTOOutSet(rentals);
     }
 
     @Override
-    public Set<RentalProperty> findByNumBedrooms(int numBedrooms) {
-        return rentalRepo.findAllByNumBedrooms(numBedrooms);
+    public Set<RentalDTOOut> findByNumBedrooms(int numBedrooms) {
+        Set<RentalProperty> rentals = rentalRepo.findAllByNumBedrooms(numBedrooms);
+        return convertToRentalDTOOutSet(rentals);
     }
 
     @Override
-    public RentalProperty save(long proprietorId, RentalProperty rentalProperty) throws ProprietorNotFoundException {
+    public RentalDTOOut save(long proprietorId, RentalProperty rentalProperty) throws ProprietorNotFoundException {
         // coge el objeto de Proprietor o lanza una excepción
         Proprietor proprietor = proprietorRepo.findById(proprietorId).orElseThrow(() -> new ProprietorNotFoundException(proprietorId));
 
@@ -71,16 +77,17 @@ public class RentalPropertyServiceImpl implements RentalPropertyService {
         proprietor.addRentalProperty(savedProperty);
         proprietorService.updatePropertyDetails(proprietor);
 
-        return savedProperty;
+        return mapToRentalDTOOut(savedProperty);
     }
 
     @Override
-    public RentalProperty findById(long propertyId) throws PropertyNotFoundException {
-        return rentalRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
+    public RentalDTOOut findById(long propertyId) throws PropertyNotFoundException {
+        RentalProperty rental = rentalRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
+        return mapToRentalDTOOut(rental);
     }
 
     @Override
-    public RentalProperty updateById(long propertyId, RentalProperty rentalPropertyDTOIn) throws PropertyNotFoundException {
+    public RentalDTOOut updateById(long propertyId, RentalProperty rentalPropertyDTOIn) throws PropertyNotFoundException {
         RentalProperty property = rentalRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
 
         // coge el objeto Proprietor
@@ -100,7 +107,7 @@ public class RentalPropertyServiceImpl implements RentalPropertyService {
         proprietor.addRentalProperty(property);
         proprietorService.updatePropertyDetails(proprietor);
 
-        return updatedProperty;
+        return mapToRentalDTOOut(updatedProperty);
     }
 
     @Override
@@ -120,5 +127,24 @@ public class RentalPropertyServiceImpl implements RentalPropertyService {
         RentalProperty property = rentalRepo.findById(propertyId).orElseThrow(() -> new PropertyNotFoundException(propertyId));
         property.setAddress(null);
         rentalRepo.save(property);
+    }
+
+    private Set<RentalDTOOut> convertToRentalDTOOutSet(Set<RentalProperty> rentalProperties) {
+        Set<RentalDTOOut> rentalsDTOOut = new HashSet<>();
+
+        for (RentalProperty rental :
+                rentalProperties) {
+            RentalDTOOut rentalDTOOut = new RentalDTOOut();
+            modelMapper.map(rental, rentalDTOOut);
+            rentalsDTOOut.add(rentalDTOOut);
+        }
+
+        return rentalsDTOOut;
+    }
+
+    private RentalDTOOut mapToRentalDTOOut(RentalProperty rentalProperty) {
+        RentalDTOOut rentalDTOOut = new RentalDTOOut();
+        modelMapper.map(rentalProperty, rentalDTOOut);
+        return rentalDTOOut;
     }
 }
