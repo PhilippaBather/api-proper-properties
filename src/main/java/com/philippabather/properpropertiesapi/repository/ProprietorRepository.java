@@ -1,5 +1,7 @@
 package com.philippabather.properpropertiesapi.repository;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.philippabather.properpropertiesapi.dto.ProprietorDTOOut;
 import com.philippabather.properpropertiesapi.model.Proprietor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -23,4 +25,6 @@ public interface ProprietorRepository extends CrudRepository<Proprietor, Long> {
 
     Optional<Proprietor> findById(long proprietorId);
     Optional<Proprietor> findByUsernameAndPassword(String username, String password);
+    Proprietor findByUsername(String username);
+//    ProprietorDTOOut findByUsername(String username);
 }
