@@ -11,6 +11,7 @@ import com.philippabather.properpropertiesapi.model.RentalProperty;
 import com.philippabather.properpropertiesapi.model.SaleProperty;
 import com.philippabather.properpropertiesapi.repository.ProprietorRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -58,39 +59,43 @@ public class ProprietorServiceImpl implements ProprietorService {
         Set<Proprietor> proprietors = proprietorRepo.findAllByNumProperties(numProperties);
         return convertToProprietorDTOOutSet(proprietors);
     }
-
     @Override
     public ProprietorDTOOut save(ProprietorDTOIn proprietorDTOIn) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
         Proprietor proprietor = new Proprietor();
         modelMapper.map(proprietorDTOIn, proprietor);
+
         proprietor.setNumProperties(0);
+        proprietor.setPassword(bCryptPasswordEncoder.encode(proprietorDTOIn.getPassword()));
+
         Proprietor savedProprietor = proprietorRepo.save(proprietor);
         ProprietorDTOOut proprietorDTOOut = new ProprietorDTOOut();
+
         modelMapper.map(savedProprietor, proprietorDTOOut);
         return proprietorDTOOut;
+    }
+
+    @Override
+    public Proprietor findByUsername(String username) {
+        return proprietorRepo.findByUsername(username);
     }
     @Override
     public ProprietorDTOOut findById(long proprietorId) throws ProprietorNotFoundException {
         Proprietor proprietor = proprietorRepo.findById(proprietorId).orElseThrow(() -> new ProprietorNotFoundException(proprietorId));
-
-        List<RentalProperty> rentals = proprietor.getRentalPropertyList();
-        List<SaleProperty> sales = proprietor.getSalePropertyList();
-
-        ProprietorDTOOut proprietorDTOOut = new ProprietorDTOOut();
-        modelMapper.map(proprietor, proprietorDTOOut);
-
-        // convert list of sale and rental properties to their DTOs
-        List<RentalDTOOut> rentalsDTO = convertToRentalDTOOutList(rentals);
-        List<SaleDTOOut> salesDTO = convertToSaleDTOOutList(sales);
-        proprietorDTOOut.setRentalPropertyList(rentalsDTO);
-        proprietorDTOOut.setSalePropertyList(salesDTO);
-
-        return proprietorDTOOut;
+        return getProprietorDTO(proprietor);
     }
 
     @Override
     public ProprietorDTOOut findByUsernameAndPassword(String username, String password) throws InvalidLoginException {
-        Proprietor proprietor = proprietorRepo.findByUsernameAndPassword(username, password).orElseThrow(() -> new InvalidLoginException(username));
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = bCryptPasswordEncoder.encode(password);
+        Proprietor proprietor = proprietorRepo.findByUsernameAndPassword(username, encodedPassword).orElseThrow(() -> new InvalidLoginException(username));
+        return getProprietorDTO(proprietor);
+    }
+
+    @Override
+    public ProprietorDTOOut getProprietorDTO(Proprietor proprietor) {
         List<RentalProperty> rentals = proprietor.getRentalPropertyList();
         List<SaleProperty> sales = proprietor.getSalePropertyList();
 
@@ -105,6 +110,7 @@ public class ProprietorServiceImpl implements ProprietorService {
 
         return proprietorDTOOut;
     }
+
 
     @Override
     public ProprietorDTOOut updateById(long proprietorId, ProprietorDTOIn proprietorDTOIn) throws ProprietorNotFoundException {

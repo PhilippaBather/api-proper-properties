@@ -25,4 +25,6 @@ public interface ProprietorService {
     ProprietorDTOOut updateById(long proprietorId, ProprietorDTOIn proprietorDTOIn) throws ProprietorNotFoundException;
     void updatePropertyDetails(Proprietor proprietor);
     void deleteById(long proprietorId) throws ProprietorNotFoundException;
+    Proprietor findByUsername(String username);
+    ProprietorDTOOut getProprietorDTO(Proprietor proprietor);
 }
