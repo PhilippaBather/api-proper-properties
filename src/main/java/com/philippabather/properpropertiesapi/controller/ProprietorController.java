@@ -4,6 +4,7 @@ import com.philippabather.properpropertiesapi.dto.ProprietorDTOIn;
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOOut;
 import com.philippabather.properpropertiesapi.exception.InvalidLoginException;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
+import com.philippabather.properpropertiesapi.model.Proprietor;
 import com.philippabather.properpropertiesapi.service.ProprietorService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -67,8 +68,20 @@ public class ProprietorController {
     @GetMapping("/users/proprietors/{username}/{password}")
     public ResponseEntity<ProprietorDTOOut> findProprietorByUsernameAndPassword(@PathVariable String username, @PathVariable String password)
             throws InvalidLoginException {
-        ProprietorDTOOut proprietor = proprietorService.findByUsernameAndPassword(username, password);
-        return new ResponseEntity<>(proprietor, HttpStatus.OK);
+        // TODO - remove once Android implementation sorted
+//        ProprietorDTOOut proprietor = proprietorService.findByUsernameAndPassword(username, password);
+        Proprietor proprietor = proprietorService.findByUsername(username);
+        ProprietorDTOOut proprietorDTOOut = proprietorService.getProprietorDTO(proprietor);
+        return new ResponseEntity<>(proprietorDTOOut, HttpStatus.OK);
+    }
+
+    @GetMapping("/users/proprietors/secured/{username}")
+    public ResponseEntity<ProprietorDTOOut> findProprietorByUsername(@PathVariable String username)
+            throws InvalidLoginException {
+        Proprietor proprietor = proprietorService.findByUsername(username);
+        ProprietorDTOOut proprietorDTOOut = proprietorService.getProprietorDTO(proprietor);
+
+        return new ResponseEntity<>(proprietorDTOOut, HttpStatus.OK);
     }
 
     @PutMapping("/users/proprietors/{proprietorId}")
