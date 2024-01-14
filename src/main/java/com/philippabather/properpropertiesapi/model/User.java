@@ -1,6 +1,8 @@
 package com.philippabather.properpropertiesapi.model;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -15,7 +17,7 @@ import static com.philippabather.properpropertiesapi.constants.ValidationRegex.V
 
 /**
  * User - el usuario general del API.
- *
+ * <p>
  * La entidad es una clase abstracta y un 'mapped superclass' que comparte las propiedades con las subclases Client y
  * Proprietor.
  *
@@ -30,12 +32,12 @@ public abstract class User {
 
     @Column
     @NotBlank(message = VALIDATION_USERNAME_NOT_BLANK)
-    @Size(min = 5, max = 55, message = "Username must be no longer than 55 characters")
+    @Size(min = 5, message = "Username must be no longer than 55 characters")
     private String username;
 
     // contraseña debe incluir 1 número y un carácter especial con tamaño mínimo de 8 carácteres y máximo de 25
-    @Pattern(regexp = VALIDATION_PASSWORD_REGEX,
-            message = VALIDATION_PASSWORD)
+//    @Pattern(regexp = VALIDATION_PASSWORD_REGEX,
+//            message = VALIDATION_PASSWORD)
     @Column
     private String password;
 
