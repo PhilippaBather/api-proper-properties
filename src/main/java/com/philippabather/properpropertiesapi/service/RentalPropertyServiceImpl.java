@@ -150,6 +150,28 @@ public class RentalPropertyServiceImpl implements RentalPropertyService {
         logger.info("end: RentalPropertyServiceImpl_deleteAddressById");
     }
 
+    @Override
+    public Integer getRentalCountSQLNative() {
+        logger.info("RentalPropertyServiceImpl_getRentalCountSQLNative");
+        return rentalRepo.getRentalCountNativeSQL();
+    }
+
+    @Override
+    public Set<RentalDTOOut> getRentalsByBedroomsNativeSQL(int bedrooms) {
+        logger.info("start: RentalPropertyServiceImpl_getRentalsByBedroomsNativeSQL");
+        Set<RentalProperty> rentals = rentalRepo.getRentalsByBedroomsNativeSQL(bedrooms);
+        logger.info("end: RentalPropertyServiceImpl_getRentalsByBedroomsNativeSQL");
+        return convertToRentalDTOOutSet(rentals);
+    }
+
+    @Override
+    public Set<RentalDTOOut> getRentalsByParkingAndLiftNativeSQL() {
+        logger.info("start: RentalPropertyServiceImpl_getRentalsByParkingAndLiftNativeSQL");
+        Set<RentalProperty> rentals = rentalRepo.getRentalsByParkingAndLiftNativeSQL();
+        logger.info("end: RentalPropertyServiceImpl_getRentalsByParkingAndLiftNativeSQL");
+        return convertToRentalDTOOutSet(rentals);
+    }
+
     private Set<RentalDTOOut> convertToRentalDTOOutSet(Set<RentalProperty> rentalProperties) {
         logger.info("start: RentalPropertyServiceImpl_convertToRentalDTOOutSet");
         Set<RentalDTOOut> rentalsDTOOut = new HashSet<>();
