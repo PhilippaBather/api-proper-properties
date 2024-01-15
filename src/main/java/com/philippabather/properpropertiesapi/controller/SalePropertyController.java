@@ -6,6 +6,8 @@ import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundExcept
 import com.philippabather.properpropertiesapi.model.SaleProperty;
 import com.philippabather.properpropertiesapi.service.SalePropertyService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,6 +27,7 @@ import java.util.Set;
 @RestController
 public class SalePropertyController {
 
+    private static final Logger logger = LoggerFactory.getLogger(SalePropertyController.class);
     private final SalePropertyService saleService;
 
     public SalePropertyController(SalePropertyService saleService) {
@@ -38,6 +41,8 @@ public class SalePropertyController {
                                                                   String constructionDate,
                                                                 @RequestParam(name = "metresSqr", defaultValue = "0")
                                                                   int metresSqr) {
+        logger.info("start: SalePropertyController_getAllProperties");
+
         Set<SaleDTOOut> properties = new HashSet<>();
 
         if (price.toString().equals("0.00") && constructionDate.equals("") && metresSqr == 0) {
@@ -50,6 +55,7 @@ public class SalePropertyController {
             properties = saleService.findAllByMetresSqr(metresSqr);
         }
 
+        logger.info("end: SalePropertyController_getAllProperties");
         return new ResponseEntity<>(properties, HttpStatus.OK);
     }
 
@@ -57,13 +63,17 @@ public class SalePropertyController {
     public ResponseEntity<SaleDTOOut> createSaleProperty(@PathVariable long proprietorId,
                                                            @Valid @RequestBody SaleProperty saleProperty)
             throws ProprietorNotFoundException {
+        logger.info("start: SalePropertyController_createSaleProperty");
         SaleDTOOut property = saleService.save(proprietorId, saleProperty);
+        logger.info("end: SalePropertyController_createSaleProperty");
         return new ResponseEntity<>(property, HttpStatus.CREATED);
     }
 
     @GetMapping("/properties/sale/{propertyId}")
     public ResponseEntity<SaleDTOOut> getPropertyById(@PathVariable long propertyId) throws PropertyNotFoundException {
+        logger.info("start: SalePropertyController_getPropertyById");
         SaleDTOOut property = saleService.findById(propertyId);
+        logger.info("end: SalePropertyController_getPropertyById");
         return new ResponseEntity<>(property, HttpStatus.OK);
     }
 
@@ -71,13 +81,17 @@ public class SalePropertyController {
     public ResponseEntity<SaleDTOOut> updatePropertyById(@PathVariable long propertyId,
                                                            @Valid @RequestBody SaleProperty saleProperty)
             throws PropertyNotFoundException {
+        logger.info("start: SalePropertyController_updatePropertyById");
         SaleDTOOut property = saleService.updateById(propertyId, saleProperty);
+        logger.info("end: SalePropertyController_updatePropertyById");
         return new ResponseEntity<>(property, HttpStatus.OK);
     }
 
     @DeleteMapping("/properties/sale/{propertyId}")
     public ResponseEntity<SaleProperty> deletePropertyById(@PathVariable long propertyId) throws PropertyNotFoundException {
+        logger.info("start: SalePropertyController_deletePropertyById");
         saleService.deleteById(propertyId);
+        logger.info("end: SalePropertyController_deletePropertyById");
         return ResponseEntity.noContent().build();
     }
 }
