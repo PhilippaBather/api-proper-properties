@@ -1,0 +1,1280 @@
+{
+	"info": {
+		"_postman_id": "47583394-0b38-4953-833f-72d812078ad4",
+		"name": "aa-acesso-a-datos-proper-properties-api",
+		"description": "Endpoints for proper-properties API.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20376387"
+	},
+	"item": [
+		{
+			"name": "users/clients",
+			"item": [
+				{
+					"name": "POST Client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"marcus\",\r\n    \"password\" : \"marcus189!\",\r\n    \"name\": \"marcus\",\r\n    \"surname\": \"macintosh\",\r\n    \"email\": \"test@test\",\r\n    \"accountCreated\" : \"2023-07-21T14:12:09\",\r\n    \"dob\": \"1983-07-21T14:12:09\",\r\n    \"isStudent\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/clients",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Clients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users/clients",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"clients"
+							],
+							"query": [
+								{
+									"key": "surname",
+									"value": "test",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "test",
+									"disabled": true
+								},
+								{
+									"key": "dob",
+									"value": "1983-07-21",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Client by Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"maggie\",\r\n    \"password\" : \"maggie189!\",\r\n    \"name\": \"maggie\",\r\n    \"surname\": \"jackson\",\r\n    \"email\": \"test@test\",\r\n    \"accountCreated\" : \"2023-07-21T14:12:09\",\r\n    \"dob\": \"1983-07-21T14:12:09\",\r\n    \"isStudent\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/clients/:clientId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"clients",
+								":clientId"
+							],
+							"variable": [
+								{
+									"key": "clientId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Client by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users/clients/:clientId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"clients",
+								":clientId"
+							],
+							"variable": [
+								{
+									"key": "clientId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Client by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users/clients/:clientId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"clients",
+								":clientId"
+							],
+							"variable": [
+								{
+									"key": "clientId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for general users (clients): get, post, put, and delete"
+		},
+		{
+			"name": "authorization",
+			"item": [
+				{
+					"name": "/register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"joeBloggs\",\r\n    \"password\" : \"bloggsy23!\",\r\n    \"name\": \"Joe\",\r\n    \"surname\": \"Bloggs\",\r\n    \"email\": \"joe_bloggs@test\",\r\n    \"accountCreated\" : \"2023-07-21T14:12:09\",\r\n    \"isAgency\": true,\r\n    \"telephone\": \"012345789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"token\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"joeBloggs\",\r\n    \"password\" : \"bloggsy23!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/token",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"token"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "joeBloggs",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "bloggsy23!",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Secured endpoints for registration and login using JWT."
+		},
+		{
+			"name": "users/proprietors",
+			"item": [
+				{
+					"name": "GET Proprietors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/users/proprietors",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"proprietors"
+							],
+							"query": [
+								{
+									"key": "surname",
+									"value": "Bloggs",
+									"disabled": true
+								},
+								{
+									"key": "telephone",
+									"value": "01234578",
+									"disabled": true
+								},
+								{
+									"key": "numProperties",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "Authorization",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Proprietor by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/users/proprietors/:proprietorId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"proprietors",
+								":proprietorId"
+							],
+							"variable": [
+								{
+									"key": "proprietorId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Proprietor by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/users/proprietors/secured/:username",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"proprietors",
+								"secured",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "joeBloggs"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Proprietory by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"GET Properties Rental\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"JaneDoe\",\r\n    \"password\" : \"janeDoe89!\",\r\n    \"name\": \"test\",\r\n    \"surname\": \"test\",\r\n    \"email\": \"test@test\",\r\n    \"accountCreated\" : \"2023-07-21T14:12:09\",\r\n    \"numProperties\": 2,\r\n    \"isAgency\": false,\r\n    \"telephone\": \"1234567890\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/proprietors/secured/:proprietorId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"proprietors",
+								"secured",
+								":proprietorId"
+							],
+							"variable": [
+								{
+									"key": "proprietorId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Proprietor By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(null);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/users/proprietors/secured/:proprietorId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"proprietors",
+								"secured",
+								":proprietorId"
+							],
+							"variable": [
+								{
+									"key": "proprietorId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "properties/rental",
+			"item": [
+				{
+					"name": "GET Properties Rental",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/properties/rental",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"rental"
+							],
+							"query": [
+								{
+									"key": "numBedrooms",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "minTenancy",
+									"value": "6",
+									"disabled": true
+								},
+								{
+									"key": "monthlyRent",
+									"value": "1500",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Property Rental by Proprietor ID",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"propertyStatus\": \"RENTAL\",\r\n        \"propertyType\" : \"FLAT\",\r\n        \"latitude\": 40.4441,\r\n        \"longitude\": -3.8059,\r\n        \"metresSqr\": 100,\r\n        \"availableFrom\": \"2023-07-21T14:12:09\",\r\n        \"numBedrooms\": 4,\r\n        \"numBathrooms\": 2,\r\n        \"isParking\": true,\r\n        \"isLift\": true,\r\n        \"description\": \"TESTING\",\r\n        \"rentPerMonth\": 1500,\r\n        \"deposit\": 1000.00,\r\n        \"minTenancy\": 6,\r\n        \"isFurnished\": false,\r\n        \"isPetFriendly\": true\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/properties/rental/:proprietorId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"rental",
+								":proprietorId"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "proprietorId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Property Rental by Property ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/properties/rental/:propertyId?Authorization=Bearer{{token}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"rental",
+								":propertyId"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer{{token}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "propertyId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Properties Rental by Property ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"GET Properties Sale\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"propertyStatus\": \"RENTAL\",\r\n        \"propertyType\" : \"FLAT\",\r\n        \"latitude\": 40.4738,\r\n        \"longitude\": -3.8683,\r\n        \"metresSqr\": 100,\r\n        \"availableFrom\": \"2023-07-21T14:12:09\",\r\n        \"numBedrooms\": 2,\r\n        \"numBathrooms\": 1,\r\n        \"isParking\": true,\r\n        \"isLift\": true,\r\n        \"description\": \"A  lovely property.\",\r\n        \"rentPerMonth\": 800,\r\n        \"deposit\": 900.00,\r\n        \"minTenancy\": 6,\r\n        \"isFurnished\": false\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/properties/rental/:propertyId?Authorization=Bearer{{token}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"rental",
+								":propertyId"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer{{token}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "propertyId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Property Rental by Property ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"POST Sale Address by Property ID\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/properties/rental/:propertyId?Authorization=Bearer{{token}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"rental",
+								":propertyId"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer{{token}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "propertyId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "properties/sale",
+			"item": [
+				{
+					"name": "GET Properties Sale",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/properties/sale?metresSqr=100",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"sale"
+							],
+							"query": [
+								{
+									"key": "price",
+									"value": "500000.00",
+									"disabled": true
+								},
+								{
+									"key": "constructionDate",
+									"value": "1999-03-08",
+									"disabled": true
+								},
+								{
+									"key": "metresSqr",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Property Sale by Proprietor ID",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"propertyType\" : \"HOUSE\",\r\n        \"latitude\": 40.4738,\r\n        \"longitude\": 3.8683,\r\n        \"metresSqr\": 100,\r\n        \"availableFrom\": \"2023-07-21T14:12:09\",\r\n        \"numBedrooms\": 6,\r\n        \"numBathrooms\": 3,\r\n        \"isParking\": true,\r\n        \"isLift\": true,\r\n        \"description\": \"An extremely lovely property.\",\r\n        \"price\": 500000.00,\r\n        \"isLeasehold\": false,\r\n        \"constructionDate\": \"1999-03-08\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/properties/sale/:proprietorId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"sale",
+								":proprietorId"
+							],
+							"variable": [
+								{
+									"key": "proprietorId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Property Sale by Property ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/properties/sale/:proprietorId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"sale",
+								":proprietorId"
+							],
+							"variable": [
+								{
+									"key": "proprietorId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Property Sale by Property ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"GET Addresses\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"propertyType\" : \"FLAT\",\r\n        \"latitude\": 40.4738,\r\n        \"longitude\": 3.8683,\r\n        \"metresSqr\": 100,\r\n        \"availableFrom\": \"2023-07-21T14:12:09\",\r\n        \"numBedrooms\": 6,\r\n        \"numBathrooms\": 3,\r\n        \"isParking\": true,\r\n        \"isLift\": true,\r\n        \"description\": \"An extremely lovely property.\",\r\n        \"price\": 500000.00,\r\n        \"isLeasehold\": false,\r\n        \"constructionDate\": \"1999-03-08\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/properties/sale/:propertyId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"sale",
+								":propertyId"
+							],
+							"variable": [
+								{
+									"key": "propertyId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Property Sale by Property ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"DELETE Proprietor By ID\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/properties/sale/:propertyId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"sale",
+								":propertyId"
+							],
+							"variable": [
+								{
+									"key": "propertyId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "addresses",
+			"item": [
+				{
+					"name": "GET Addresses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"POST Rental Address by Property ID\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/addresses",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Address by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"PUT Rental Address by Property ID\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/addresses/:addressId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"addresses",
+								":addressId"
+							],
+							"variable": [
+								{
+									"key": "addressId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Rental Address by Property ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"GET Address by ID\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nameOrNum\": \"34\",\r\n    \"street\": \"Gran Via\",\r\n    \"town\": \"Majadahonda\",\r\n    \"region\": \"MADRID\",\r\n    \"postCode\": \"22282\",\r\n    \"country\": \"SPAIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/properties/rental/addresses/:propertyId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"rental",
+								"addresses",
+								":propertyId"
+							],
+							"variable": [
+								{
+									"key": "propertyId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Rental Address by Property ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nameOrNum\": \"34\",\r\n    \"street\": \"Picasso Street\",\r\n    \"town\": \"Majadahonda\",\r\n    \"region\": \"MADRID\",\r\n    \"postCode\": \"11282\",\r\n    \"country\": \"SPAIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/properties/rental/addresses/:propertyId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"rental",
+								"addresses",
+								":propertyId"
+							],
+							"variable": [
+								{
+									"key": "propertyId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Rental Address by Property ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"DELETE Property Rental by Property ID\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/properties/rental/addresses/:propertyId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"rental",
+								"addresses",
+								":propertyId"
+							],
+							"variable": [
+								{
+									"key": "propertyId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Sale Address by Property ID",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nameOrNum\": \"34\",\r\n    \"street\": \"Gran Via\",\r\n    \"town\": \"Majadahonda\",\r\n    \"region\": \"MADRID\",\r\n    \"postCode\": \"22282\",\r\n    \"country\": \"SPAIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/properties/sale/addresses/:propertyId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"sale",
+								"addresses",
+								":propertyId"
+							],
+							"variable": [
+								{
+									"key": "propertyId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Sale Address by Property ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nameOrNum\": \"34\",\r\n    \"street\": \"Picasso Street\",\r\n    \"town\": \"Majadahonda\",\r\n    \"region\": \"MADRID\",\r\n    \"postCode\": \"11282\",\r\n    \"country\": \"SPAIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/properties/sale/addresses/:propertyId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"sale",
+								"addresses",
+								":propertyId"
+							],
+							"variable": [
+								{
+									"key": "propertyId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Sale Address by Property ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"DELETE Property Sale by Property ID\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/properties/sale/addresses/:propertyId?Authorization=Bearer{{token}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"sale",
+								"addresses",
+								":propertyId"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer{{token}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "propertyId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
