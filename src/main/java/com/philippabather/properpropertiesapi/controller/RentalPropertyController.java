@@ -57,8 +57,6 @@ public class RentalPropertyController {
         logger.info("end: RentalPropertyController_getAllProperties");
         return new ResponseEntity<>(rentalProperties, HttpStatus.OK);
     }
-
-
     @PostMapping("/properties/rental/{proprietorId}")
     public ResponseEntity<RentalDTOOut> createRentalProperty(@PathVariable long proprietorId, @Valid @RequestBody RentalProperty rentalProperty)
             throws ProprietorNotFoundException {
@@ -74,6 +72,30 @@ public class RentalPropertyController {
         RentalDTOOut property = rentalService.findById(propertyId);
         logger.info("end: RentalPropertyController_getPropertyById");
         return new ResponseEntity<>(property, HttpStatus.OK);
+    }
+
+    @GetMapping("/properties/count/rental")
+    public ResponseEntity<Integer> getRentalCountSQLNative() {
+        logger.info("start: RentalPropertyController_getRentalCountSQLNative");
+        Integer count = rentalService.getRentalCountSQLNative();
+        logger.info("end: RentalPropertyController_getRentalCountSQLNative");
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
+    @GetMapping("/properties/bedrooms/rental/{bedrooms}")
+    public ResponseEntity<Set<RentalDTOOut>> getRentalsByBedroomsNativeSQL(@PathVariable int bedrooms){
+        logger.info("start: RentalPropertyController_getRentalsByBedroomsNativeSQL");
+        Set<RentalDTOOut> rentals = rentalService.getRentalsByBedroomsNativeSQL(bedrooms);
+        logger.info("start: RentalPropertyController_getRentalsByBedroomsNativeSQL");
+        return new ResponseEntity<>(rentals, HttpStatus.OK);
+    }
+
+    @GetMapping("/properties/facilities/rental")
+    public ResponseEntity<Set<RentalDTOOut>> getRentalsByParkingAndLiftNativeSQL(){
+        logger.info("start: RentalPropertyController_getRentalsByParkingAndLiftNativeSQL");
+        Set<RentalDTOOut> rentals = rentalService.getRentalsByParkingAndLiftNativeSQL();
+        logger.info("start: RentalPropertyController_getRentalsByParkingAndLiftNativeSQL");
+        return new ResponseEntity<>(rentals, HttpStatus.OK);
     }
 
     @PutMapping("/properties/rental/{propertyId}")
