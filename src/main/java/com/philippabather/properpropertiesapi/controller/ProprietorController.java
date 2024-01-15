@@ -65,16 +65,6 @@ public class ProprietorController {
         return new ResponseEntity<>(proprietor, HttpStatus.OK);
     }
 
-    @GetMapping("/users/proprietors/{username}/{password}")
-    public ResponseEntity<ProprietorDTOOut> findProprietorByUsernameAndPassword(@PathVariable String username, @PathVariable String password)
-            throws InvalidLoginException {
-        // TODO - remove once Android implementation sorted
-//        ProprietorDTOOut proprietor = proprietorService.findByUsernameAndPassword(username, password);
-        Proprietor proprietor = proprietorService.findByUsername(username);
-        ProprietorDTOOut proprietorDTOOut = proprietorService.getProprietorDTO(proprietor);
-        return new ResponseEntity<>(proprietorDTOOut, HttpStatus.OK);
-    }
-
     @GetMapping("/users/proprietors/secured/{username}")
     public ResponseEntity<ProprietorDTOOut> findProprietorByUsername(@PathVariable String username)
             throws InvalidLoginException {
