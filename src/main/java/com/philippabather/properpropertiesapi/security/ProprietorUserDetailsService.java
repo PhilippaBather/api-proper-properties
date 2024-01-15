@@ -22,7 +22,7 @@ import java.util.Set;
 public class ProprietorUserDetailsService implements UserDetailsService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProprietorUserDetailsService.class);
-    private ProprietorService proprietorService;
+    private final ProprietorService proprietorService;
 
     public ProprietorUserDetailsService(ProprietorService proprietorService) {
         this.proprietorService = proprietorService;
