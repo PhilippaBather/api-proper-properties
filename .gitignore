@@ -40,7 +40,7 @@ build/
 .vscode/
 
 ### Logs ###
-/logs/**
+logs/**
 
 ### Keys and Env Variables ###
 src/main/resources/app.key
