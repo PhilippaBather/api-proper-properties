@@ -4,7 +4,6 @@ import com.philippabather.properpropertiesapi.dto.ProprietorDTOIn;
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOOut;
 import com.philippabather.properpropertiesapi.dto.RentalDTOOut;
 import com.philippabather.properpropertiesapi.dto.SaleDTOOut;
-import com.philippabather.properpropertiesapi.exception.InvalidLoginException;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
 import com.philippabather.properpropertiesapi.model.Proprietor;
 import com.philippabather.properpropertiesapi.model.RentalProperty;
@@ -83,14 +82,6 @@ public class ProprietorServiceImpl implements ProprietorService {
     @Override
     public ProprietorDTOOut findById(long proprietorId) throws ProprietorNotFoundException {
         Proprietor proprietor = proprietorRepo.findById(proprietorId).orElseThrow(() -> new ProprietorNotFoundException(proprietorId));
-        return getProprietorDTO(proprietor);
-    }
-
-    @Override
-    public ProprietorDTOOut findByUsernameAndPassword(String username, String password) throws InvalidLoginException {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = bCryptPasswordEncoder.encode(password);
-        Proprietor proprietor = proprietorRepo.findByUsernameAndPassword(username, encodedPassword).orElseThrow(() -> new InvalidLoginException(username));
         return getProprietorDTO(proprietor);
     }
 
