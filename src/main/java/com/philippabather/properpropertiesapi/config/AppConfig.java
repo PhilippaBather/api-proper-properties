@@ -127,7 +127,8 @@ public class AppConfig{
         logger.info("AppConfig_webSecurityCustomizer");
         return (web) -> web.ignoring().requestMatchers(
                 "/users/clients/**", "/users/proprietors/**",
-                "/properties/rental", "properties/sale",
+                "/properties/rental", "/properties/count/rental", "/properties/bedrooms/rental/**", "/properties/facilities/rental",
+                "properties/sale",
                 "/addresses/**");
     }
 
