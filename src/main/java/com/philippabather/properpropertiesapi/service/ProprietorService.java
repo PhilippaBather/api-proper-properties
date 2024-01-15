@@ -21,8 +21,9 @@ public interface ProprietorService {
     Set<ProprietorDTOOut> findAllByNumProperties(int numProperties);
     ProprietorDTOOut save(ProprietorDTOIn proprietorDTOIn);
     ProprietorDTOOut findById(long proprietorId) throws ProprietorNotFoundException;
-    ProprietorDTOOut findByUsernameAndPassword(String username, String password) throws InvalidLoginException;
     ProprietorDTOOut updateById(long proprietorId, ProprietorDTOIn proprietorDTOIn) throws ProprietorNotFoundException;
     void updatePropertyDetails(Proprietor proprietor);
     void deleteById(long proprietorId) throws ProprietorNotFoundException;
+    Proprietor findByUsername(String username);
+    ProprietorDTOOut getProprietorDTO(Proprietor proprietor);
 }

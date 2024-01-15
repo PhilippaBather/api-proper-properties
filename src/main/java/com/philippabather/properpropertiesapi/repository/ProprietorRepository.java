@@ -22,5 +22,5 @@ public interface ProprietorRepository extends CrudRepository<Proprietor, Long> {
     Set<Proprietor> findAllByNumProperties(int numProperties);
 
     Optional<Proprietor> findById(long proprietorId);
-    Optional<Proprietor> findByUsernameAndPassword(String username, String password);
+    Proprietor findByUsername(String username);
 }

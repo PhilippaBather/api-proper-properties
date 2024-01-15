@@ -38,3 +38,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Keys and Env Variables ###
+src/main/resources/app.key
+src/main/resources/app.pub
+src/main/resources/keypair.pem

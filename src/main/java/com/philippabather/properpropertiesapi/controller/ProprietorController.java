@@ -4,6 +4,7 @@ import com.philippabather.properpropertiesapi.dto.ProprietorDTOIn;
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOOut;
 import com.philippabather.properpropertiesapi.exception.InvalidLoginException;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
+import com.philippabather.properpropertiesapi.model.Proprietor;
 import com.philippabather.properpropertiesapi.service.ProprietorService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -52,33 +53,36 @@ public class ProprietorController {
         return new ResponseEntity<>(proprietors, HttpStatus.OK);
     }
 
-    @PostMapping("/users/proprietors")
-    public ResponseEntity<ProprietorDTOOut> createProprietor(@Valid @RequestBody ProprietorDTOIn proprietorDTOIn) {
-        ProprietorDTOOut proprietorDTOOut = proprietorService.save(proprietorDTOIn);
-        return new ResponseEntity<>(proprietorDTOOut, HttpStatus.CREATED);
-    }
-
     @GetMapping("/users/proprietors/{proprietorId}")
     public ResponseEntity<ProprietorDTOOut> findProprietorById(@PathVariable long proprietorId) throws ProprietorNotFoundException {
         ProprietorDTOOut proprietor = proprietorService.findById(proprietorId);
         return new ResponseEntity<>(proprietor, HttpStatus.OK);
     }
 
-    @GetMapping("/users/proprietors/{username}/{password}")
-    public ResponseEntity<ProprietorDTOOut> findProprietorByUsernameAndPassword(@PathVariable String username, @PathVariable String password)
+    // Endpoint reemplazado por "/token" en AuthController
+//    @PostMapping("/users/proprietors")
+//    public ResponseEntity<ProprietorDTOOut> createProprietor(@Valid @RequestBody ProprietorDTOIn proprietorDTOIn) {
+//        ProprietorDTOOut proprietorDTOOut = proprietorService.save(proprietorDTOIn);
+//        return new ResponseEntity<>(proprietorDTOOut, HttpStatus.CREATED);
+//    }
+
+    @GetMapping("/users/proprietors/secured/{username}")
+    public ResponseEntity<ProprietorDTOOut> findProprietorByUsername(@PathVariable String username)
             throws InvalidLoginException {
-        ProprietorDTOOut proprietor = proprietorService.findByUsernameAndPassword(username, password);
-        return new ResponseEntity<>(proprietor, HttpStatus.OK);
+        Proprietor proprietor = proprietorService.findByUsername(username);
+        ProprietorDTOOut proprietorDTOOut = proprietorService.getProprietorDTO(proprietor);
+
+        return new ResponseEntity<>(proprietorDTOOut, HttpStatus.OK);
     }
 
-    @PutMapping("/users/proprietors/{proprietorId}")
+    @PutMapping("/users/proprietors/secured/{proprietorId}")
     public ResponseEntity<ProprietorDTOOut> updateProprietorById(@PathVariable long proprietorId, @Valid @RequestBody ProprietorDTOIn proprietorDTOIn)
             throws ProprietorNotFoundException {
         ProprietorDTOOut proprietor = proprietorService.updateById(proprietorId, proprietorDTOIn);
         return new ResponseEntity<>(proprietor, HttpStatus.OK);
     }
 
-    @DeleteMapping("/users/proprietors/{proprietorId}")
+    @DeleteMapping("/users/proprietors/secured/{proprietorId}")
     public ResponseEntity<Void> deleteProprietorById(@PathVariable long proprietorId) throws ProprietorNotFoundException {
         proprietorService.deleteById(proprietorId);
         return ResponseEntity.noContent().build();

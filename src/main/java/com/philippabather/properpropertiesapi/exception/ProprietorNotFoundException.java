@@ -13,4 +13,9 @@ public class ProprietorNotFoundException extends RuntimeException {
     public ProprietorNotFoundException(long proprietorId) {
         super(PROPRIETOR_NOT_FOUND_EXCEPTION_MSG + proprietorId);
     }
+
+    public ProprietorNotFoundException(String proprietorEmail) {
+        super(PROPRIETOR_NOT_FOUND_EXCEPTION_MSG + proprietorEmail);
+    }
+
 }
