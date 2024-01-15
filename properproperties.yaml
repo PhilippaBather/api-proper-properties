@@ -1093,7 +1093,76 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-
+  /properties/count/rental:
+    get:
+      tags:
+        - rental
+      operationId: getRentalPropertyCount
+      summary: Devuele el número de muebles para alquiler
+      description: Devuele el número de muebles para alquiler
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: number
+                format: int32
+                example: 3
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /properties/bedrooms/rental/{bedrooms}:
+    get:
+      tags:
+        - rental
+      operationId: getRentalPropertiesByNumBedrooms
+      summary: Devuelve una lista de muebles para alquiler con lo mismo o más habitaciónes la condición en el parámetro
+      description: Devuelve una lista de muebles para alquiler con lo mismo o más habitaciónes la condición en el parámetro
+      parameters:
+        - name: bedrooms
+          in: path variable
+          description: Número de habitaciones
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RentalDTOOut"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /properties/facilities/rental:
+    get:
+      tags:
+        - rental
+      operationId: getRentalPropertiesWithParkingAndLift
+      summary: Devuelve una lista de muebles para alquiler con parking y ascensor
+      description: Devuelve una lista de muebles para alquiler con parking y ascensor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RentalDTOOut"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     ClientDTOIn:
