@@ -40,6 +40,7 @@ public class AuthController {
 
     @PostMapping("/token")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginDTOIn user) {
+        logger.info("start: AuthController_authenticateUser");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
@@ -52,14 +53,17 @@ public class AuthController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
+        logger.info("end: AuthController_authenticateUser");
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getUsername(),
                 roles));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ProprietorDTOOut> saveUser(@RequestBody ProprietorDTOIn user) throws Exception {
+    public ResponseEntity<ProprietorDTOOut> registerUser(@RequestBody ProprietorDTOIn user) throws Exception {
+        logger.info("start: AuthController_registerUser");
         ProprietorDTOOut proprietor = proprietorService.save(user);
+        logger.info("end: AuthController_registerUser");
         return new ResponseEntity<>(proprietor, HttpStatus.CREATED);
     }
 }

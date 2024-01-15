@@ -7,6 +7,8 @@ import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundExcept
 import com.philippabather.properpropertiesapi.model.Proprietor;
 import com.philippabather.properpropertiesapi.service.ProprietorService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,6 +27,7 @@ import java.util.Set;
 @RestController
 public class ProprietorController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProprietorController.class);
     private ProprietorService proprietorService;
 
     public ProprietorController(ProprietorService proprietorService) {
@@ -38,6 +41,8 @@ public class ProprietorController {
                                                                    String telephone,
                                                                    @RequestParam(value = "numProperties", defaultValue = "0")
                                                                    int numProperties) {
+        logger.info("start: ProprietorController_getAllProprietors");
+
         Set<ProprietorDTOOut> proprietors = new HashSet<>();
 
         if (surname.trim().equals("") && telephone.trim().equals("") && numProperties == 0) {
@@ -50,12 +55,15 @@ public class ProprietorController {
             proprietors = proprietorService.findAllByNumProperties(numProperties);
         }
 
+        logger.info("end: ProprietorController_getAllProprietors");
         return new ResponseEntity<>(proprietors, HttpStatus.OK);
     }
 
     @GetMapping("/users/proprietors/{proprietorId}")
     public ResponseEntity<ProprietorDTOOut> findProprietorById(@PathVariable long proprietorId) throws ProprietorNotFoundException {
+        logger.info("start: ProprietorController_findProprietorById");
         ProprietorDTOOut proprietor = proprietorService.findById(proprietorId);
+        logger.info("end: ProprietorController_findProprietorById");
         return new ResponseEntity<>(proprietor, HttpStatus.OK);
     }
 
@@ -69,22 +77,27 @@ public class ProprietorController {
     @GetMapping("/users/proprietors/secured/{username}")
     public ResponseEntity<ProprietorDTOOut> findProprietorByUsername(@PathVariable String username)
             throws InvalidLoginException {
+        logger.info("start: ProprietorController_findProprietorByUsername");
         Proprietor proprietor = proprietorService.findByUsername(username);
         ProprietorDTOOut proprietorDTOOut = proprietorService.getProprietorDTO(proprietor);
-
+        logger.info("end: ProprietorController_findProprietorByUsername");
         return new ResponseEntity<>(proprietorDTOOut, HttpStatus.OK);
     }
 
     @PutMapping("/users/proprietors/secured/{proprietorId}")
     public ResponseEntity<ProprietorDTOOut> updateProprietorById(@PathVariable long proprietorId, @Valid @RequestBody ProprietorDTOIn proprietorDTOIn)
             throws ProprietorNotFoundException {
+        logger.info("start: ProprietorController_updateProprietorById");
         ProprietorDTOOut proprietor = proprietorService.updateById(proprietorId, proprietorDTOIn);
+        logger.info("end: ProprietorController_updateProprietorById");
         return new ResponseEntity<>(proprietor, HttpStatus.OK);
     }
 
     @DeleteMapping("/users/proprietors/secured/{proprietorId}")
     public ResponseEntity<Void> deleteProprietorById(@PathVariable long proprietorId) throws ProprietorNotFoundException {
+        logger.info("start: ProprietorController_deleteProprietorById");
         proprietorService.deleteById(proprietorId);
+        logger.info("end: ProprietorController_deleteProprietorById");
         return ResponseEntity.noContent().build();
     }
 

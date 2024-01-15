@@ -6,6 +6,8 @@ import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundExcept
 import com.philippabather.properpropertiesapi.model.RentalProperty;
 import com.philippabather.properpropertiesapi.service.RentalPropertyService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,6 +26,7 @@ import java.util.Set;
 @RestController
 public class RentalPropertyController {
 
+    private static final Logger logger = LoggerFactory.getLogger(RentalPropertyController.class);
     private final RentalPropertyService rentalService;
 
     public RentalPropertyController(RentalPropertyService rentalService) {
@@ -37,6 +40,7 @@ public class RentalPropertyController {
                                                                 int minTenancy,
                                                               @RequestParam(value = "monthlyRent", defaultValue = "0.00")
                                                                 BigDecimal monthlyRent) {
+        logger.info("start: RentalPropertyController_getAllProperties");
 
         Set<RentalDTOOut> rentalProperties = new HashSet<>();
 
@@ -50,6 +54,7 @@ public class RentalPropertyController {
             rentalProperties = rentalService.findAllByMonthlyRent(monthlyRent);
         }
 
+        logger.info("end: RentalPropertyController_getAllProperties");
         return new ResponseEntity<>(rentalProperties, HttpStatus.OK);
     }
 
@@ -57,26 +62,34 @@ public class RentalPropertyController {
     @PostMapping("/properties/rental/{proprietorId}")
     public ResponseEntity<RentalDTOOut> createRentalProperty(@PathVariable long proprietorId, @Valid @RequestBody RentalProperty rentalProperty)
             throws ProprietorNotFoundException {
+        logger.info("start: RentalPropertyController_createRentalProperty");
         RentalDTOOut property = rentalService.save(proprietorId, rentalProperty);
+        logger.info("end: RentalPropertyController_createRentalProperty");
         return new ResponseEntity<>(property, HttpStatus.CREATED);
     }
 
     @GetMapping("/properties/rental/{propertyId}")
     public ResponseEntity<RentalDTOOut> getPropertyById(@PathVariable long propertyId) throws PropertyNotFoundException {
+        logger.info("start: RentalPropertyController_getPropertyById");
         RentalDTOOut property = rentalService.findById(propertyId);
+        logger.info("end: RentalPropertyController_getPropertyById");
         return new ResponseEntity<>(property, HttpStatus.OK);
     }
 
     @PutMapping("/properties/rental/{propertyId}")
     public ResponseEntity<RentalDTOOut> updatePropertyById(@PathVariable long propertyId, @Valid @RequestBody RentalProperty rentalProperty)
             throws PropertyNotFoundException {
+        logger.info("start: RentalPropertyController_updatePropertyById");
         RentalDTOOut property = rentalService.updateById(propertyId, rentalProperty);
+        logger.info("end: RentalPropertyController_updatePropertyById");
         return new ResponseEntity<>(property, HttpStatus.OK);
     }
 
     @DeleteMapping("/properties/rental/{propertyId}")
     public ResponseEntity<Void> deletePropertyById(@PathVariable long propertyId) throws PropertyNotFoundException {
+        logger.info("start: RentalPropertyController_deletePropertyById");
         rentalService.deleteById(propertyId);
+        logger.info("end: RentalPropertyController_deletePropertyById");
         return ResponseEntity.noContent().build();
     }
 }

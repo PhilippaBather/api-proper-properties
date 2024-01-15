@@ -1,0 +1,363 @@
+2024-01-15 22:36:40,282 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2024-01-15 22:36:40,429 INFO o.s.b.StartupInfoLogger [main] Starting ProperPropertiesApiApplication using Java 17.0.7 with PID 4024 (C:\Users\bathe\OneDrive\Desktop\San Valero\Segundo Curso\Asignaturas\Accesso a Datos\Actividad de Aprenizaje\properpropertiesapi\target\classes started by bathe in C:\Users\bathe\OneDrive\Desktop\San Valero\Segundo Curso\Asignaturas\Accesso a Datos\Actividad de Aprenizaje\properpropertiesapi)
+2024-01-15 22:36:40,431 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2024-01-15 22:36:41,608 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-01-15 22:36:41,745 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 126 ms. Found 5 JPA repository interfaces.
+2024-01-15 22:36:42,736 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port 3000 (http)
+2024-01-15 22:36:42,757 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-3000"]
+2024-01-15 22:36:42,762 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2024-01-15 22:36:42,765 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-01-15 22:36:42,915 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2024-01-15 22:36:42,919 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 2425 ms
+2024-01-15 22:36:42,963 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2024-01-15 22:36:43,333 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:~/OneDrive/Desktop/TempDB/properties.db user=SA
+2024-01-15 22:36:43,336 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2024-01-15 22:36:43,354 INFO o.s.b.a.h.H2ConsoleAutoConfiguration [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:~/OneDrive/Desktop/TempDB/properties.db'
+2024-01-15 22:36:43,537 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-01-15 22:36:43,669 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.3.1.Final
+2024-01-15 22:36:43,750 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2024-01-15 22:36:44,137 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-01-15 22:36:45,937 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-01-15 22:36:46,042 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-01-15 22:36:46,519 INFO c.p.p.c.AppConfig [main] AppConfig_authenticationJwtTokenFilter
+2024-01-15 22:36:46,522 INFO c.p.p.c.AppConfig [main] start: AppConfig_jwtEncoder
+2024-01-15 22:36:46,536 INFO c.p.p.c.AppConfig [main] end: AppConfig_jwtEncoder
+2024-01-15 22:36:46,555 INFO c.p.p.c.AppConfig [main] AppConfig_jwtDecoder
+2024-01-15 22:36:46,763 INFO c.p.p.c.AppConfig [main] AppConfig_authenticationManager
+2024-01-15 22:36:46,784 INFO c.p.p.c.AppConfig [main] start: AppConfig_authenticationProvider
+2024-01-15 22:36:46,818 INFO c.p.p.c.AppConfig [main] AppConfig_passwordEncoder
+2024-01-15 22:36:46,819 INFO c.p.p.c.AppConfig [main] end: AppConfig_authenticationProvider
+2024-01-15 22:36:46,894 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-01-15 22:36:46,997 INFO c.p.p.c.AppConfig [main] start: AppConfig_filterChain
+2024-01-15 22:36:47,276 INFO c.p.p.c.AppConfig [main] end: AppConfig_filterChain
+2024-01-15 22:36:47,311 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@51806858, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@56afbace, org.springframework.security.web.context.SecurityContextHolderFilter@712dd0b0, org.springframework.security.web.header.HeaderWriterFilter@34f3c920, org.springframework.web.filter.CorsFilter@40dcbf7, org.springframework.security.web.authentication.logout.LogoutFilter@1e60890c, com.philippabather.properpropertiesapi.security.AuthTokenFilter@6c0bf8f4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@500beb9f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@67e37d25, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@53850535, org.springframework.security.web.session.SessionManagementFilter@39e91bda, org.springframework.security.web.access.ExceptionTranslationFilter@1722ede1, org.springframework.security.web.access.intercept.AuthorizationFilter@752e50c6]
+2024-01-15 22:36:47,313 INFO c.p.p.c.AppConfig [main] AppConfig_webSecurityCustomizer
+2024-01-15 22:36:47,539 WARN o.s.s.c.a.w.b.WebSecurity [main] You are asking Spring Security to ignore DispatcherServletDelegating [ant = Ant [pattern='/users/clients/**'], mvc = Mvc [pattern='/users/clients/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-15 22:36:47,541 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will not secure DispatcherServletDelegating [ant = Ant [pattern='/users/clients/**'], mvc = Mvc [pattern='/users/clients/**']]
+2024-01-15 22:36:47,544 WARN o.s.s.c.a.w.b.WebSecurity [main] You are asking Spring Security to ignore DispatcherServletDelegating [ant = Ant [pattern='/users/proprietors/**'], mvc = Mvc [pattern='/users/proprietors/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-15 22:36:47,545 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will not secure DispatcherServletDelegating [ant = Ant [pattern='/users/proprietors/**'], mvc = Mvc [pattern='/users/proprietors/**']]
+2024-01-15 22:36:47,545 WARN o.s.s.c.a.w.b.WebSecurity [main] You are asking Spring Security to ignore DispatcherServletDelegating [ant = Ant [pattern='/properties/rental'], mvc = Mvc [pattern='/properties/rental']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-15 22:36:47,547 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will not secure DispatcherServletDelegating [ant = Ant [pattern='/properties/rental'], mvc = Mvc [pattern='/properties/rental']]
+2024-01-15 22:36:47,547 WARN o.s.s.c.a.w.b.WebSecurity [main] You are asking Spring Security to ignore DispatcherServletDelegating [ant = Ant [pattern='properties/sale'], mvc = Mvc [pattern='properties/sale']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-15 22:36:47,548 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will not secure DispatcherServletDelegating [ant = Ant [pattern='properties/sale'], mvc = Mvc [pattern='properties/sale']]
+2024-01-15 22:36:47,548 WARN o.s.s.c.a.w.b.WebSecurity [main] You are asking Spring Security to ignore DispatcherServletDelegating [ant = Ant [pattern='/addresses/**'], mvc = Mvc [pattern='/addresses/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-15 22:36:47,549 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will not secure DispatcherServletDelegating [ant = Ant [pattern='/addresses/**'], mvc = Mvc [pattern='/addresses/**']]
+2024-01-15 22:36:47,597 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-3000"]
+2024-01-15 22:36:47,652 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port 3000 (http) with context path ''
+2024-01-15 22:36:47,667 INFO o.s.b.StartupInfoLogger [main] Started ProperPropertiesApiApplication in 8.073 seconds (process running for 8.635)
+2024-01-15 22:36:55,918 INFO o.a.j.l.DirectJDKLog [http-nio-3000-exec-2] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-15 22:36:55,920 INFO o.s.w.s.FrameworkServlet [http-nio-3000-exec-2] Initializing Servlet 'dispatcherServlet'
+2024-01-15 22:36:55,923 INFO o.s.w.s.FrameworkServlet [http-nio-3000-exec-2] Completed initialization in 1 ms
+2024-01-15 22:36:55,938 WARN o.s.w.s.h.HandlerMappingIntrospector$CacheResultLogHelper [http-nio-3000-exec-2] Cache miss for REQUEST dispatch to '/users/clients' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2024-01-15 22:36:55,969 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-2] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:55,970 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-2] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:55,971 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-2] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:56,339 INFO c.p.p.c.ClientController [http-nio-3000-exec-2] start: ClientController_createClient
+2024-01-15 22:36:56,340 INFO c.p.p.s.ClientServiceImpl [http-nio-3000-exec-2] start: ClientServiceImpl_save
+2024-01-15 22:36:56,593 INFO c.p.p.s.ClientServiceImpl [http-nio-3000-exec-2] end: ClientServiceImpl_save
+2024-01-15 22:36:56,594 INFO c.p.p.c.ClientController [http-nio-3000-exec-2] end: ClientController_createClient
+2024-01-15 22:36:56,645 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-2] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:56,712 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-3] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:56,713 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-3] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:56,714 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-3] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:56,726 INFO c.p.p.c.ClientController [http-nio-3000-exec-3] start: ClientController_getAllClients
+2024-01-15 22:36:56,727 INFO c.p.p.s.ClientServiceImpl [http-nio-3000-exec-3] start: ClientServiceImpl_findAll
+2024-01-15 22:36:56,974 INFO c.p.p.s.ClientServiceImpl [http-nio-3000-exec-3] end: ClientServiceImpl_findAll
+2024-01-15 22:36:56,976 INFO c.p.p.s.ClientServiceImpl [http-nio-3000-exec-3] start: ClientServiceImpl_convertToClientDTOOutSet
+2024-01-15 22:36:56,982 INFO c.p.p.s.ClientServiceImpl [http-nio-3000-exec-3] Client(id=1, dob=1983-07-21, isStudent=true)
+2024-01-15 22:36:56,984 INFO c.p.p.s.ClientServiceImpl [http-nio-3000-exec-3] end: ClientServiceImpl_convertToClientDTOOutSet
+2024-01-15 22:36:56,985 INFO c.p.p.c.ClientController [http-nio-3000-exec-3] end: ClientController_getAllClients
+2024-01-15 22:36:56,999 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-3] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:57,099 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-4] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:57,100 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-4] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:57,102 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-4] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:57,111 INFO c.p.p.c.ClientController [http-nio-3000-exec-4] start: ClientController_updateClientById
+2024-01-15 22:36:57,114 INFO c.p.p.s.ClientServiceImpl [http-nio-3000-exec-4] start: ClientServiceImpl_updateById
+2024-01-15 22:36:57,180 INFO c.p.p.s.ClientServiceImpl [http-nio-3000-exec-4] end: ClientServiceImpl_updateById
+2024-01-15 22:36:57,181 INFO c.p.p.c.ClientController [http-nio-3000-exec-4] end: ClientController_updateClientById
+2024-01-15 22:36:57,184 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-4] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:57,249 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-5] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:57,251 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-5] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:57,252 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-5] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:57,255 INFO c.p.p.c.ClientController [http-nio-3000-exec-5] start: ClientController_findClientById
+2024-01-15 22:36:57,256 INFO c.p.p.s.ClientServiceImpl [http-nio-3000-exec-5] start: ClientServiceImpl_findById
+2024-01-15 22:36:57,260 INFO c.p.p.s.ClientServiceImpl [http-nio-3000-exec-5] end: ClientServiceImpl_findById
+2024-01-15 22:36:57,261 INFO c.p.p.c.ClientController [http-nio-3000-exec-5] end: ClientController_findClientById
+2024-01-15 22:36:57,264 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-5] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:57,341 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-6] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:57,342 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-6] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:57,342 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-6] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:57,347 INFO c.p.p.c.ClientController [http-nio-3000-exec-6] start: ClientController_deleteClientById
+2024-01-15 22:36:57,347 INFO c.p.p.s.ClientServiceImpl [http-nio-3000-exec-6] start: ClientServiceImpl_deleteById
+2024-01-15 22:36:57,370 INFO c.p.p.s.ClientServiceImpl [http-nio-3000-exec-6] end: ClientServiceImpl_deleteById
+2024-01-15 22:36:57,371 INFO c.p.p.c.ClientController [http-nio-3000-exec-6] end: ClientController_deleteClientById
+2024-01-15 22:36:57,375 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-6] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:57,516 WARN o.s.w.s.h.HandlerMappingIntrospector$CacheResultLogHelper [http-nio-3000-exec-7] Cache miss for REQUEST dispatch to '/register' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
+2024-01-15 22:36:57,518 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-7] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:57,518 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-7] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:57,519 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-7] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:57,527 INFO c.p.p.c.AuthController [http-nio-3000-exec-7] start: AuthController_registerUser
+2024-01-15 22:36:57,528 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-7] start: ProprietorServiceImpl_save
+2024-01-15 22:36:57,783 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-7] end: ProprietorServiceImpl_save
+2024-01-15 22:36:57,785 INFO c.p.p.c.AuthController [http-nio-3000-exec-7] end: AuthController_registerUser
+2024-01-15 22:36:57,802 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-7] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:57,882 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-8] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:57,883 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-8] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:57,883 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-8] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:57,887 INFO c.p.p.c.AuthController [http-nio-3000-exec-8] start: AuthController_authenticateUser
+2024-01-15 22:36:58,031 INFO c.p.p.s.ProprietorUserDetailsService [http-nio-3000-exec-8] start: ProprietorUserDetailsService_loadUserByUsername
+2024-01-15 22:36:58,032 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-8] ProprietorServiceImpl_findByUsername
+2024-01-15 22:36:58,063 INFO c.p.p.s.ProprietorUserDetailsService [http-nio-3000-exec-8] start: ProprietorUserDetailsService_getUserAuthority
+2024-01-15 22:36:58,079 INFO c.p.p.s.ProprietorUserDetailsService [http-nio-3000-exec-8] end: ProprietorUserDetailsService_getUserAuthority
+2024-01-15 22:36:58,080 INFO c.p.p.s.ProprietorUserDetailsService [http-nio-3000-exec-8] end: ProprietorUserDetailsService_loadUserByUsername
+2024-01-15 22:36:58,082 INFO c.p.p.s.ProprietorUserDetailsService [http-nio-3000-exec-8] ProprietorUserDetailsService_ buildUserForAuthentication
+2024-01-15 22:36:58,276 INFO c.p.p.s.JwtUtils [http-nio-3000-exec-8] start: JwtUtils_generateJwtToken
+2024-01-15 22:36:58,281 INFO c.p.p.s.JwtUtils [http-nio-3000-exec-8] end: JwtUtils_generateJwtToken
+2024-01-15 22:36:58,468 INFO c.p.p.c.AuthController [http-nio-3000-exec-8] end: AuthController_authenticateUser
+2024-01-15 22:36:58,478 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-8] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:58,565 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-9] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:58,567 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-9] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:58,567 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-9] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:58,574 INFO c.p.p.c.ProprietorController [http-nio-3000-exec-9] start: ProprietorController_getAllProprietors
+2024-01-15 22:36:58,574 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-9] start: ProprietorServiceImpl_findAll
+2024-01-15 22:36:58,579 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-9] end: ProprietorServiceImpl_findAll
+2024-01-15 22:36:58,580 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-9] start: ProprietorServiceImpl_convertToProprietorDTOOutSet
+2024-01-15 22:36:58,587 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-9] end: ProprietorServiceImpl_convertToProprietorDTOOutSet
+2024-01-15 22:36:58,588 INFO c.p.p.c.ProprietorController [http-nio-3000-exec-9] end: ProprietorController_getAllProprietors
+2024-01-15 22:36:58,593 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-9] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:58,674 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-10] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:58,676 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-10] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:58,677 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-10] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:58,682 INFO c.p.p.c.ProprietorController [http-nio-3000-exec-10] start: ProprietorController_findProprietorById
+2024-01-15 22:36:58,683 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-10] start: ProprietorServiceImpl_findById
+2024-01-15 22:36:58,685 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-10] end: ProprietorServiceImpl_findById
+2024-01-15 22:36:58,687 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-10] start: ProprietorServiceImpl_getProprietorDTO
+2024-01-15 22:36:58,690 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-10] start: ProprietorServiceImpl_convertToRentalDTOOutList
+2024-01-15 22:36:58,691 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-10] end: ProprietorServiceImpl_convertToRentalDTOOutList
+2024-01-15 22:36:58,691 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-10] start: ProprietorServiceImpl_convertToSaleDTOOutList
+2024-01-15 22:36:58,692 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-10] end: ProprietorServiceImpl_convertToSaleDTOOutList
+2024-01-15 22:36:58,693 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-10] end: ProprietorServiceImpl_getProprietorDTO
+2024-01-15 22:36:58,693 INFO c.p.p.c.ProprietorController [http-nio-3000-exec-10] end: ProprietorController_findProprietorById
+2024-01-15 22:36:58,696 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-10] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:58,766 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-1] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:58,767 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-1] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:58,768 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-1] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:58,771 INFO c.p.p.c.ProprietorController [http-nio-3000-exec-1] start: ProprietorController_findProprietorByUsername
+2024-01-15 22:36:58,772 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-1] ProprietorServiceImpl_findByUsername
+2024-01-15 22:36:58,778 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-1] start: ProprietorServiceImpl_getProprietorDTO
+2024-01-15 22:36:58,783 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-1] start: ProprietorServiceImpl_convertToRentalDTOOutList
+2024-01-15 22:36:58,784 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-1] end: ProprietorServiceImpl_convertToRentalDTOOutList
+2024-01-15 22:36:58,786 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-1] start: ProprietorServiceImpl_convertToSaleDTOOutList
+2024-01-15 22:36:58,787 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-1] end: ProprietorServiceImpl_convertToSaleDTOOutList
+2024-01-15 22:36:58,788 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-1] end: ProprietorServiceImpl_getProprietorDTO
+2024-01-15 22:36:58,789 INFO c.p.p.c.ProprietorController [http-nio-3000-exec-1] end: ProprietorController_findProprietorByUsername
+2024-01-15 22:36:58,794 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-1] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:58,873 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-2] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:58,873 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-2] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:58,874 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-2] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:58,882 INFO c.p.p.c.ProprietorController [http-nio-3000-exec-2] start: ProprietorController_updateProprietorById
+2024-01-15 22:36:58,882 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-2] start: ProprietorServiceImpl_updateById
+2024-01-15 22:36:58,891 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-2] end: ProprietorServiceImpl_updateById
+2024-01-15 22:36:58,892 INFO c.p.p.c.ProprietorController [http-nio-3000-exec-2] end: ProprietorController_updateProprietorById
+2024-01-15 22:36:58,895 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-2] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:58,966 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-3] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:58,966 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-3] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:58,967 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-3] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:58,977 INFO c.p.p.c.RentalPropertyController [http-nio-3000-exec-3] start: RentalPropertyController_getAllProperties
+2024-01-15 22:36:58,978 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-3] start: RentalPropertyServiceImpl_findAll
+2024-01-15 22:36:58,991 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-3] end: RentalPropertyServiceImpl_findAll
+2024-01-15 22:36:58,993 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-3] start: RentalPropertyServiceImpl_convertToRentalDTOOutSet
+2024-01-15 22:36:58,993 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-3] end: RentalPropertyServiceImpl_convertToRentalDTOOutSet
+2024-01-15 22:36:58,994 INFO c.p.p.c.RentalPropertyController [http-nio-3000-exec-3] end: RentalPropertyController_getAllProperties
+2024-01-15 22:36:58,998 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-3] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,059 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-4] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,060 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-4] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,061 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-4] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,128 INFO c.p.p.c.RentalPropertyController [http-nio-3000-exec-4] start: RentalPropertyController_createRentalProperty
+2024-01-15 22:36:59,130 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-4] start: RentalPropertyServiceImpl_save
+2024-01-15 22:36:59,192 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-4] ProprietorServiceImpl_updatePropertyDetails
+2024-01-15 22:36:59,206 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-4] end: RentalPropertyServiceImpl_save
+2024-01-15 22:36:59,207 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-4] start: RentalPropertyServiceImpl_mapToRentalDTOOut
+2024-01-15 22:36:59,217 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-4] end: RentalPropertyServiceImpl_mapToRentalDTOOut
+2024-01-15 22:36:59,218 INFO c.p.p.c.RentalPropertyController [http-nio-3000-exec-4] end: RentalPropertyController_createRentalProperty
+2024-01-15 22:36:59,242 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-4] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,308 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-5] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,309 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-5] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,309 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-5] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,313 INFO c.p.p.c.RentalPropertyController [http-nio-3000-exec-5] start: RentalPropertyController_getPropertyById
+2024-01-15 22:36:59,314 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-5] start: RentalPropertyServiceImpl_findById
+2024-01-15 22:36:59,320 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-5] end: RentalPropertyServiceImpl_findById
+2024-01-15 22:36:59,321 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-5] start: RentalPropertyServiceImpl_mapToRentalDTOOut
+2024-01-15 22:36:59,324 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-5] end: RentalPropertyServiceImpl_mapToRentalDTOOut
+2024-01-15 22:36:59,325 INFO c.p.p.c.RentalPropertyController [http-nio-3000-exec-5] end: RentalPropertyController_getPropertyById
+2024-01-15 22:36:59,333 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-5] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,399 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-6] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,400 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-6] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,401 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-6] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,409 INFO c.p.p.c.RentalPropertyController [http-nio-3000-exec-6] start: RentalPropertyController_updatePropertyById
+2024-01-15 22:36:59,411 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-6] start: RentalPropertyServiceImpl_updateById
+2024-01-15 22:36:59,429 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-6] ProprietorServiceImpl_updatePropertyDetails
+2024-01-15 22:36:59,438 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-6] end: RentalPropertyServiceImpl_updateById
+2024-01-15 22:36:59,440 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-6] start: RentalPropertyServiceImpl_mapToRentalDTOOut
+2024-01-15 22:36:59,442 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-6] end: RentalPropertyServiceImpl_mapToRentalDTOOut
+2024-01-15 22:36:59,442 INFO c.p.p.c.RentalPropertyController [http-nio-3000-exec-6] end: RentalPropertyController_updatePropertyById
+2024-01-15 22:36:59,447 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-6] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,508 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-7] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,509 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-7] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,510 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-7] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,518 INFO c.p.p.c.SalePropertyController [http-nio-3000-exec-7] start: SalePropertyController_getAllProperties
+2024-01-15 22:36:59,521 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-7] start: SalePropertyService_findAllByMetresSqr
+2024-01-15 22:36:59,528 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-7] end: SalePropertyService_findAllByMetresSqr
+2024-01-15 22:36:59,529 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-7] start: SalePropertyService_convertToSaleDTOOutSet
+2024-01-15 22:36:59,530 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-7] end: SalePropertyService_convertToSaleDTOOutSet
+2024-01-15 22:36:59,531 INFO c.p.p.c.SalePropertyController [http-nio-3000-exec-7] end: SalePropertyController_getAllProperties
+2024-01-15 22:36:59,534 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-7] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,618 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-8] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,619 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-8] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,620 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-8] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,637 INFO c.p.p.c.SalePropertyController [http-nio-3000-exec-8] start: SalePropertyController_createSaleProperty
+2024-01-15 22:36:59,638 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-8] start: SalePropertyService_save
+2024-01-15 22:36:59,663 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-8] ProprietorServiceImpl_updatePropertyDetails
+2024-01-15 22:36:59,669 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-8] end: SalePropertyService_save
+2024-01-15 22:36:59,671 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-8] start: SalePropertyService_mapToSaleDTOOut
+2024-01-15 22:36:59,674 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-8] end: SalePropertyService_mapToSaleDTOOut
+2024-01-15 22:36:59,675 INFO c.p.p.c.SalePropertyController [http-nio-3000-exec-8] end: SalePropertyController_createSaleProperty
+2024-01-15 22:36:59,687 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-8] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,771 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-9] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,772 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-9] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,773 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-9] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,778 INFO c.p.p.c.SalePropertyController [http-nio-3000-exec-9] start: SalePropertyController_getPropertyById
+2024-01-15 22:36:59,779 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-9] start: SalePropertyService_findById
+2024-01-15 22:36:59,789 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-9] end: SalePropertyService_findById
+2024-01-15 22:36:59,791 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-9] start: SalePropertyService_mapToSaleDTOOut
+2024-01-15 22:36:59,794 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-9] end: SalePropertyService_mapToSaleDTOOut
+2024-01-15 22:36:59,796 INFO c.p.p.c.SalePropertyController [http-nio-3000-exec-9] end: SalePropertyController_getPropertyById
+2024-01-15 22:36:59,799 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-9] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,881 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-10] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,883 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-10] start: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,883 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-10] end: AuthTokenFilter_parseJwt
+2024-01-15 22:36:59,891 INFO c.p.p.c.SalePropertyController [http-nio-3000-exec-10] start: SalePropertyController_updatePropertyById
+2024-01-15 22:36:59,892 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-10] start: SalePropertyService_updateById
+2024-01-15 22:36:59,911 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-10] ProprietorServiceImpl_updatePropertyDetails
+2024-01-15 22:36:59,918 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-10] end: SalePropertyService_updateById
+2024-01-15 22:36:59,920 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-10] start: SalePropertyService_mapToSaleDTOOut
+2024-01-15 22:36:59,922 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-10] end: SalePropertyService_mapToSaleDTOOut
+2024-01-15 22:36:59,923 INFO c.p.p.c.SalePropertyController [http-nio-3000-exec-10] end: SalePropertyController_updatePropertyById
+2024-01-15 22:36:59,927 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-10] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:36:59,999 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-1] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,000 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-1] start: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,002 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-1] end: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,009 INFO c.p.p.c.AddressController [http-nio-3000-exec-1] start: AddressController_getAllAddresses
+2024-01-15 22:37:00,010 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-1] start: AddressServiceImpl_findAll
+2024-01-15 22:37:00,015 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-1] end: AddressServiceImpl_findAll
+2024-01-15 22:37:00,015 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-1] start: AddressServiceImpl_convertToAddressDTOOutSet
+2024-01-15 22:37:00,016 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-1] end: AddressServiceImpl_convertToAddressDTOOutSet
+2024-01-15 22:37:00,016 INFO c.p.p.c.AddressController [http-nio-3000-exec-1] end: AddressController_getAllAddresses
+2024-01-15 22:37:00,019 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-1] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,112 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-2] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,113 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-2] start: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,114 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-2] end: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,123 INFO c.p.p.c.AddressController [http-nio-3000-exec-2] start: AddressController_createRentalAddress
+2024-01-15 22:37:00,125 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-2] start: AddressServiceImpl_saveRentalAddress
+2024-01-15 22:37:00,130 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-2] start: AddressServiceImpl_addressInMapping
+2024-01-15 22:37:00,132 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-2] end: AddressServiceImpl_addressInMapping
+2024-01-15 22:37:00,145 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-2] end: AddressServiceImpl_saveRentalAddress
+2024-01-15 22:37:00,147 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-2] start: AddressServiceImpl_addressOutMapping
+2024-01-15 22:37:00,153 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-2] end: AddressServiceImpl_addressOutMapping
+2024-01-15 22:37:00,154 INFO c.p.p.c.AddressController [http-nio-3000-exec-2] end: AddressController_createRentalAddress
+2024-01-15 22:37:00,159 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-2] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,249 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-3] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,250 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-3] start: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,251 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-3] end: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,254 INFO c.p.p.c.AddressController [http-nio-3000-exec-3] start: AddressController_getAddressesById
+2024-01-15 22:37:00,254 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-3] start: AddressServiceImpl_getById
+2024-01-15 22:37:00,257 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-3] end: AddressServiceImpl_getById
+2024-01-15 22:37:00,258 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-3] start: AddressServiceImpl_addressOutMapping
+2024-01-15 22:37:00,259 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-3] end: AddressServiceImpl_addressOutMapping
+2024-01-15 22:37:00,259 INFO c.p.p.c.AddressController [http-nio-3000-exec-3] end: AddressController_getAddressById
+2024-01-15 22:37:00,262 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-3] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,327 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-4] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,328 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-4] start: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,329 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-4] end: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,334 INFO c.p.p.c.AddressController [http-nio-3000-exec-4] start: AddressController_updateAddressByRentalPropertyId
+2024-01-15 22:37:00,335 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-4] start: AddressServiceImpl_updateByRentalPropertyId
+2024-01-15 22:37:00,341 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-4] start: AddressServiceImpl_addressInMapping
+2024-01-15 22:37:00,343 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-4] end: AddressServiceImpl_addressInMapping
+2024-01-15 22:37:00,351 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-4] end: AddressServiceImpl_updateByRentalPropertyId
+2024-01-15 22:37:00,352 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-4] start: AddressServiceImpl_addressOutMapping
+2024-01-15 22:37:00,354 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-4] end: AddressServiceImpl_addressOutMapping
+2024-01-15 22:37:00,355 INFO c.p.p.c.AddressController [http-nio-3000-exec-4] end: AddressController_updateAddressByRentalPropertyId
+2024-01-15 22:37:00,357 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-4] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,419 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-5] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,420 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-5] start: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,421 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-5] end: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,423 INFO c.p.p.c.AddressController [http-nio-3000-exec-5] start: AddressController_deleteAddressById
+2024-01-15 22:37:00,425 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-5] start: AddressServiceImpl_deleteAddressByRentalPropertyId
+2024-01-15 22:37:00,430 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-5] start: RentalPropertyServiceImpl_deleteAddressById
+2024-01-15 22:37:00,437 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-5] end: RentalPropertyServiceImpl_deleteAddressById
+2024-01-15 22:37:00,442 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-5] end: AddressServiceImpl_deleteAddressByRentalPropertyId
+2024-01-15 22:37:00,443 INFO c.p.p.c.AddressController [http-nio-3000-exec-5] end: AddressController_deleteAddressById
+2024-01-15 22:37:00,444 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-5] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,543 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-6] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,543 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-6] start: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,544 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-6] end: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,546 INFO c.p.p.c.RentalPropertyController [http-nio-3000-exec-6] start: RentalPropertyController_deletePropertyById
+2024-01-15 22:37:00,547 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-6] start: RentalPropertyServiceImpl_deleteById
+2024-01-15 22:37:00,554 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-6] ProprietorServiceImpl_updatePropertyDetails
+2024-01-15 22:37:00,563 INFO c.p.p.s.RentalPropertyServiceImpl [http-nio-3000-exec-6] end: RentalPropertyServiceImpl_deleteById
+2024-01-15 22:37:00,563 INFO c.p.p.c.RentalPropertyController [http-nio-3000-exec-6] end: RentalPropertyController_deletePropertyById
+2024-01-15 22:37:00,566 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-6] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,598 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-7] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,599 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-7] start: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,600 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-7] end: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,608 INFO c.p.p.c.AddressController [http-nio-3000-exec-7] start: AddressController_createSaleAddress
+2024-01-15 22:37:00,609 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-7] start: AddressServiceImpl_saveSaleAddress
+2024-01-15 22:37:00,616 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-7] start: AddressServiceImpl_addressInMapping
+2024-01-15 22:37:00,617 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-7] end: AddressServiceImpl_addressInMapping
+2024-01-15 22:37:00,626 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-7] end: AddressServiceImpl_saveSaleAddress
+2024-01-15 22:37:00,627 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-7] start: AddressServiceImpl_addressOutMapping
+2024-01-15 22:37:00,629 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-7] end: AddressServiceImpl_addressOutMapping
+2024-01-15 22:37:00,629 INFO c.p.p.c.AddressController [http-nio-3000-exec-7] end: AddressController_createSaleAddress
+2024-01-15 22:37:00,634 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-7] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,726 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-8] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,727 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-8] start: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,727 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-8] end: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,733 INFO c.p.p.c.AddressController [http-nio-3000-exec-8] start: AddressController_updateAddressBySalePropertyId
+2024-01-15 22:37:00,734 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-8] start: AddressServiceImpl_updateBySalePropertyId
+2024-01-15 22:37:00,739 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-8] start: AddressServiceImpl_addressInMapping
+2024-01-15 22:37:00,740 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-8] end: AddressServiceImpl_addressInMapping
+2024-01-15 22:37:00,745 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-8] end: AddressServiceImpl_updateBySalePropertyId
+2024-01-15 22:37:00,745 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-8] start: AddressServiceImpl_addressOutMapping
+2024-01-15 22:37:00,746 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-8] end: AddressServiceImpl_addressOutMapping
+2024-01-15 22:37:00,746 INFO c.p.p.c.AddressController [http-nio-3000-exec-8] end: AddressController_updateAddressBySalePropertyId
+2024-01-15 22:37:00,749 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-8] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,834 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-9] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,835 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-9] start: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,836 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-9] end: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,840 INFO c.p.p.c.AddressController [http-nio-3000-exec-9] start: AddressController_deleteAddressBySalePropertyId
+2024-01-15 22:37:00,842 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-9] start: AddressServiceImpl_deleteAddressBySalePropertyId
+2024-01-15 22:37:00,846 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-9] start: SalePropertyService_deleteAddressById
+2024-01-15 22:37:00,853 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-9] end: SalePropertyService_deleteAddressById
+2024-01-15 22:37:00,858 INFO c.p.p.s.AddressServiceImpl [http-nio-3000-exec-9] end: AddressServiceImpl_deleteAddressBySalePropertyId
+2024-01-15 22:37:00,858 INFO c.p.p.c.AddressController [http-nio-3000-exec-9] end: AddressController_deleteAddressBySalePropertyId
+2024-01-15 22:37:00,859 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-9] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,944 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-10] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:00,945 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-10] start: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,946 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-10] end: AuthTokenFilter_parseJwt
+2024-01-15 22:37:00,948 INFO c.p.p.c.SalePropertyController [http-nio-3000-exec-10] start: SalePropertyController_deletePropertyById
+2024-01-15 22:37:00,949 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-10] start: SalePropertyService_deleteById
+2024-01-15 22:37:00,953 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-10] ProprietorServiceImpl_updatePropertyDetails
+2024-01-15 22:37:00,960 INFO c.p.p.s.SalePropertyServiceImpl [http-nio-3000-exec-10] end: SalePropertyService_deleteById
+2024-01-15 22:37:00,960 INFO c.p.p.c.SalePropertyController [http-nio-3000-exec-10] end: SalePropertyController_deletePropertyById
+2024-01-15 22:37:00,964 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-10] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:01,037 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-1] start: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:01,038 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-1] start: AuthTokenFilter_parseJwt
+2024-01-15 22:37:01,039 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-1] end: AuthTokenFilter_parseJwt
+2024-01-15 22:37:01,040 INFO c.p.p.c.ProprietorController [http-nio-3000-exec-1] start: ProprietorController_deleteProprietorById
+2024-01-15 22:37:01,041 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-1] start: ProprietorServiceImpl_deleteById
+2024-01-15 22:37:01,059 INFO c.p.p.s.ProprietorServiceImpl [http-nio-3000-exec-1] end: ProprietorServiceImpl_deleteById
+2024-01-15 22:37:01,060 INFO c.p.p.c.ProprietorController [http-nio-3000-exec-1] end: ProprietorController_deleteProprietorById
+2024-01-15 22:37:01,062 INFO c.p.p.s.AuthTokenFilter [http-nio-3000-exec-1] end: AuthTokenFilter_oFilterInternal
+2024-01-15 22:37:39,078 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-01-15 22:37:39,279 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2024-01-15 22:37:39,491 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
