@@ -28,7 +28,6 @@ import java.util.Set;
 public class ProprietorController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProprietorController.class);
-
     private ProprietorService proprietorService;
 
     public ProprietorController(ProprietorService proprietorService) {
