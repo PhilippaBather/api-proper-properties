@@ -18,18 +18,19 @@ import java.io.IOException;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
+
     @Autowired
     private JwtUtils jwtUtils;
 
     @Autowired
     private ProprietorUserDetailsService userDetailsService;
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         try {
+            logger.info("start: AuthTokenFilter_oFilterInternal");
             String jwt = parseJwt(request);
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
@@ -46,15 +47,18 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+        logger.info("end: AuthTokenFilter_oFilterInternal");
     }
 
     private String parseJwt(HttpServletRequest request) {
+        logger.info("start: AuthTokenFilter_parseJwt");
         String headerAuth = request.getHeader("Authorization");
 
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
             return headerAuth.substring(7);
         }
 
+        logger.info("end: AuthTokenFilter_parseJwt");
         return null;
     }
 }

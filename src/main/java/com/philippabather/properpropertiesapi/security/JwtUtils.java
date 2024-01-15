@@ -29,6 +29,7 @@ public class JwtUtils {
     private JwtDecoder jwtDecoder;
 
     public String generateJwtToken(Authentication authentication) {
+        logger.info("start: JwtUtils_generateJwtToken");
         Instant now = Instant.now();
 
         String scope = authentication.getAuthorities().stream()
@@ -42,14 +43,18 @@ public class JwtUtils {
                 .subject(authentication.getName())
                 .claim("scope", scope)
                 .build();
+
+        logger.info("end: JwtUtils_generateJwtToken");
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 
     public String getUserNameFromJwtToken(String token) {
+        logger.info("JwtUtils_getUserNameFromJwtToken");
         return jwtDecoder.decode(token).getSubject();
     }
 
     public boolean validateJwtToken(String authToken) {
+        logger.info("start: JwtUtils_validateJwtToken");
         try {
             Jwt decode = jwtDecoder.decode(authToken);
             return true;
@@ -63,6 +68,7 @@ public class JwtUtils {
             logger.error("JWT claims string is empty: {}", e.getMessage());
         }
 
+        logger.info("end: JwtUtils_validateJwtToken");
         return false;
     }
 }
