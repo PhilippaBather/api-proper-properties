@@ -24,5 +24,8 @@ public interface RentalPropertyService {
     RentalDTOOut updateById(long propertyId, RentalProperty rentalProperty) throws PropertyNotFoundException;
     void deleteById(long propertyId) throws PropertyNotFoundException;
     void deleteAddressById(long propertyId) throws PropertyNotFoundException;
+    Integer getRentalCountSQLNative();
+    Set<RentalDTOOut> getRentalsByBedroomsNativeSQL(int bedrooms);
+    Set<RentalDTOOut> getRentalsByParkingAndLiftNativeSQL();
 
 }
