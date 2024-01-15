@@ -39,6 +39,9 @@ build/
 ### VS Code ###
 .vscode/
 
+### Logs ###
+/logs/
+
 ### Keys and Env Variables ###
 src/main/resources/app.key
 src/main/resources/app.pub
