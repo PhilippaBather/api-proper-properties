@@ -3,6 +3,8 @@ package com.philippabather.properpropertiesapi.controller;
 import com.philippabather.properpropertiesapi.dto.LoginDTOIn;
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOIn;
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOOut;
+import com.philippabather.properpropertiesapi.exception.RegistrationException;
+import com.philippabather.properpropertiesapi.model.Proprietor;
 import com.philippabather.properpropertiesapi.security.JwtResponse;
 import com.philippabather.properpropertiesapi.security.JwtUtils;
 import com.philippabather.properpropertiesapi.service.ProprietorService;
@@ -60,10 +62,16 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ProprietorDTOOut> registerUser(@RequestBody ProprietorDTOIn user) throws Exception {
+    public ResponseEntity<ProprietorDTOOut> registerUser(@RequestBody ProprietorDTOIn newUser) throws RegistrationException {
         logger.info("start: AuthController_registerUser");
-        ProprietorDTOOut proprietor = proprietorService.save(user);
-        logger.info("end: AuthController_registerUser");
-        return new ResponseEntity<>(proprietor, HttpStatus.CREATED);
+        Proprietor user = proprietorService.findByUsername(newUser.getUsername());
+        if (user == null) {
+            ProprietorDTOOut proprietor = proprietorService.save(newUser);
+            logger.info("end: AuthController_registerUser");
+            return new ResponseEntity<>(proprietor, HttpStatus.CREATED);
+        } else {
+            throw new RegistrationException(newUser.getUsername());
+        }
+
     }
 }
