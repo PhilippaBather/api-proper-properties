@@ -7,10 +7,10 @@
 
 ### Descripción:
 #### - El API contiene endpoints para registrar (Post), obtener (Get) y actualizacar (Put, Delete) información sobre usuarios generales ('clients') y propietarios ('proprietors').
-#### - También, hay endpoints para para registrar (Post), obtener (Get) y actualizacar (Put, Delete) información sobre muebles para alquiler y para vender, y sus direcciones.
+#### - También, hay endpoints para para registrar (Post), obtener (Get) y actualizacar (Put, Delete) información sobre inmuebles para alquiler y para vender, y sus direcciones.
 #### - El API contiene endpoints tanto seguros (utilizando JWT) como no seguros: los endpoints seguros para registrar y 'login' a propietario, y para manejar los muebles (operaciones de Post, Put, Delete); los endpoints inseguros son de Get para obtener una lista de muebles para alquiler y vender para el usuario general (operaciones de Get).
 
-### Ejecución: para usar con Maven, ejecutar mvn spring-boot:run en la línea de comando
+### Ejecución: para usar con Maven, ejecutar mvn spring-boot:run en la línea de comando.
 
 ### ------------------------------------------------------------------------------------------------------
 
