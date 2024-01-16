@@ -120,6 +120,14 @@ public class GlobalExceptionHandler {
         return new Response(ErrorType.PROPERTY_TYPE_NOT_FOUND.getCode(), ErrorType.PROPERTY_TYPE_NOT_FOUND.getHttpStatus(), ptnfe.getMessage());
     }
 
+    @ExceptionHandler(value = RegistrationException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT) // 409
+    public Response handleException(RegistrationException re) {
+        logger.info("GlobalExceptionHandler_handleException: Custom Exception: REGISTRATION_USERNAME_EXISTS");
+        return new Response(ErrorType.REGISTRATION_USERNAME_EXISTS.getCode(), ErrorType.REGISTRATION_USERNAME_EXISTS.getHttpStatus(), re.getMessage());
+    }
+
 
     // helper methods
     private List<ValidationErrorModel> processValidationErrors(MethodArgumentNotValidException manve) {
