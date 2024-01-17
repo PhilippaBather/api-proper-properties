@@ -26,6 +26,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * AuthController - controller para manejar la autenticación del API.
+ *
+ * @author Philippa Bather
+ */
+
 @RestController
 public class AuthController {
 
