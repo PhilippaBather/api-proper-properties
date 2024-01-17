@@ -20,7 +20,7 @@
 
 ### Description:
 #### - The API contains endpoints to register (Post), obtain (Get), and update (Put, Delete) information about general users (clients) and property owners (proprietors).
-#### - As well as endpoints to register (Post), obtain (Get), and update (Put, Delete) information about rental properties and sale properties, and their addresses.
-#### - The API contains both secured (using JWT) and unsecured endpoints: secured endpoints to register and login a proprietor, so that they can view and manage their properties (operaciones de Post, Put, Delete; unsecured endpoints to obtain a list of properties for a general user to view (operaciones de Get).
+#### - It also contains endpoints to register (Post), obtain (Get), and update (Put, Delete) information about rental properties and sale properties, and their addresses.
+#### - The API contains both secured (using JWT) and unsecured endpoints: secured endpoints to register and login a proprietor, so that they can view and manage their properties (Post, Put, Delete operations); unsecured endpoints to obtain a list of properties for a general user to view (Get operations).
 
 ### To run: for use with Maven, execute mvn spring-boot:run in the command line.
