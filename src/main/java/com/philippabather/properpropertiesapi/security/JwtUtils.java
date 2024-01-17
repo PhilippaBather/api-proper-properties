@@ -16,6 +16,11 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.stream.Collectors;
 
+/**
+ * JwtUtils - contiene utiles para generar, codificar, validar y obtener detalles de un JWT.
+ *
+ * @author Philippa Bather
+ */
 @Component
 @Configuration
 public class JwtUtils {
