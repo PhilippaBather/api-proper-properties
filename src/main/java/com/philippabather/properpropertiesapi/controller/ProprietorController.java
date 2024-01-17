@@ -76,12 +76,16 @@ public class ProprietorController {
 
     @GetMapping("/users/proprietors/secured/{username}")
     public ResponseEntity<ProprietorDTOOut> findProprietorByUsername(@PathVariable String username)
-            throws InvalidLoginException {
+            throws InvalidLoginException, ProprietorNotFoundException {
         logger.info("start: ProprietorController_findProprietorByUsername");
         Proprietor proprietor = proprietorService.findByUsername(username);
-        ProprietorDTOOut proprietorDTOOut = proprietorService.getProprietorDTO(proprietor);
-        logger.info("end: ProprietorController_findProprietorByUsername");
-        return new ResponseEntity<>(proprietorDTOOut, HttpStatus.OK);
+        if (proprietor != null) {
+            ProprietorDTOOut proprietorDTOOut = proprietorService.getProprietorDTO(proprietor);
+            logger.info("end: ProprietorController_findProprietorByUsername");
+            return new ResponseEntity<>(proprietorDTOOut, HttpStatus.OK);
+        } else {
+            throw new ProprietorNotFoundException(username);
+        }
     }
 
     @PutMapping("/users/proprietors/secured/{proprietorId}")
