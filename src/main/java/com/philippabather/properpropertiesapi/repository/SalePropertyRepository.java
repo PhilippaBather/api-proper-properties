@@ -9,6 +9,12 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * SalePropertyRepository - el repositorio para manejar la entidad SaleProperty ('inmueble para vender').
+ *
+ * @author Philippa Bather
+ */
+
 @Repository
 public interface SalePropertyRepository extends CrudRepository<SaleProperty, Long> {
 

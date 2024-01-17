@@ -12,7 +12,6 @@ import com.philippabather.properpropertiesapi.model.SaleProperty;
 import com.philippabather.properpropertiesapi.repository.AddressRepository;
 import com.philippabather.properpropertiesapi.repository.RentalPropertyRepository;
 import com.philippabather.properpropertiesapi.repository.SalePropertyRepository;
-import com.philippabather.properpropertiesapi.security.ProprietorUserDetailsService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

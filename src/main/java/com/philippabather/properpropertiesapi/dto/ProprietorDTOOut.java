@@ -1,8 +1,6 @@
 package com.philippabather.properpropertiesapi.dto;
 
-import com.philippabather.properpropertiesapi.model.RentalProperty;
 import com.philippabather.properpropertiesapi.model.Role;
-import com.philippabather.properpropertiesapi.model.SaleProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

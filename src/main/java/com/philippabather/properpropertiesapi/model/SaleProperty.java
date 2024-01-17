@@ -12,7 +12,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static com.philippabather.properpropertiesapi.constants.ValidationMessages.*;
+import static com.philippabather.properpropertiesapi.constants.ValidationMessages.VALIDATION_BOOLEAN_REQUIRED;
+import static com.philippabather.properpropertiesapi.constants.ValidationMessages.VALIDATION_SALE_PRICE;
 
 /**
  * SaleProperty - un inmueble para vender

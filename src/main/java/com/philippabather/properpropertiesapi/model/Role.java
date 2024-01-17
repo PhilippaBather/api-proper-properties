@@ -5,6 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Role - un rol para autenticación
+ *
+ * @author Philippa Bather
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

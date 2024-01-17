@@ -11,6 +11,11 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * SaleDTOOut - El objeto de la transferencia de datos (DTO) de la clase SaleProperty al cliente/consumo de API..
+ *
+ * @author Philippa Bather
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

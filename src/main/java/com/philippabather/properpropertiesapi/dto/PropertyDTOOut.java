@@ -2,9 +2,6 @@ package com.philippabather.properpropertiesapi.dto;
 
 import com.philippabather.properpropertiesapi.model.PropertyStatus;
 import com.philippabather.properpropertiesapi.model.PropertyType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

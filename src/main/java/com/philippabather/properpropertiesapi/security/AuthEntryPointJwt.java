@@ -10,6 +10,11 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * AuthEntryPointJwt - maneja la entrada de credenciales/autenticación
+ *
+ * @author Philippa Bather
+ */
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 

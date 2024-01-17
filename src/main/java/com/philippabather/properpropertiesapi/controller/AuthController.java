@@ -26,6 +26,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * AuthController - controller para manejar la autenticación del API.
+ *
+ * @author Philippa Bather
+ */
+
 @RestController
 public class AuthController {
 
@@ -41,7 +47,7 @@ public class AuthController {
     private JwtUtils jwtUtils;
 
     @PostMapping("/token")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginDTOIn user) {
+    public ResponseEntity<JwtResponse> authenticateUser(@RequestBody LoginDTOIn user) {
         logger.info("start: AuthController_authenticateUser");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));

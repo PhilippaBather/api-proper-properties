@@ -2,7 +2,6 @@ package com.philippabather.properpropertiesapi.service;
 
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOIn;
 import com.philippabather.properpropertiesapi.dto.ProprietorDTOOut;
-import com.philippabather.properpropertiesapi.exception.InvalidLoginException;
 import com.philippabather.properpropertiesapi.exception.ProprietorNotFoundException;
 import com.philippabather.properpropertiesapi.model.Proprietor;
 

@@ -18,6 +18,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * ProprietorUserDetailsService - implementa UserDetailsService; maneja detalles del usuario para autenticación
+ *
+ * @author Philippa Bather
+ */
 @Service
 public class ProprietorUserDetailsService implements UserDetailsService {
 
