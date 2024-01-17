@@ -32,6 +32,7 @@ public class GlobalExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(value = HttpMessageNotReadableException.class)
+    @ResponseBody
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE) // 406 || 400 (Parse Error)
     public Response handleException(HttpMessageNotReadableException hmnre) {
         logger.info("GlobalExceptionHandler_handleException: NOT_ACCEPTABLE");
@@ -42,6 +43,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    @ResponseBody
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY) // 422
     public ValidationErrorResponseModel handleException(MethodArgumentNotValidException manve) {
         logger.info("GlobalExceptionHandler_handleException: UNPROCESSABLE_ENTITY");
@@ -54,6 +56,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = HttpServerErrorException.InternalServerError.class)
+    @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // 500
     public Response handleException(HttpServerErrorException.InternalServerError ise) {
         logger.info("GlobalExceptionHandler_handleException: INTERNAL_SERVER_ERROR");
