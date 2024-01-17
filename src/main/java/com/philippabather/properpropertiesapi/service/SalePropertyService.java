@@ -9,6 +9,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
+/**
+ * SalePropertyService - la interfaz de servicio para manejar la entidad SaleProperty ('inmueble para vender').
+ *
+ * @author Philippa Bather
+ */
 public interface SalePropertyService {
 
     Set<SaleDTOOut> findAll();

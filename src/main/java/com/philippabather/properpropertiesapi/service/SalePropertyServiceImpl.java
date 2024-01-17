@@ -18,6 +18,12 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * SalePropertyServiceImpl - implementa la interfaz de servicio RentalProperty; maneja información sobre la entidad
+ * Saleroperty ('inmueble para vender').
+ *
+ * @author Philippa Bather
+ */
 @Service
 public class SalePropertyServiceImpl implements SalePropertyService{
 
