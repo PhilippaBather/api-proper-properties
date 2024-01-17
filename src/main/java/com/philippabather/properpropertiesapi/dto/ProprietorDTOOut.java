@@ -1,7 +1,6 @@
 package com.philippabather.properpropertiesapi.dto;
 
-import com.philippabather.properpropertiesapi.model.RentalProperty;
-import com.philippabather.properpropertiesapi.model.SaleProperty;
+import com.philippabather.properpropertiesapi.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,6 +24,8 @@ public class ProprietorDTOOut extends UserDTOOut {
     private long id;
     private int numProperties;
     private boolean isAgency;
+    private boolean isActive;
+    private Set<Role> roles;
     private List<RentalDTOOut> rentalPropertyList;
     private List<SaleDTOOut> salePropertyList;
 

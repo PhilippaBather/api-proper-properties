@@ -13,7 +13,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 import static com.philippabather.properpropertiesapi.constants.Constants.*;
-import static com.philippabather.properpropertiesapi.constants.ValidationMessages.*;
+import static com.philippabather.properpropertiesapi.constants.ValidationMessages.VALIDATION_BOOLEAN_REQUIRED;
+import static com.philippabather.properpropertiesapi.constants.ValidationMessages.VALIDATION_NUM_BEDROOMS;
 
 /**
  * PropertyDTOIn - Data Transfer Object (DTO) para la clase Property ('inmueble').

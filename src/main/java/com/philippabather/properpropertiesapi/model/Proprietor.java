@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static com.philippabather.properpropertiesapi.constants.ValidationMessages.VALIDATION_BOOLEAN_REQUIRED;
 import static com.philippabather.properpropertiesapi.constants.ValidationMessages.VALIDATION_TELEPHONE_NOT_BLANK;
@@ -48,6 +49,9 @@ public class Proprietor extends User {
     @Column
     private String telephone;
 
+    @Column(name = "active")
+    private boolean active = true;
+
     @OneToMany(targetEntity = RentalProperty.class, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference(value = "proprietor_rental_properties")
     private List<RentalProperty> rentalPropertyList = new ArrayList<>();
@@ -55,6 +59,10 @@ public class Proprietor extends User {
     @OneToMany(targetEntity = SaleProperty.class, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference(value = "proprietor_sale_properties")
     private List<SaleProperty> salePropertyList = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public void addRentalProperty(RentalProperty property) {
         rentalPropertyList.add(property);

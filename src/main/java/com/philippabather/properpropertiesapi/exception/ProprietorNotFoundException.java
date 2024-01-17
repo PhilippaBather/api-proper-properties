@@ -1,6 +1,7 @@
 package com.philippabather.properpropertiesapi.exception;
 
 import static com.philippabather.properpropertiesapi.constants.ErrorMessages.PROPRIETOR_NOT_FOUND_EXCEPTION_MSG;
+import static com.philippabather.properpropertiesapi.constants.ErrorMessages.PROPRIETOR_USERNAME_NOT_FOUND_EXCEPTION_MSG;
 
 /**
  * ProprietorNotFoundException - maneja el error lanzado cuando una entidad del tipo Proprietor ('propietario') no está
@@ -13,4 +14,9 @@ public class ProprietorNotFoundException extends RuntimeException {
     public ProprietorNotFoundException(long proprietorId) {
         super(PROPRIETOR_NOT_FOUND_EXCEPTION_MSG + proprietorId);
     }
+
+    public ProprietorNotFoundException(String proprietorEmail) {
+        super(PROPRIETOR_USERNAME_NOT_FOUND_EXCEPTION_MSG + proprietorEmail);
+    }
+
 }

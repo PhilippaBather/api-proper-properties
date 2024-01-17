@@ -16,6 +16,8 @@ tags:
     description: Operaciones para fetch, add, update, y delete inmuebles para vender ('SaleProperty')
   - name: addresses
     description: Operaciones para fetch, add, update, y delete direcciones ('Address')
+  - name: authentication
+    description: Operaciones de para autenticar a un usuario
 paths:
   /users/clients:
     get:
@@ -265,50 +267,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-    post:
-      tags:
-        - proprietors
-      operationId: saveProprietor
-      summary: Guarda un nuevo propietario
-      description: Valida un objeto Proprietor ('propietario') y cra un nuevo Proprietor para guardar en el base de datos.
-      requestBody:
-        description: Un nuevo propietario
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ProprietorDTOIn'
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ProprietorDTOOut"
-        '400':
-          description: Parse Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        '406':
-          description: Not Acceptable
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        '422':
-          description: Unprocessable Entity
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
   /users/proprietors/{proprietorId}:
     get:
       tags:
@@ -377,6 +335,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        '401':
+          description: Unauthorised - No content
         '404':
           description: Proprietor Not Found
           content:
@@ -424,51 +384,47 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        '401':
+          description: Unauthorised - No content
         '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /users/proprietors/{username}/{password}:
+  /users/proprietors/secured/{username}:
     get:
       tags:
         - proprietors
-      operationId: getProperietorByUsernameAndPassword
-      summary: Devuelve un usuario por su nombre del usuario y contraseña
-      description: Devuelve un usuario por su nombre del usuario y contraseña
+      operationId: getUserByUsername
+      summary: Devuelve un usuario por su nombre
+      description: Devuelve un usuario por su nombre
       parameters:
         - name: username
-          in: path variable
+          in: query
           description: El nombre del usuario
           required: true
           schema:
             type: string
-        - name: password
-          in: path variable
-          description: La constraseña del usuario
-          required: true
-          schema:
-            type: string
       responses:
-          '200':
-            description: OK
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/ProprietorDTOOut"
-          '404':
-            description: Invalid Username or Password
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/ErrorResponse"
-          '500':
-            description: Internal Server Error
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/ErrorResponse"
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProprietorDTOOut"
+        '404':
+          description: Proprietor Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /properties/rental:
     get:
       tags:
@@ -537,6 +493,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        '401':
+          description: Unauthorised - No content
         '406':
           description: Not Acceptable
           content:
@@ -577,6 +535,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RentalDTOOut"
+        '401':
+          description: Unauthorised - No content
         '404':
           description: Property Not Found
           content:
@@ -623,6 +583,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        '401':
+          description: Unauthorised - No content
         '404':
           description: Property Not Found
           content:
@@ -664,6 +626,8 @@ paths:
       responses:
         '204':
           description: La entidad fue eliminada con éxito
+        '401':
+          description: Unauthorised - No content
         '404':
           description: Property Not Found
           content:
@@ -743,6 +707,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        '401':
+          description: Unauthorised - No content
         '406':
           description: Not Acceptable
           content:
@@ -783,6 +749,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SaleDTOOut"
+        '401':
+          description: Unauthorised - No content
         '404':
           description: Property Not Found
           content:
@@ -829,6 +797,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        '401':
+          description: Unauthorised - No content
         '404':
           description: Property Not Found
           content:
@@ -870,6 +840,8 @@ paths:
       responses:
         '204':
           description: La entidad fue eliminada con éxito
+        '401':
+          description: Unauthorised - No content
         '404':
           description: Property Not Found
           content:
@@ -929,50 +901,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-    post:
-      tags:
-        - addresses
-      operationId: saveAddress
-      summary: Guarda una nueva dirección
-      description: Valida un objeto Address ('dirección') y crea una nueva Address para guardar en el base de datos.
-      requestBody:
-        description: Una nueva dirección
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/AddressDTOIn"
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AddressDTOOut"
-        '400':
-          description: Parse Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        '406':
-          description: Not Acceptable
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        '422':
-          description: Unprocessable Entity
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
   /addresses/{addressId}:
     get:
       tags:
@@ -1007,10 +935,57 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /properties/rental/addresss/{propertyId}:
+    post:
+      tags:
+        - addresses
+      operationId: saveRentalAddress
+      summary: Guarda una nueva dirección de un inmueble para alquiler
+      description: Valida un objeto Address ('dirección') y crea una nueva Address para guardar en el base de datos.
+      requestBody:
+        description: Una nueva dirección
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddressDTOIn"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressDTOOut"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '401':
+          description: Unauthorised - No content
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     put:
       tags:
         - addresses
-      operationId: updateAddressById
+      operationId: updateRentalAddressById
       summary: Actualiza una dirección ('address') por address ID
       description: Actuliza una dirección ('address') por address ID y devuelve el resultado como un objeto AddressDTOOut
       parameters:
@@ -1041,6 +1016,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        '401':
+          description: Unauthorised - No content
         '404':
           description: Address Not Found
           content:
@@ -1068,7 +1045,7 @@ paths:
     delete:
       tags:
         - addresses
-      summary: Elimina una dirección ('address') por el address ID
+      summary: Elimina una dirección ('address') de un inmueble para alquiler por el address ID
       description: Elimina una entidad Address ('dirección') por el property ID y devuelve un respuesta de No Content (void)
       parameters:
         - name: addressId
@@ -1087,13 +1064,261 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        '401':
+          description: Unauthorised - No content
         '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-
+  /properties/sale/address/{propertyId}:
+    post:
+      tags:
+        - addresses
+      operationId: saveSaleAddress
+      summary: Guarda una nueva dirección de un inmueble para vender
+      description: Valida un objeto Address ('dirección') y crea una nueva Address para guardar en el base de datos.
+      requestBody:
+        description: Una nueva dirección
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddressDTOIn"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressDTOOut"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '401':
+          description: Unauthorised - No content
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      tags:
+        - addresses
+      operationId: updateSaleAddressById
+      summary: Actualiza una dirección ('address') por address ID
+      description: Actuliza una dirección ('address') por address ID y devuelve el resultado como un objeto AddressDTOOut
+      parameters:
+        - name: proeprtyId
+          in: path variable
+          description: La ID de una dirección
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: El objeto de address ('dirección') con detalles actualizadas
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddressDTOIn"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressDTOOut"
+        '400':
+          description: Parse Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '401':
+          description: Unauthorised - No content
+        '404':
+          description: Address Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - addresses
+      summary: Elimina una dirección ('address') de un inmueble para vender por el address ID
+      description: Elimina una entidad Address ('dirección') por el property ID y devuelve un respuesta de No Content (void)
+      parameters:
+        - name: addressId
+          in: path variable
+          description: La ID de una dirección
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: La entidad fue eliminada con éxito
+        '404':
+          description: Address Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '401':
+          description: Unauthorised - No content
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /properties/count/rental:
+    get:
+      tags:
+        - rental
+      operationId: getRentalPropertyCount
+      summary: Devuele el número de inmuebles para alquiler
+      description: Devuele el número de inmuebles para alquiler
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: number
+                format: int32
+                example: 3
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /properties/bedrooms/rental/{bedrooms}:
+    get:
+      tags:
+        - rental
+      operationId: getRentalPropertiesByNumBedrooms
+      summary: Devuelve una lista de inmuebles para alquiler con lo mismo o más habitaciónes la condición en el parámetro
+      description: Devuelve una lista de inmuebles para alquiler con lo mismo o más habitaciónes la condición en el parámetro
+      parameters:
+        - name: bedrooms
+          in: path variable
+          description: Número de habitaciones
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RentalDTOOut"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /properties/facilities/rental:
+    get:
+      tags:
+        - rental
+      operationId: getRentalPropertiesWithParkingAndLift
+      summary: Devuelve una lista de immuebles para alquiler con parking y ascensor
+      description: Devuelve una lista de inmuebles para alquiler con parking y ascensor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RentalDTOOut"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /register:
+    post:
+      tags:
+        - authentication
+      operationId: registerUser
+      summary: Registrar a un usuario
+      description: Registrar a un usuario
+      responses:
+        '201':
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProprietorDTOOut"
+        '409':
+          description: CONFLICT
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /token:
+    post:
+      tags:
+        - authentication
+      operationId: authenticateUser
+      summary: Devuelve un JWT
+      description: Devuelve un JWT
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JwtResponse"
 components:
   schemas:
     ClientDTOIn:
@@ -1373,6 +1598,21 @@ components:
           enum: [Spain]
           example: Spain
           description: El país de la dirección
+    JwtResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: ZWxmIiwic3ViIjoiam9lQmxvZ2dzIiwiZXhwIjoxNzA1NDU0MDEzLCJpYXQiOjE3MDU0NTA0MTMsInNjb3BlIjoiIn0.kFrqeScYjeYnS2mtrgVnnCP-SjwesvZKr-vKBBJ7i3hnpE
+          description: un JWT token
+        username:
+          type: string
+          example: joeBloggs
+          description: nombre del usuario
+        roles:
+          type: array
+          example: [ADMIN, USER]
+          description: una lista de roles
     ErrorResponse:
       type: object
       properties:
