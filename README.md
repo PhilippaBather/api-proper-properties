@@ -14,7 +14,7 @@
 
 ### ------------------------------------------------------------------------------------------------------
 
-## An API for a fictitious estage agents
+## An API for a fictitious estate agents
 
 ## Coursework for the module Access to Data for the FP Grado Superior in The Design of Multiplatform Applications (DAM).
 
